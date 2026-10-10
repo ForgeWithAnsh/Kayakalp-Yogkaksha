@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/signup.css">
+
+</head>
+
+<body>
+
+<div class="background paper-background"></div>
+
+
+<main class="signup-page">
+
+    <!-- ==========================================================
+         BRAND
+    ========================================================== -->
+
+    <section class="brand-section">
+
+        <img
+            src="../assets/logo.png"
+            class="brand-logo"
+            alt="Kayakalp Logo">
+
+        <h1>
+
+            Join
+
+        </h1>
+
+        <h2>
+
+            Kayakalp Yog Kaksha
+
+        </h2>
+
+        <p class="brand-tagline">
+
+            Begin your wellness journey today.
+
+        </p>
+
+    </section>
+
+
+    <!-- ==========================================================
+         SIGNUP CARD
+    ========================================================== -->
+
+    <section class="signup-card">
+
+        <h2 class="signup-greeting">
+
+            Create Account
+
+        </h2>
+
+        <p class="signup-description">
+
+            Fill in your details to join Kayakalp Yog Kaksha.
+
+        </p>
+
+
+        <!-- ==========================================================
+             PROFILE PHOTO
+        ========================================================== -->
+
+        <div class="profile-upload">
+
+            <div class="profile-preview">
+
+                <img
+                    id="profilePreview"
+                    src="../assets/profile.png"
+                    alt="Profile">
+
+            </div>
+
+            <input
+                type="file"
+                id="profileImage"
+                accept="image/*"
+                hidden>
+
+            <button
+                type="button"
+                id="choosePhotoButton"
+                class="secondary-button">
+
+                Choose Profile Photo (Optional)
+
+            </button>
+
+        </div>
+
+
+        <!-- FULL NAME -->
+
+        <div class="input-group">
+
+            <label>Full Name</label>
+
+            <input
+                type="text"
+                id="nameInput"
+                placeholder="Enter your full name">
+
+        </div>
+
+
+        <!-- DATE OF BIRTH -->
+
+        <div class="input-group">
+
+            <label>Date of Birth</label>
+
+            <input
+                type="date"
+                id="dobInput">
+
+        </div>
+
+
+        <!-- GENDER -->
+
+        <div class="input-group">
+
+            <label>Gender</label>
+
+            <select id="genderInput">
+
+                <option value="">Select Gender</option>
+
+                <option>Male</option>
+
+                <option>Female</option>
+
+                <option>Other</option>
+
+            </select>
+
+        </div>
+
+
+        <!-- PHONE -->
+
+        <div class="input-group">
+
+            <label>Phone Number</label>
+
+            <input
+                type="tel"
+                id="phoneInput"
+                placeholder="Enter phone number">
+
+        </div>
+
+
+        <!-- EMAIL -->
+
+        <div class="input-group">
+
+            <label>Email Address</label>
+
+            <input
+                type="email"
+                id="emailInput"
+                placeholder="Enter your email">
+
+        </div>
+
+
+        <!-- ADDRESS -->
+
+        <div class="input-group">
+
+            <label>Address (Optional)</label>
+
+            <textarea
+                id="addressInput"
+                rows="3"
+                placeholder="Enter your address"></textarea>
+
+        </div>
+
+
+        <!-- PARK -->
+
+        <div class="input-group">
+
+            <label>Preferred Park</label>
+
+            <select id="parkInput">
+
+                <option value="">Select Park</option>
+
+                <option>Nehru Park</option>
+
+                <option>Bhopal</option>
+
+                <option>Ashok Nagar</option>
+
+                <option>Banaras</option>
+
+                <option>Online Only</option>
+
+            </select>
+
+        </div>
+
+
+        <!-- HEALTH -->
+
+        <div class="input-group">
+
+            <label>Health Notes (Optional)</label>
+
+            <textarea
+                id="healthInput"
+                rows="3"
+                placeholder="Asthma, Knee Pain, BP, Back Pain etc."></textarea>
+
+        </div>
+
+
+        <!-- PASSWORD -->
+
+        <div class="input-group">
+
+            <label>Password</label>
+
+            <div class="password-wrapper">
+
+                <input
+                    type="password"
+                    id="passwordInput"
+                    placeholder="Create Password">
+
+                <button
+                    type="button"
+                    id="togglePassword"
+                    class="eye-button">
+
+                    <!-- SVG HERE -->
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- CONFIRM PASSWORD -->
+
+        <div class="input-group">
+
+            <label>Confirm Password</label>
+
+            <input
+                type="password"
+                id="confirmPasswordInput"
+                placeholder="Confirm Password">
+
+        </div>
+
+
+        <!-- ERROR -->
+
+        <p
+            id="signupError"
+            class="signup-error">
+
+        </p>
+
+
+        <!-- BUTTON -->
+
+        <button
+            id="signupButton"
+            class="primary-button">
+
+            <span id="signupButtonText">
+
+                Create Account
+
+            </span>
+
+            <span
+                id="signupLoader"
+                class="button-loader">
+
+            </span>
+
+        </button>
+
+
+        <!-- DIVIDER -->
+
+        <div class="divider">
+
+            <span>
+
+                OR
+
+            </span>
+
+        </div>
+
+
+        <!-- LOGIN -->
+
+        <button
+            id="loginPageButton"
+            class="secondary-button">
+
+            Already have an account? Login
+
+        </button>
+
+    </section>
+
+
+    <!-- ==========================================================
+         FOOTER
+    ========================================================== -->
+
+    <footer class="signup-footer">
+
+        <p>
+
+            Your account will be reviewed by the host before it is activated.
+
+        </p>
+
+        <span>
+
+            Version 1.0
+
+        </span>
+
+    </footer>
+
+</main>
+
+<script type="module" src="../js/signup.js"></script>
+
+</body>
+</html>

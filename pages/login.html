@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Kayakalp Yog Kaksha</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/login.css">
+
+</head>
+
+<body>
+
+    <!-- Background -->
+
+    <div class="background paper-background"></div>
+
+
+    <!-- ==========================================================
+         LOGIN PAGE
+    ========================================================== -->
+
+    <main class="login-page">
+
+        <!-- ==========================================================
+             BRAND
+        ========================================================== -->
+
+        <section class="brand-section">
+
+            <img
+                src="../assets/logo.png"
+                class="brand-logo"
+                alt="Kayakalp Logo">
+
+            <h1>
+
+                Kayakalp
+
+            </h1>
+
+            <h2>
+
+                Yog Kaksha
+
+            </h2>
+
+            <p class="brand-tagline">
+
+                Transforming Lives,
+                One Breath At A Time.
+
+            </p>
+
+        </section>
+
+
+        <!-- ==========================================================
+             LOGIN CARD
+        ========================================================== -->
+
+        <section class="login-card">
+
+            <p class="login-greeting">
+
+                Welcome Back 👋
+
+            </p>
+
+            <p class="login-description">
+
+                Continue your yoga journey.
+
+            </p>
+
+
+            <!-- Email -->
+
+            <div class="input-group">
+
+                <label>
+
+                    Email Address
+
+                </label>
+
+                <input
+                    type="email"
+                    id="emailInput"
+                    placeholder="Enter your email">
+
+            </div>
+
+
+            <!-- Password -->
+
+            <div class="input-group">
+
+                <label>
+
+                    Password
+
+                </label>
+
+                <div class="password-wrapper">
+
+    <input
+        type="password"
+        id="passwordInput"
+        placeholder="Enter your password">
+
+    <button
+        type="button"
+        id="togglePassword"
+        class="eye-button"
+        aria-label="Show Password">
+
+        <!-- Eye Icon -->
+
+        <svg
+            id="eyeIcon"
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round">
+
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+
+            <circle
+                cx="12"
+                cy="12"
+                r="3"></circle>
+
+        </svg>
+
+    </button>
+
+</div>
+
+            </div>
+
+
+            <!-- Forgot Password -->
+
+            <div class="forgot-password">
+
+                <button
+                    id="forgotPasswordButton">
+
+                    Forgot Password?
+
+                </button>
+
+            </div>
+
+
+            <!-- Firebase Error -->
+
+            <p
+                id="loginError"
+                class="login-error">
+
+            </p>
+
+
+            <!-- Continue -->
+
+            <button
+                id="loginButton"
+                class="primary-button">
+
+                <span id="loginButtonText">
+
+                    Continue
+
+                </span>
+
+                <span
+                    id="loginLoader"
+                    class="button-loader">
+
+                </span>
+
+            </button>
+
+
+            <!-- Divider -->
+
+            <div class="divider">
+
+                <span>
+
+                    OR
+
+                </span>
+
+            </div>
+
+
+            <!-- Join -->
+
+            <button
+                id="createAccountButton"
+                class="secondary-button">
+
+                Join Kayakalp Yog Kaksha
+
+            </button>
+
+        </section>
+
+
+        <!-- ==========================================================
+             FOOTER
+        ========================================================== -->
+
+        <footer class="login-footer">
+
+            <p>
+
+                Every Breath Is A New Beginning
+
+            </p>
+
+            <span>
+
+                Version 1.0
+
+            </span>
+
+        </footer>
+
+    </main>
+
+    <script type="module" src="../js/login.js"></script>
+</body>
+
+</html>

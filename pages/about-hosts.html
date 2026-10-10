@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1">
+
+    <title>About Hosts</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/about-hosts.css">
+
+</head>
+
+<body>
+
+    <!-- Background -->
+
+    <div class="background paper-background"></div>
+
+    <div class="about-hosts-content">
+
+        <!-- Header -->
+
+        <header class="hosts-header">
+
+            <button
+                class="back-button"
+                id="backButton">
+
+                ←
+
+            </button>
+
+            <h1>
+
+                About Hosts
+
+            </h1>
+
+        </header>
+
+        <!-- =========================
+             HOST 1
+        ========================== -->
+
+        <section class="host-card">
+
+            <img
+                src="../assets/pfp.jpg"
+                class="host-photo">
+
+            <h2>
+
+                Karuna Gupta
+                <span class="main-host">
+
+                    • Main Host
+
+                </span>
+
+            </h2>
+
+            <p class="host-branch">
+
+                📍 Gwalior Branch
+
+            </p>
+
+            <div class="host-info">
+
+                <p>
+
+                    <strong>Experience</strong><br>
+
+                    12 Years
+
+                </p>
+
+                <p>
+
+                    <strong>Contact</strong><br>
+
+                    +91 9876543210
+
+                </p>
+
+            </div>
+
+        </section>
+
+        <hr class="host-divider">
+
+        <!-- =========================
+             HOST 2
+        ========================== -->
+
+        <section class="host-card">
+
+            <img
+                src="../assets/pfp.jpg"
+                class="host-photo">
+
+            <h2>
+
+                Rahul Sharma
+
+            </h2>
+
+            <p class="host-branch">
+
+                📍 Bhopal Branch
+
+            </p>
+
+            <div class="host-info">
+
+                <p>
+
+                    <strong>Experience</strong><br>
+
+                    8 Years
+
+                </p>
+
+                <p>
+
+                    <strong>Contact</strong><br>
+
+                    +91 9876543211
+
+                </p>
+
+            </div>
+
+        </section>
+        
+        
+
+<div id="newHostContainer"></div>
+
+
+<!-- ==========================================
+     ADD YOUR BIO
+========================================== -->
+
+<hr class="host-divider">
+
+<section class="add-bio-section">
+
+    <button
+        class="add-bio-button"
+        id="addBioButton">
+
+        <span class="add-bio-icon">+</span>
+
+        <span class="add-bio-text">
+            Add Your Bio
+        </span>
+
+    </button>
+
+</section>
+
+
+
+<div id="addBioSection" class="bio-modal">
+
+    <div class="bio-popup">
+
+        <h3>Add Host</h3>
+
+
+        <label class="photo-upload">
+
+    Choose Profile Photo
+
+    <input 
+        type="file"
+        id="hostPhotoInput">
+
+</label>
+
+
+        <input
+            type="text"
+            id="hostNameInput"
+            placeholder="Host Name">
+
+
+        <input
+            type="text"
+            id="hostBranchInput"
+            placeholder="Branch">
+
+
+        <input
+            type="number"
+            id="hostExperienceInput"
+            placeholder="Experience">
+
+
+        <input
+            type="number"
+            id="hostContactInput"
+            placeholder="Contact">
+
+
+        <div class="bio-actions">
+
+            <button id="saveBioButton">
+                Save
+            </button>
+
+
+            <button id="cancelBioButton">
+                Cancel
+            </button>
+
+        </div>
+
+
+    </div>
+
+<div></div>iv>
+
+    </div>
+
+    <script src="../js/about-hosts.js"></script>
+
+</body>
+
+</html>

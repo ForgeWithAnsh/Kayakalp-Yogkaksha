@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>All Members</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <link rel="stylesheet" href="../css/all-members.css">
+
+</head>
+
+<body>
+
+    <!-- Background -->
+
+    <div class="background paper-background"></div>
+
+
+    <!-- ==========================================================
+         APP CONTENT
+    ========================================================== -->
+
+    <div class="app-content">
+
+
+        <!-- ==========================================================
+             ALL MEMBERS
+        ========================================================== -->
+
+        <main class="all-members-page">
+
+
+            <!-- ======================================================
+                 HEADER
+            ======================================================= -->
+
+            <header class="members-header">
+
+                <button
+                    id="backButton"
+                    class="back-button">
+
+                    ←
+
+                </button>
+
+                <div>
+
+                    <h1>
+
+                        All Members
+
+                    </h1>
+
+                    <p>
+
+                        Manage every approved member
+
+                    </p>
+
+                </div>
+
+            </header>
+
+
+            <!-- ======================================================
+                 SEARCH
+            ======================================================= -->
+
+            <section class="search-section">
+
+                <input
+
+                    type="text"
+
+                    id="searchInput"
+
+                    placeholder="Search members...">
+
+            </section>
+
+
+            <!-- ======================================================
+                 SORT
+            ======================================================= -->
+
+            <section class="sort-section">
+
+                <label>
+
+                    Sort By
+
+                </label>
+
+                <select id="sortSelect">
+
+                    <option value="az">
+
+                        A → Z
+
+                    </option>
+
+                    <option value="za">
+
+                        Z → A
+
+                    </option>
+
+                    <option value="newest">
+
+                        Newest Joined
+
+                    </option>
+
+                    <option value="oldest">
+
+                        Oldest Joined
+
+                    </option>
+
+                    <option value="memberid">
+
+                        Member ID
+
+                    </option>
+
+                </select>
+
+            </section>
+
+
+            <!-- ======================================================
+                 MEMBERS LIST
+            ======================================================= -->
+
+            <section
+                id="membersContainer"
+                class="members-container">
+
+            </section>
+
+
+            <!-- ======================================================
+                 EMPTY STATE
+            ======================================================= -->
+
+            <section
+                id="emptyState"
+                class="empty-state">
+
+                <p>
+
+                    No members found.
+
+                </p>
+
+            </section>
+
+
+        </main>
+
+    </div>
+    
+    
+    <!-- ==========================================================
+     MEMBER PROFILE OVERLAY
+========================================================== -->
+
+<div
+    id="memberProfileOverlay"
+    class="member-profile-overlay">
+
+
+    <!-- ======================================================
+         BOTTOM SHEET
+    ======================================================= -->
+
+    <div
+        id="memberProfileSheet"
+        class="member-profile-sheet">
+
+
+        <!-- Handle -->
+
+        <div class="sheet-handle"></div>
+
+
+        <!-- ==================================================
+             PROFILE HEADER
+        =================================================== -->
+
+        <section class="profile-header">
+
+            <div
+                id="profileAvatar"
+                class="profile-avatar">
+
+                A
+
+            </div>
+
+            <h2 id="profileName">
+
+                Member Name
+
+            </h2>
+
+            <span
+                id="profileRole"
+                class="profile-role">
+
+                MEMBER
+
+            </span>
+
+            <p
+                id="profileMemberId"
+                class="profile-member-id">
+
+                YG-000001
+
+            </p>
+
+        </section>
+
+
+        <!-- ==================================================
+             DETAILS
+        =================================================== -->
+
+        <section class="profile-details">
+
+
+            <div class="detail-row">
+
+                <span>📞 Phone</span>
+
+                <span id="profilePhone">-</span>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span>⚧ Gender</span>
+
+                <span id="profileGender">-</span>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span>🎂 DOB</span>
+
+                <span id="profileDob">-</span>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span>📅 Age</span>
+
+                <span id="profileAge">-</span>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span>🌳 Park</span>
+
+                <span id="profilePark">-</span>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span>❤️ Health</span>
+
+                <span id="profileHealth">-</span>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span>✉️ Email</span>
+
+                <span id="profileEmail">-</span>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span>🏠 Address</span>
+
+                <span id="profileAddress">-</span>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span>🗓 Joined</span>
+
+                <span id="profileJoined">-</span>
+
+            </div>
+
+
+            <div class="detail-row">
+
+                <span>📈 Attendance</span>
+
+                <span id="profileAttendance">
+
+                    0%
+
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             MANAGE BUTTON
+        =================================================== -->
+
+        <button
+            id="manageMemberButton"
+            class="manage-member-button">
+
+            ⚙️ Manage
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ==========================================================
+     MANAGE MEMBER POPUP
+========================================================== -->
+
+<!-- ==========================================================
+     MANAGE MEMBER POPUP
+========================================================== -->
+
+<div
+    id="managePopupOverlay"
+    class="manage-popup-overlay">
+
+    <div class="manage-popup">
+
+
+        <!-- ==================================================
+             HEADER
+        =================================================== -->
+
+        <div class="manage-popup-header">
+
+            <div>
+
+                <h2>
+                    Manage Member
+                </h2>
+
+                <p id="manageMemberName">
+                    Member
+                </p>
+
+            </div>
+
+            <button
+                id="closeManagePopup"
+                class="manage-close-button"
+                type="button">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <!-- ==================================================
+             ROLE
+        =================================================== -->
+
+        <section class="manage-section">
+
+            <h3>
+                Edit Role
+            </h3>
+
+
+            <div
+                id="currentRoleCard"
+                class="current-role-card">
+
+                🟢 Member
+
+            </div>
+
+
+            <p class="manage-label">
+
+                Change role to
+
+            </p>
+
+
+            <div
+                id="roleOptions"
+                class="role-options">
+
+                <!-- JavaScript will add available roles -->
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             TIMEOUT
+        =================================================== -->
+
+        <section class="manage-section">
+
+            <h3>
+                Timeout
+            </h3>
+
+
+            <div
+                id="timeoutOptions"
+                class="timeout-options">
+
+
+                <button
+                    type="button"
+                    class="timeout-option selected"
+                    data-timeout="none">
+
+                    <span class="timeout-circle">
+                        ○
+                    </span>
+
+                    <span>
+                        None
+                    </span>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="timeout-option"
+                    data-timeout="1h">
+
+                    <span class="timeout-circle">
+                        ○
+                    </span>
+
+                    <span>
+                        1 Hour
+                    </span>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="timeout-option"
+                    data-timeout="12h">
+
+                    <span class="timeout-circle">
+                        ○
+                    </span>
+
+                    <span>
+                        12 Hours
+                    </span>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="timeout-option"
+                    data-timeout="1d">
+
+                    <span class="timeout-circle">
+                        ○
+                    </span>
+
+                    <span>
+                        1 Day
+                    </span>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="timeout-option"
+                    data-timeout="3d">
+
+                    <span class="timeout-circle">
+                        ○
+                    </span>
+
+                    <span>
+                        3 Days
+                    </span>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="timeout-option"
+                    data-timeout="7d">
+
+                    <span class="timeout-circle">
+                        ○
+                    </span>
+
+                    <span>
+                        7 Days
+                    </span>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="timeout-option"
+                    data-timeout="30d">
+
+                    <span class="timeout-circle">
+                        ○
+                    </span>
+
+                    <span>
+                        30 Days
+                    </span>
+
+                </button>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             MODERATION
+        =================================================== -->
+
+        <section class="manage-section">
+
+            <h3>
+                Moderation
+            </h3>
+
+
+            <!-- KICK -->
+
+            <label
+                class="moderation-option"
+                id="kickOption">
+
+                <input
+                    type="checkbox"
+                    id="kickCheckbox">
+
+                <span class="moderation-check">
+
+                    ✓
+
+                </span>
+
+                <span class="moderation-text">
+
+                    <strong>
+                        Kick Member
+                    </strong>
+
+                    <small>
+                        Sign the member out of the app
+                    </small>
+
+                </span>
+
+            </label>
+
+
+            <!-- BAN -->
+
+            <label
+                class="moderation-option ban-option"
+                id="banOption">
+
+                <input
+                    type="checkbox"
+                    id="banCheckbox">
+
+                <span class="moderation-check">
+
+                    ✓
+
+                </span>
+
+                <span class="moderation-text">
+
+                    <strong>
+                        Ban Member
+                    </strong>
+
+                    <small>
+                        Prevent the member from accessing the app
+                    </small>
+
+                </span>
+
+            </label>
+
+        </section>
+
+
+        <!-- ==================================================
+             SAVE
+        =================================================== -->
+
+        <div class="manage-save-area">
+
+            <button
+                id="saveChangesButton"
+                class="save-changes-button"
+                type="button"
+                disabled>
+
+                Save Changes
+
+            </button>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<!-- ==========================================================
+     CONFIRMATION POPUP
+========================================================== -->
+
+<div
+    id="moderationConfirmOverlay"
+    class="moderation-confirm-overlay">
+
+    <div class="moderation-confirm-popup">
+
+        <div
+            id="confirmationIcon"
+            class="confirmation-icon">
+
+            ⚠️
+
+        </div>
+
+
+        <h2 id="confirmationTitle">
+
+            Confirm Action
+
+        </h2>
+
+
+        <p id="confirmationMessage">
+
+            Are you sure you want to continue?
+
+        </p>
+
+
+        <div class="confirmation-buttons">
+
+            <button
+                id="cancelConfirmation"
+                class="confirmation-cancel-button"
+                type="button">
+
+                Cancel
+
+            </button>
+
+
+            <button
+                id="confirmModeration"
+                class="confirmation-confirm-button"
+                type="button">
+
+                Confirm
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+    <script
+        type="module"
+        src="../js/all-members.js">
+
+    </script>
+
+</body>
+
+</html>

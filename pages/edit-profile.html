@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Profile</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/edit-profile.css">
+
+</head>
+
+<body>
+
+    <!-- ==========================================
+         ANIMATED BACKGROUND
+    ========================================== -->
+
+    <div class="background"></div>
+
+    <!-- ==========================================
+         PAGE CONTENT
+    ========================================== -->
+
+    <div class="edit-profile-content">
+
+        <!-- Everything will go here -->
+        
+        
+        
+        
+        
+        <!-- ==========================================
+     TOP APP BAR
+========================================== -->
+
+<header class="edit-profile-header">
+
+    <!-- Back Button -->
+
+    <button
+        class="back-button"
+        id="backButton"
+        aria-label="Go Back">
+
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round">
+
+            <line
+                x1="19"
+                y1="12"
+                x2="5"
+                y2="12">
+            </line>
+
+            <polyline
+                points="12 19 5 12 12 5">
+            </polyline>
+
+        </svg>
+
+    </button>
+
+    <!-- Page Title -->
+
+    <h1 class="page-title">
+
+        Edit Profile
+
+    </h1>
+
+</header>
+
+<!-- ==========================================
+     PROFILE PHOTO
+========================================== -->
+
+<section class="edit-photo-section">
+
+    <div class="edit-profile-photo">
+
+        <img
+            id="editProfilePhoto"
+            alt="Profile Photo">
+
+    </div>
+
+    <button
+        class="change-photo-button"
+        id="changePhotoButton"
+        type="button">
+
+        Change Photo
+
+    </button>
+
+</section>
+
+
+
+<!-- ==========================================
+     PERSONAL INFORMATION
+========================================== -->
+
+<section class="edit-form-section">
+
+    <h2 class="form-section-title">
+
+        Personal Information
+
+    </h2>
+
+    <!-- Full Name -->
+
+    <div class="input-group">
+
+        <label for="fullNameInput">
+
+            Full Name
+
+        </label>
+
+        <input
+            type="text"
+            id="fullNameInput"
+            placeholder="Enter your full name">
+
+    </div>
+
+    <!-- Age -->
+
+    <div class="input-group">
+
+        <label for="ageInput">
+
+            Age
+
+        </label>
+
+        <input
+            type="number"
+            id="ageInput"
+            placeholder="Enter age">
+
+    </div>
+
+    <!-- Gender -->
+
+    <div class="input-group">
+
+        <label for="genderInput">
+
+            Gender
+
+        </label>
+
+        <select id="genderInput">
+
+            <option>Male</option>
+
+            <option>Female</option>
+
+            <option>Other</option>
+
+        </select>
+
+    </div>
+
+    <!-- Date of Birth -->
+
+    <div class="input-group">
+
+        <label for="dobInput">
+
+            Date of Birth
+
+        </label>
+
+        <input
+            type="date"
+            id="dobInput">
+
+    </div>
+
+    <!-- Phone -->
+
+    <div class="input-group">
+
+        <label for="phoneInput">
+
+            Phone Number
+
+        </label>
+
+        <input
+            type="tel"
+            id="phoneInput"
+            placeholder="+91 XXXXX XXXXX">
+
+    </div>
+
+    <!-- Email -->
+
+    <div class="input-group">
+
+        <label for="emailInput">
+
+            Email
+
+        </label>
+
+        <input
+            type="email"
+            id="emailInput"
+            placeholder="example@email.com">
+
+    </div>
+
+    <!-- Address -->
+
+    <div class="input-group">
+
+        <label for="addressInput">
+
+            Address
+
+        </label>
+
+        <textarea
+            id="addressInput"
+            rows="3"
+            placeholder="Enter your address"></textarea>
+
+    </div>
+
+</section>
+
+
+<!-- ==========================================
+     SAVE CHANGES
+========================================== -->
+
+<section class="save-profile-section">
+
+    <button
+        class="save-profile-button"
+        id="saveProfileButton"
+        type="button">
+
+        Save Changes
+
+    </button>
+
+</section>
+
+
+
+
+
+
+
+    </div>
+
+    <script src="../js/user-data.js"></script>
+    <script src="../js/edit-profile.js"></script>
+
+</body>
+
+</html>

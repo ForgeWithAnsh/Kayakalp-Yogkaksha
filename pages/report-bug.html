@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1">
+
+    <title>Report an Issue</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/report-bug.css">
+
+</head>
+
+<body>
+
+    <!-- Background -->
+
+    <div class="background paper-background"></div>
+
+    <div class="report-content">
+
+        <!-- Header -->
+
+        <header class="report-header">
+
+            <button
+                class="back-button"
+                id="backButton">
+
+                ←
+
+            </button>
+
+            <h1>
+
+                Report an Issue
+
+            </h1>
+
+        </header>
+
+
+        <!-- Report Card -->
+
+        <section class="report-card">
+
+            <!-- Issue Title -->
+
+            <label>
+
+                Issue Title
+
+            </label>
+
+            <input
+                type="text"
+                id="issueTitle"
+                placeholder="Short title">
+
+
+            <!-- Category -->
+
+            <label>
+
+                Category
+
+            </label>
+
+            <select id="issueCategory">
+
+                <option selected disabled>
+
+                    Select Category
+
+                </option>
+
+                <option>
+
+                    UI Bug
+
+                </option>
+
+                <option>
+
+                    Feature Not Working
+
+                </option>
+
+                <option>
+
+                    Performance Issue
+
+                </option>
+
+                <option>
+
+                    Crash
+
+                </option>
+
+                <option>
+
+                    Feature Request
+
+                </option>
+
+                <option>
+
+                    Other
+
+                </option>
+
+            </select>
+
+
+            <!-- Description -->
+
+            <label>
+
+                Describe the Issue
+
+            </label>
+
+            <textarea
+                id="issueDescription"
+                rows="6"
+                placeholder="Describe the issue in detail..."></textarea>
+
+
+            <!-- Device -->
+
+            <label>
+
+                Device (Optional)
+
+            </label>
+
+            <input
+                type="text"
+                id="device"
+                placeholder="e.g. Redmi Note 13">
+
+
+            <!-- Screenshot -->
+
+            <button
+                class="attach-button"
+                id="attachButton">
+
+                📷 Attach Screenshot (Coming Soon)
+
+            </button>
+
+        </section>
+
+
+        <!-- Submit -->
+
+        <button
+    class="submit-button"
+    id="submitButton">
+
+    Send Report
+
+</button>
+
+    </div>
+    
+    <div class="popup-overlay" id="messagePopupOverlay">
+    ...
+</div>
+
+
+    <script src="../js/report-bug.js"></script>
+
+</body>
+
+</html>

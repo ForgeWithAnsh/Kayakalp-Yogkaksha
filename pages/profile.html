@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1">
+
+    <title>Profile Page</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/profile.css">
+
+</head>
+
+<body>
+
+    <!-- ==========================================
+         ANIMATED BACKGROUND
+    ========================================== -->
+
+    <div class="background"></div>
+
+    <!-- ==========================================
+         PROFILE PAGE CONTENT
+    ========================================== -->
+
+    <div class="profile-content">
+
+        <!-- ==========================================
+             TOP APP BAR
+        ========================================== -->
+
+        <header class="profile-header">
+
+            <button
+                class="back-button"
+                id="backButton"
+                aria-label="Go Back">
+
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round">
+
+                    <line
+                        x1="19"
+                        y1="12"
+                        x2="5"
+                        y2="12">
+                    </line>
+
+                    <polyline
+                        points="12 19 5 12 12 5">
+                    </polyline>
+
+                </svg>
+
+            </button>
+
+            <h1 class="page-title">
+
+                Profile
+
+            </h1>
+
+        </header>
+
+
+        <!-- ==========================================
+             PROFILE CARD
+        ========================================== -->
+
+        <section class="profile-section">
+
+            <div class="profile-card-large">
+
+                <!-- Profile Photo -->
+
+                <div class="profile-photo">
+
+    <img
+        id="profilePhoto"
+        alt="Profile Photo">
+
+</div>
+
+<!-- Full Name -->
+
+<h2
+    class="profile-fullname"
+    id="profileFullName">
+</h2>
+
+<!-- Member ID -->
+
+<p
+    class="member-id"
+    id="profileMemberId">
+</p>
+
+
+<!-- Role -->
+
+<p
+    class="member-role"
+    id="profileRole">
+</p>
+
+
+<!-- Status -->
+
+<div class="member-status">
+
+    <span class="status-dot"></span>
+
+    <span id="profileMemberStatus"></span>
+
+</div>
+
+             
+
+            </div>
+
+        </section>
+        
+        
+        <!-- ==========================================
+     EDIT PROFILE
+========================================== -->
+
+<section class="edit-profile-section">
+
+    <button
+        class="edit-profile-button"
+        id="editProfileButton"
+        type="button">
+
+        ✏️ Edit Profile
+
+    </button>
+
+</section>
+        
+        
+        
+        
+        <!-- ==========================================
+     PERSONAL INFORMATION
+========================================== -->
+
+<section class="info-section">
+
+    <div class="info-card">
+
+        <h2 class="info-title">
+            Personal Information
+        </h2>
+
+        <div class="info-row">
+            <span class="info-label">Age</span>
+            <span class="info-value" id="profileAge"></span>
+        </div>
+
+        <div class="info-row">
+            <span class="info-label">Gender</span>
+            <span class="info-value" id="profileGender"></span>
+        </div>
+
+        <div class="info-row">
+            <span class="info-label">Date of Birth</span>
+            <span class="info-value" id="profileDob"></span>
+        </div>
+
+        <div class="info-row">
+            <span class="info-label">Phone</span>
+            <span class="info-value" id="profilePhone"></span>
+        </div>
+
+        <div class="info-row">
+            <span class="info-label">Email</span>
+            <span class="info-value" id="profileEmail"></span>
+        </div>
+
+        <div class="info-row">
+            <span class="info-label">Address</span>
+            <span class="info-value" id="profileAddress"></span>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==========================================
+     YOGA STATISTICS
+========================================== -->
+
+<section class="statistics-section">
+
+    <div class="statistics-card">
+
+        <h2 class="statistics-title">
+
+            Yoga Statistics
+
+        </h2>
+
+        <div class="statistics-grid">
+
+            <!-- Attendance -->
+
+            <div class="stat-box">
+
+                <h3
+                    class="stat-number"
+                    id="totalAttendance">
+                </h3>
+
+                <p class="stat-label">
+
+                    Attendance
+
+                </p>
+
+            </div>
+
+            <!-- Streak -->
+
+            <div class="stat-box">
+
+                <h3
+                    class="stat-number"
+                    id="currentStreak">
+                </h3>
+
+                <p class="stat-label">
+
+                    Streak
+
+                </p>
+
+            </div>
+
+            <!-- Hours -->
+
+            <div class="stat-box">
+
+                <h3
+                    class="stat-number"
+                    id="practiceHours">
+                </h3>
+
+                <p class="stat-label">
+
+                    Hours
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ==========================================
+     CHANGE PASSWORD
+========================================== -->
+
+<section class="profile-section">
+
+    <button
+        class="settings-button"
+        id="changePasswordButton">
+
+        <span class="settings-icon">🔒</span>
+
+        <span class="settings-text">
+
+            Change Password
+
+        </span>
+
+        <span class="settings-arrow">›</span>
+
+    </button>
+
+</section>
+
+
+<!-- ==========================================
+     LOGOUT
+========================================== -->
+
+<section class="profile-section">
+
+    <button
+        class="logout-button"
+        id="logoutButton">
+
+        <span class="logout-icon">
+            🚪
+        </span>
+
+        <span class="logout-text">
+
+            Logout
+
+        </span>
+
+        <span class="logout-arrow">
+
+            ›
+
+        </span>
+
+    </button>
+
+</section>
+
+
+<!-- ==========================================
+     LOGOUT POPUP
+========================================== -->
+
+<div
+    class="logout-popup-overlay"
+    id="logoutPopupOverlay">
+
+    <div class="logout-popup">
+
+        <h2
+            class="logout-title"
+            id="logoutPopupTitle">
+
+            Logout
+
+        </h2>
+
+        <p
+            class="logout-message"
+            id="logoutPopupMessage">
+
+            Are you sure you want to logout?
+
+        </p>
+
+        <div class="logout-buttons">
+
+            <button
+                class="logout-cancel-button"
+                id="logoutCancelButton">
+
+                Go Back
+
+            </button>
+
+            <button
+                class="logout-confirm-button"
+                id="logoutConfirmButton">
+
+                Logout
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+        
+        
+        
+        
+        
+        
+        
+        
+
+    </div>
+    
+    <script src="../js/user-data.js"></script>
+    <script src="../js/profile.js"></script>
+
+</body>
+
+</html>

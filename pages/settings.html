@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1">
+
+    <title>Settings</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/settings.css">
+
+</head>
+
+<body>
+
+    <!-- Background -->
+
+    <div class="background paper-background"></div>
+
+    <div class="settings-content">
+
+        <!-- Header -->
+
+        <header class="settings-header">
+
+            <button
+                class="back-button"
+                id="backButton">
+
+                ←
+
+            </button>
+
+            <h1>
+
+                Settings
+
+            </h1>
+
+        </header>
+
+
+
+        <!-- ==========================================
+             NOTIFICATIONS
+        ========================================== -->
+
+        <section class="settings-section">
+
+            <h2>
+
+                Notifications
+
+            </h2>
+
+            <div class="setting-item">
+
+                <div>
+
+                    <h3>
+
+                        Announcement Notifications
+
+                    </h3>
+
+                    <p>
+
+                        Receive important announcements.
+
+                    </p>
+
+                </div>
+
+                <label class="switch">
+
+                    <input
+                        type="checkbox"
+                        id="announcementNotification"
+                        checked>
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+            <div class="setting-item">
+
+                <div>
+
+                    <h3>
+
+                        Live Class Reminder
+
+                    </h3>
+
+                    <p>
+
+                        Notify before live yoga classes.
+
+                    </p>
+
+                </div>
+
+                <label class="switch">
+
+                    <input
+                        type="checkbox"
+                        id="liveReminder"
+                        checked>
+
+                    <span class="slider"></span>
+
+                </label>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==========================================
+             APP
+        ========================================== -->
+
+        <section class="settings-section">
+
+            <h2>
+
+                App
+
+            </h2>
+
+            <button
+                class="settings-button"
+                id="checkUpdatesButton">
+
+                Check for Updates
+
+            </button>
+
+            <button
+                class="settings-button"
+                id="privacyPolicyButton">
+
+                Privacy Policy
+
+            </button>
+
+            <button
+                class="settings-button"
+                id="termsButton">
+
+                Terms & Conditions
+
+            </button>
+
+            <div class="version-box">
+
+                <span>
+
+                    Version
+
+                </span>
+
+                <strong>
+
+                    v1.0.0
+
+                </strong>
+
+            </div>
+
+        </section>
+
+    </div>
+
+    <script src="../js/settings.js"></script>
+
+</body>
+
+</html>

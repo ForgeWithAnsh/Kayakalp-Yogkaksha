@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+
+        Member Requests
+
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../css/member-requests.css">
+
+</head>
+
+<body>
+
+    <main class="memberRequestsPage">
+
+        <!-- =========================
+             TOP BAR
+        ========================== -->
+
+        <header class="topBar">
+
+            <button
+                id="backButton"
+                class="backButton"
+                aria-label="Go Back">
+
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2">
+
+                    <path
+                        d="M15 18l-6-6 6-6"/>
+
+                </svg>
+
+            </button>
+
+            <div>
+
+                <h1>
+
+                    Member Requests
+
+                </h1>
+
+                <p>
+
+                    Review and manage new member requests
+
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <!-- =========================
+             FILTERS
+        ========================== -->
+
+        <section class="requestTabs">
+
+            <button
+                class="tabButton active"
+                id="pendingTab">
+
+                Pending
+
+            </button>
+
+            <button
+                class="tabButton"
+                id="approvedTab">
+
+                Approved
+
+            </button>
+
+            <button
+                class="tabButton"
+                id="rejectedTab">
+
+                Rejected
+
+            </button>
+
+        </section>
+
+
+        <!-- =========================
+             REQUEST COUNT
+        ========================== -->
+
+        <section
+            class="requestCount">
+
+            <span id="requestCount">
+
+                0
+
+            </span>
+
+            Requests Found
+
+        </section>
+
+
+        <!-- =========================
+             REQUESTS
+        ========================== -->
+
+        <section
+            id="requestsContainer">
+
+            <!--
+
+            Request cards
+            will be generated
+            using JavaScript.
+
+            -->
+
+        </section>
+
+
+        <!-- =========================
+             EMPTY STATE
+        ========================== -->
+
+        <section
+            id="emptyState"
+            hidden>
+
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2">
+
+                <path
+                    d="M12 2v20"/>
+
+                <path
+                    d="M2 12h20"/>
+
+            </svg>
+
+            <h2>
+
+                No Requests
+
+            </h2>
+
+            <p>
+
+                There are no member requests at the moment.
+
+            </p>
+
+        </section>
+
+    </main>
+    
+    <!-- =========================
+     MEMBER DETAILS POPUP
+========================== -->
+
+<div
+    id="detailsOverlay"
+    class="detailsOverlay"
+    hidden>
+
+    <div
+        class="detailsPopup">
+
+        <button
+            id="closePopupButton"
+            class="closePopupButton"
+            aria-label="Close">
+
+            ✕
+
+        </button>
+
+        <div class="popupHeader">
+
+            <img
+                id="popupProfileImage"
+                src="../assets/images/default-profile.png"
+                alt="Profile">
+
+            <h2
+                id="popupName">
+
+                Member Name
+
+            </h2>
+
+        </div>
+
+
+        <div class="popupDetails">
+
+            <div class="detailRow">
+
+                <span>Email</span>
+
+                <p id="popupEmail"></p>
+
+            </div>
+
+            <div class="detailRow">
+
+                <span>Phone</span>
+
+                <p id="popupPhone"></p>
+
+            </div>
+
+            <div class="detailRow">
+
+                <span>Gender</span>
+
+                <p id="popupGender"></p>
+
+            </div>
+
+            <div class="detailRow">
+
+                <span>Date of Birth</span>
+
+                <p id="popupDob"></p>
+
+            </div>
+
+            <div class="detailRow">
+
+                <span>Address</span>
+
+                <p id="popupAddress"></p>
+
+            </div>
+
+            <div class="detailRow">
+
+                <span>Preferred Park</span>
+
+                <p id="popupPark"></p>
+
+            </div>
+
+            <div class="detailRow">
+
+                <span>Health Issues</span>
+
+                <p id="popupHealth"></p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+    <script
+        type="module"
+        src="../js/member-requests.js">
+
+    </script>
+
+</body>
+
+</html>
