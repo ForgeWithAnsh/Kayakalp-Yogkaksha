@@ -1,0 +1,203 @@
+/* ==========================================================
+   ABOUT DEVELOPER PAGE
+========================================================== */
+
+.about-content{
+
+    position:relative;
+
+    z-index:1;
+
+    padding:24px 22px 40px;
+
+}
+
+
+/* ==========================================================
+   HEADER
+========================================================== */
+
+.about-header{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    margin-bottom:34px;
+
+}
+
+.about-header h1{
+
+    color:#5B4636;
+
+    font-size:1.7rem;
+
+    font-weight:500;
+
+}
+
+
+/* ==========================================================
+   DEVELOPER CARD
+========================================================== */
+
+.developer-card{
+
+    background:#FFFDF8;
+
+    border:1px solid #E6D3AF;
+
+    border-radius:22px;
+
+    padding:28px 20px;
+
+    text-align:center;
+
+    box-shadow:0 4px 14px rgba(0,0,0,.05);
+
+    margin-bottom:24px;
+
+}
+
+.developer-photo{
+
+    width:110px;
+
+    height:110px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:3px solid #E6D3AF;
+
+    margin-bottom:18px;
+
+}
+
+.developer-card h2{
+
+    color:#4D392A;
+
+    font-size:1.4rem;
+
+    margin-bottom:6px;
+
+}
+
+.developer-role{
+
+    color:#7B6551;
+
+    font-size:1rem;
+
+}
+
+
+/* ==========================================================
+   INFO CARD
+========================================================== */
+
+.info-card{
+
+    background:#FFFDF8;
+
+    border:1px solid #E6D3AF;
+
+    border-radius:22px;
+
+    padding:20px;
+
+    margin-bottom:20px;
+
+    box-shadow:0 4px 14px rgba(0,0,0,.05);
+
+}
+
+.info-card h3{
+
+    color:#4D392A;
+
+    margin-bottom:14px;
+
+    font-size:1.1rem;
+
+}
+
+.info-card p{
+
+    color:#6B5745;
+
+    line-height:1.7;
+
+}
+
+
+/* ==========================================================
+   CONTACT LINKS
+========================================================== */
+
+.contact-link{
+
+    display:block;
+
+    text-decoration:none;
+
+    color:#C62828;
+
+    font-weight:600;
+
+    margin-bottom:14px;
+
+    transition:.2s;
+
+}
+
+.contact-link:last-child{
+
+    margin-bottom:0;
+
+}
+
+.contact-link:active{
+
+    opacity:.7;
+
+}
+
+
+/* ==========================================================
+   COPYRIGHT
+========================================================== */
+
+.copyright{
+
+    text-align:center;
+
+    color:#7B6551;
+
+    font-size:.9rem;
+
+    line-height:1.8;
+
+    margin-top:12px;
+
+}
+
+
+/* ==========================================================
+   MOBILE
+========================================================== */
+
+@media(max-width:600px){
+
+    .about-header h1{
+
+        font-size:1.45rem;
+
+    }
+
+}

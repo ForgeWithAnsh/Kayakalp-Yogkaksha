@@ -1,0 +1,167 @@
+/* ==========================================================
+ROUTINE PAGE
+========================================================== */
+
+.routine-content{
+
+position:relative;  
+
+z-index:1;  
+
+padding:24px 22px 40px;
+
+}
+
+/* ==========================================================
+HEADER
+========================================================== */
+
+.routine-header{
+
+display:flex;  
+
+align-items:center;  
+
+gap:18px;  
+
+margin-bottom:34px;
+
+}
+
+.routine-header h1{
+
+color:#5B4636;  
+
+font-size:1.7rem;  
+
+font-weight:500;
+
+}
+
+/* ==========================================================
+ROUTINE CARD
+========================================================== */
+
+.routine-card{
+
+background:#FFFDF8;  
+
+border:1px solid #E6D3AF;  
+
+border-radius:22px;  
+
+padding:20px;  
+
+margin-bottom:24px;  
+
+box-shadow:0 4px 14px rgba(0,0,0,.05);
+
+}
+
+/* ==========================================================
+CARD HEADER
+========================================================== */
+
+.card-header{
+
+display:flex;  
+
+justify-content:space-between;  
+
+align-items:center;  
+
+gap:12px;
+
+}
+
+.card-header h2{
+
+color:#4D392A;  
+
+font-size:1.15rem;  
+
+font-weight:600;
+
+}
+
+/* ==========================================================
+DURATION BADGE
+========================================================== */
+
+.duration-badge{
+
+background:#EAD6AF;  
+
+color:#5B4636;  
+
+padding:6px 12px;  
+
+border-radius:999px;  
+
+font-size:.85rem;  
+
+font-weight:600;
+
+}
+
+/* ==========================================================
+DIVIDER
+========================================================== */
+
+.routine-card hr{
+
+border:none;  
+
+border-top:1px solid #E6D3AF;  
+
+margin:16px 0;
+
+}
+
+/* ==========================================================
+ROUTINE LIST
+========================================================== */
+
+.routine-list{
+
+display:flex;  
+
+flex-direction:column;  
+
+gap:16px;
+
+}
+
+.routine-list p{
+
+color:#6B5745;  
+
+font-size:.95rem;  
+
+line-height:1.7;  
+
+margin:0;
+
+}
+
+/* ==========================================================
+MOBILE
+========================================================== */
+
+@media(max-width:600px){
+
+.routine-header h1{  
+
+    font-size:1.45rem;  
+
+}  
+
+.card-header{  
+
+    flex-direction:column;  
+
+    align-items:flex-start;  
+
+}
+
+}

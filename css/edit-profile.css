@@ -1,0 +1,381 @@
+/* ==========================================================
+   EDIT PROFILE PAGE
+========================================================== */
+
+.edit-profile-content{
+
+    position:relative;
+
+    z-index:1;
+
+    min-height:100vh;
+
+}
+
+
+/* ==========================================================
+   TOP APP BAR
+========================================================== */
+
+.edit-profile-header{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    padding:
+        clamp(18px,3vw,26px)
+        clamp(16px,4vw,28px);
+
+}
+
+/* ==========================================================
+   BACK BUTTON
+========================================================== */
+
+.back-button{
+
+    width:52px;
+    height:52px;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:var(--card);
+
+    color:var(--text);
+
+    cursor:pointer;
+
+    box-shadow:
+        0 8px 22px var(--shadow);
+
+    transition:
+        transform .18s ease,
+        box-shadow .2s ease;
+
+    -webkit-tap-highlight-color:transparent;
+
+}
+
+.back-button svg{
+
+    width:24px;
+    height:24px;
+
+}
+
+.back-button:active{
+
+    transform:scale(.92);
+
+    box-shadow:
+        0 4px 12px var(--shadow-active);
+
+}
+
+/* ==========================================================
+   PAGE TITLE
+========================================================== */
+
+.page-title{
+
+    color:var(--text);
+
+    font-size:
+        clamp(1.4rem,3vw,1.8rem);
+
+    font-weight:700;
+
+}
+
+
+/* ==========================================================
+   PROFILE PHOTO SECTION
+========================================================== */
+
+.edit-photo-section{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    margin-top:12px;
+
+    padding:
+        0
+        clamp(16px,4vw,28px);
+
+}
+
+/* ==========================================================
+   PROFILE PHOTO
+========================================================== */
+
+.edit-profile-photo{
+
+    width:128px;
+    height:128px;
+
+    border-radius:50%;
+
+    overflow:hidden;
+
+    border:5px solid var(--card);
+
+    box-shadow:
+        0 10px 28px var(--shadow);
+
+    background:var(--card);
+
+}
+
+.edit-profile-photo img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+
+}
+
+/* ==========================================================
+   CHANGE PHOTO BUTTON
+========================================================== */
+
+.change-photo-button{
+
+    margin-top:18px;
+
+    padding:12px 24px;
+
+    border:2px solid var(--primary);
+
+    border-radius:18px;
+
+    background:transparent;
+
+    color:var(--primary);
+
+    font-size:.95rem;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    transition:
+        background .2s ease,
+        color .2s ease,
+        transform .18s ease;
+
+}
+
+.change-photo-button:active{
+
+    transform:scale(.97);
+
+}
+
+.change-photo-button:hover{
+
+    background:var(--primary);
+
+    color:#fff;
+
+}
+
+/* ==========================================================
+   PERSONAL INFORMATION
+========================================================== */
+
+.edit-form-section{
+
+    margin-top:32px;
+
+    padding:
+        0
+        clamp(16px,4vw,28px);
+
+}
+
+/* ==========================================================
+   SECTION TITLE
+========================================================== */
+
+.form-section-title{
+
+    color:var(--text);
+
+    font-size:1.25rem;
+
+    font-weight:700;
+
+    margin-bottom:24px;
+
+}
+
+/* ==========================================================
+   INPUT GROUP
+========================================================== */
+
+.input-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+    margin-bottom:20px;
+
+}
+
+/* ==========================================================
+   LABEL
+========================================================== */
+
+.input-group label{
+
+    margin-bottom:8px;
+
+    color:var(--text);
+
+    font-size:.95rem;
+
+    font-weight:600;
+
+}
+
+/* ==========================================================
+   INPUTS
+========================================================== */
+
+.input-group input,
+.input-group select,
+.input-group textarea{
+
+    width:100%;
+
+    padding:16px 18px;
+
+    border:2px solid transparent;
+
+    border-radius:18px;
+
+    background:var(--card);
+
+    color:var(--text);
+
+    font-size:1rem;
+
+    outline:none;
+
+    box-shadow:
+        0 8px 22px var(--shadow);
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+
+}
+
+/* ==========================================================
+   FOCUS
+========================================================== */
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus{
+
+    border-color:var(--primary);
+
+    box-shadow:
+        0 0 0 4px rgba(198,40,40,.08);
+
+}
+
+textarea{
+
+    resize:vertical;
+
+    min-height:90px;
+
+}
+
+
+/* ==========================================================
+   SAVE PROFILE SECTION
+========================================================== */
+
+.save-profile-section{
+
+    padding:
+        20px
+        clamp(16px,4vw,28px)
+        40px;
+
+}
+
+/* ==========================================================
+   SAVE PROFILE BUTTON
+========================================================== */
+
+.save-profile-button{
+
+    width:100%;
+
+    padding:18px;
+
+    border:none;
+
+    border-radius:22px;
+
+    background:var(--accent);
+
+    color:#fff;
+
+    font-size:1rem;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 10px 24px var(--shadow);
+
+    transition:
+        transform .2s ease,
+        box-shadow .25s ease,
+        background .25s ease;
+
+    -webkit-tap-highlight-color:transparent;
+
+}
+
+.save-profile-button:active{
+
+    transform:scale(.98);
+
+    box-shadow:
+        0 6px 18px var(--shadow-active);
+
+}
+
+.save-profile-button:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 14px 30px var(--shadow-hover);
+
+}

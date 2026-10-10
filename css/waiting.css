@@ -1,0 +1,508 @@
+/* ==========================================================
+   WAITING PAGE
+========================================================== */
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+:root{
+
+    --bg:#FAF8F1;
+
+    --bg-gradient:#F6F0E3;
+
+    --primary:#C62828;
+
+    --primary-dark:#8E1B1B;
+
+    --text:#4E342E;
+
+    --text-light:#7A6A63;
+
+    --border:#E4D7BF;
+
+    --card:rgba(255,255,255,.70);
+
+    --success:#4CAF50;
+
+    --shadow:0 20px 60px rgba(0,0,0,.12);
+
+}
+
+body{
+
+    min-height:100vh;
+
+    font-family:
+
+        "Poppins",
+
+        sans-serif;
+
+    background:
+
+        radial-gradient(circle at top left,
+
+        rgba(198,40,40,.07),
+
+        transparent 35%),
+
+        radial-gradient(circle at bottom right,
+
+        rgba(76,175,80,.07),
+
+        transparent 35%),
+
+        var(--bg);
+
+    overflow-x:hidden;
+
+}
+
+.waitingPage{
+
+    min-height:100vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:40px 20px;
+
+    position:relative;
+
+}
+
+
+/* ==========================================================
+   BACKGROUND GLOW
+========================================================== */
+
+.backgroundGlow{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+        radial-gradient(circle,
+
+        rgba(198,40,40,.05),
+
+        transparent 60%);
+
+    filter:blur(80px);
+
+    z-index:0;
+
+}
+
+
+/* ==========================================================
+   CARD
+========================================================== */
+
+.waitingCard{
+
+    position:relative;
+
+    z-index:1;
+
+    width:100%;
+
+    max-width:470px;
+
+    background:var(--card);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid var(--border);
+
+    border-radius:28px;
+
+    box-shadow:var(--shadow);
+
+    padding:45px 30px;
+
+    text-align:center;
+
+}
+
+
+/* ==========================================================
+   SUCCESS ICON
+========================================================== */
+
+.successCircle{
+
+    width:90px;
+
+    height:90px;
+
+    margin:0 auto 25px;
+
+    border-radius:50%;
+
+    background:
+
+        linear-gradient(
+
+        135deg,
+
+        #66BB6A,
+
+        #43A047
+
+        );
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:#fff;
+
+    box-shadow:
+
+        0 10px 30px
+
+        rgba(76,175,80,.35);
+
+}
+
+.successCircle svg{
+
+    width:44px;
+
+    height:44px;
+
+}
+
+
+/* ==========================================================
+   TEXT
+========================================================== */
+
+.waitingCard h1{
+
+    font-size:2rem;
+
+    color:var(--text);
+
+    margin-bottom:10px;
+
+    font-weight:700;
+
+}
+
+.subtitle{
+
+    color:var(--primary);
+
+    font-size:1.05rem;
+
+    margin-bottom:24px;
+
+}
+
+.description{
+
+    color:var(--text-light);
+
+    line-height:1.75;
+
+    font-size:.98rem;
+
+    margin-bottom:30px;
+
+}
+
+
+/* ==========================================================
+   INFO BOX
+========================================================== */
+
+.infoBox{
+
+    background:#FFFDF8;
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    padding:22px;
+
+    text-align:left;
+
+    margin-bottom:28px;
+
+}
+
+.infoBox h3{
+
+    color:var(--text);
+
+    font-size:1rem;
+
+    margin-bottom:14px;
+
+}
+
+.infoBox ul{
+
+    list-style:none;
+
+}
+
+.infoBox li{
+
+    position:relative;
+
+    padding-left:28px;
+
+    margin-bottom:12px;
+
+    color:var(--text-light);
+
+    line-height:1.5;
+
+}
+
+.infoBox li:last-child{
+
+    margin-bottom:0;
+
+}
+
+.infoBox li::before{
+
+    content:"✓";
+
+    position:absolute;
+
+    left:0;
+
+    top:0;
+
+    color:var(--success);
+
+    font-weight:700;
+
+}
+
+
+/* ==========================================================
+   BUTTON
+========================================================== */
+
+#goToLoginButton{
+
+    width:100%;
+
+    height:56px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:
+
+        linear-gradient(
+
+        135deg,
+
+        var(--primary),
+
+        var(--primary-dark)
+
+        );
+
+    color:#fff;
+
+    font-size:1rem;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:
+
+        transform .25s,
+
+        box-shadow .25s,
+
+        opacity .25s;
+
+    box-shadow:
+
+        0 10px 24px
+
+        rgba(198,40,40,.28);
+
+}
+
+#goToLoginButton:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+
+        0 14px 30px
+
+        rgba(198,40,40,.35);
+
+}
+
+#goToLoginButton:active{
+
+    transform:scale(.98);
+
+}
+
+
+/* ==========================================================
+   VERSION
+========================================================== */
+
+.version{
+
+    margin-top:24px;
+
+    color:#9A8E83;
+
+    font-size:.9rem;
+
+    z-index:1;
+
+}
+
+
+/* ==========================================================
+   ANIMATIONS
+========================================================== */
+
+.waitingCard{
+
+    animation:
+
+        fadeUp .7s ease;
+
+}
+
+.successCircle{
+
+    animation:
+
+        float 3s ease-in-out infinite;
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:
+
+            translateY(35px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+
+            translateY(0);
+
+    }
+
+}
+
+@keyframes float{
+
+    0%{
+
+        transform:
+
+            translateY(0);
+
+    }
+
+    50%{
+
+        transform:
+
+            translateY(-8px);
+
+    }
+
+    100%{
+
+        transform:
+
+            translateY(0);
+
+    }
+
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media(max-width:520px){
+
+    .waitingCard{
+
+        padding:36px 22px;
+
+        border-radius:24px;
+
+    }
+
+    .waitingCard h1{
+
+        font-size:1.7rem;
+
+    }
+
+    .description{
+
+        font-size:.94rem;
+
+    }
+
+    .successCircle{
+
+        width:80px;
+
+        height:80px;
+
+    }
+
+    .successCircle svg{
+
+        width:38px;
+
+        height:38px;
+
+    }
+
+}

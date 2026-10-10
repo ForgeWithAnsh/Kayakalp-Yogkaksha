@@ -1,0 +1,327 @@
+/* ==========================================================
+   PROGRESS PAGE
+========================================================== */
+
+.progress-content{
+
+    position:relative;
+
+    z-index:1;
+
+    padding:24px 22px 40px;
+
+}
+
+
+/* ==========================================================
+   HEADER
+========================================================== */
+
+.progress-header{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    margin-bottom:30px;
+
+}
+
+.progress-header h1{
+
+    color:#5B4636;
+
+    font-size:1.7rem;
+
+    font-weight:500;
+
+}
+
+
+/* ==========================================================
+   CURRENT STREAK
+========================================================== */
+
+.streak-card{
+
+    background:#FFFDF8;
+
+    border:1px solid #E6D3AF;
+
+    border-radius:22px;
+
+    padding:22px;
+
+    text-align:center;
+
+    margin-bottom:22px;
+
+    box-shadow:0 4px 14px rgba(0,0,0,.05);
+
+}
+
+.streak-icon{
+
+    font-size:2.2rem;
+
+    margin-bottom:10px;
+
+}
+
+.streak-card h2{
+
+    font-size:3rem;
+
+    color:#C62828;
+
+    margin:0;
+
+}
+
+.streak-card p{
+
+    margin:8px 0 2px;
+
+    color:#6B5745;
+
+    font-size:1rem;
+
+}
+
+.streak-card span{
+
+    color:#8A7258;
+
+    font-size:.95rem;
+
+}
+
+
+/* ==========================================================
+   MONTHLY SUMMARY
+========================================================== */
+
+.summary-section{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:16px;
+
+    margin-bottom:22px;
+
+}
+
+.summary-card{
+
+    background:#FFFDF8;
+
+    border:1px solid #E6D3AF;
+
+    border-radius:20px;
+
+    padding:20px;
+
+    text-align:center;
+
+    box-shadow:0 4px 14px rgba(0,0,0,.05);
+
+}
+
+.summary-icon{
+
+    font-size:1.8rem;
+
+    margin-bottom:8px;
+
+}
+
+.summary-card h3{
+
+    color:#4D392A;
+
+    font-size:1.6rem;
+
+    margin:0 0 6px;
+
+}
+
+.summary-card p{
+
+    color:#6B5745;
+
+    margin:0;
+
+}
+
+
+/* ==========================================================
+   STATISTICS
+========================================================== */
+
+.stats-card{
+
+    background:#FFFDF8;
+
+    border:1px solid #E6D3AF;
+
+    border-radius:22px;
+
+    padding:20px;
+
+    margin-bottom:22px;
+
+    box-shadow:0 4px 14px rgba(0,0,0,.05);
+
+}
+
+.stats-card h2{
+
+    color:#4D392A;
+
+    margin:0;
+
+}
+
+.stats-card hr{
+
+    border:none;
+
+    border-top:1px solid #E6D3AF;
+
+    margin:16px 0;
+
+}
+
+.stat-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:14px;
+
+    color:#6B5745;
+
+}
+
+.stat-row strong{
+
+    color:#4D392A;
+
+}
+
+
+/* ==========================================================
+   ACHIEVEMENTS
+========================================================== */
+
+.achievement-card{
+
+    background:#FFFDF8;
+
+    border:1px solid #E6D3AF;
+
+    border-radius:22px;
+
+    padding:20px;
+
+    box-shadow:0 4px 14px rgba(0,0,0,.05);
+
+}
+
+.achievement-card h2{
+
+    color:#4D392A;
+
+    margin:0;
+
+}
+
+.achievement-card hr{
+
+    border:none;
+
+    border-top:1px solid #E6D3AF;
+
+    margin:16px 0;
+
+}
+
+.achievement{
+
+    background:#FAF6EE;
+
+    border:1px solid #E6D3AF;
+
+    border-radius:16px;
+
+    padding:16px;
+
+    margin-bottom:14px;
+
+    color:#4D392A;
+
+    font-weight:500;
+
+}
+
+.achievement.locked{
+
+    opacity:.6;
+
+}
+
+.view-all-button{
+
+    width:100%;
+
+    margin-top:8px;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:#C62828;
+
+    color:#fff;
+
+    font-size:1rem;
+
+    cursor:pointer;
+
+}
+
+.view-all-button:active{
+
+    transform:scale(.98);
+
+}
+
+
+/* ==========================================================
+   MOBILE
+========================================================== */
+
+@media(max-width:600px){
+
+    .summary-section{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .progress-header h1{
+
+        font-size:1.45rem;
+
+    }
+
+}
