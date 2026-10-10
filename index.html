@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yoga App</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/profile.css">
+    
+</head>
+<body>
+
+    <!-- Animated Background -->
+    <div class="background">
+    </div>
+    
+    
+    
+    
+<div class="app-content">
+    
+    <!-- ==========================================
+     TOP NAVIGATION BAR
+========================================== -->
+<header class="top-navbar">
+
+    <!-- ========= Profile Card ========= -->
+    <div class="profile-card"
+         id="profileCard">
+
+        <!-- Profile Image -->
+        <div class="profile-image">
+            <img src="assets/profile.png" alt="Profile">
+        </div>
+
+        <!-- User Information -->
+        <div class="profile-info">
+            <h2 class="profile-name">Ishu</h2>
+            <p class="profile-subtitle">
+                Every breath is a new beginning.
+            </p>
+        </div>
+
+    </div>
+
+
+    <!-- ========= Right Side Buttons ========= -->
+    <div class="nav-actions">
+
+        <!-- Notification Button -->
+        <button
+    class="icon-button notification-btn"
+    id="announcementButton"
+    aria-label="Announcements">
+
+            <!-- Bell Icon (SVG) -->
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round">
+
+                <path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 01-3.46 0"></path>
+
+            </svg>
+
+        </button>
+
+
+        <!-- Menu Button -->
+        <button
+            class="icon-button menu-btn"
+            id="menuButton"
+            aria-label="Open Menu">
+
+            <!-- Hamburger Icon (SVG) -->
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round">
+
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+
+            </svg>
+
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- ==========================================
+     GLASS OVERLAY
+========================================== -->
+<div class="drawer-overlay" id="drawerOverlay"></div>
+
+
+<!-- ==========================================
+     RIGHT SIDE DRAWER
+========================================== -->
+
+<aside
+    class="side-drawer"
+    id="sideDrawer">
+
+    <!-- Drawer Navigation -->
+
+    <nav class="drawer-menu">
+
+        <!-- ==========================================
+             MAIN MENU
+        ========================================== -->
+
+        <div class="drawer-main">
+
+    <!-- ==========================================
+         ABOUT HOSTS
+    ========================================== -->
+
+    <button
+        class="drawer-item"
+        id="aboutHostsButton">
+
+        <span class="drawer-icon">👥</span>
+
+        <span>About Hosts</span>
+
+    </button>
+
+
+    <!-- ==========================================
+         PROGRESS
+    ========================================== -->
+
+    <button
+        class="drawer-item"
+        id="progressButton">
+
+        <span class="drawer-icon">📈</span>
+
+        <span>Progress</span>
+
+    </button>
+
+
+    <!-- ==========================================
+         ATTENDANCE MANAGEMENT
+         ADMIN + HOST + MODERATOR
+    ========================================== -->
+
+    <button
+        class="drawer-item"
+        id="attendanceButton"
+        hidden>
+
+        <span class="drawer-icon">📋</span>
+
+        <span>Attendance</span>
+
+    </button>
+
+
+    <!-- ==========================================
+         ALL MEMBERS
+         EVERYONE
+    ========================================== -->
+
+    <button
+        class="drawer-item"
+        id="allMembersButton">
+
+        <span class="drawer-icon">👥</span>
+
+        <span>All Members</span>
+
+    </button>
+
+
+    <!-- ==========================================
+         ROUTINE
+    ========================================== -->
+
+    <button
+        class="drawer-item"
+        id="routineButton">
+
+        <span class="drawer-icon">📅</span>
+
+        <span>Routine</span>
+
+    </button>
+
+
+    <!-- ==========================================
+         YOGA ABHYAS
+    ========================================== -->
+
+    <button
+        class="drawer-item"
+        id="yogaButton">
+
+        <span class="drawer-icon">🧘</span>
+
+        <span>Yoga Abhyas</span>
+
+    </button>
+
+
+    <!-- ==========================================
+         SETTINGS
+    ========================================== -->
+
+    <button
+        class="drawer-item"
+        id="settingsButton">
+
+        <span class="drawer-icon">⚙️</span>
+
+        <span>Settings</span>
+
+    </button>
+
+</div>
+
+        <!-- ==========================================
+             BOTTOM MENU
+        ========================================== -->
+
+        <div class="drawer-bottom">
+
+            <button
+                class="drawer-item"
+                id="bugButton">
+
+                <span class="drawer-icon">🐞</span>
+
+                <span>Report an Issue</span>
+
+            </button>
+
+            <button
+    class="drawer-item"
+    id="aboutDeveloperButton">
+
+    <span class="drawer-icon">👨‍💻</span>
+
+    <span>About the Developer</span>
+
+</button>
+
+        </div>
+
+    </nav>
+
+</aside>
+
+
+<!-- ==========================================================
+     GREETING / IMPORTANT ANNOUNCEMENT CARD
+========================================================== -->
+
+<section class="greeting-section">
+
+    <div
+        class="greeting-card greeting-mode"
+        id="greetingCard">
+
+        <!-- Left Accent Line -->
+        <div
+            class="card-accent"
+            id="cardAccent">
+        </div>
+
+        <!-- Card Content -->
+        <div class="card-content">
+
+            <!-- Card Title -->
+            <h2
+                class="card-title"
+                id="cardTitle">
+                🌅 Good Morning, Ishu
+            </h2>
+
+            <!-- Card Message -->
+            <p
+                class="card-message"
+                id="cardMessage">
+                Every breath is a new beginning.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+<!-- ==========================================================
+     ADMIN DASHBOARD
+========================================================== -->
+
+<section
+    id="adminDashboard"
+    class="admin-dashboard"
+    hidden>
+
+    <h2 class="dashboard-heading">
+
+        📊 Dashboard
+
+    </h2>
+
+
+    <!-- ======================================================
+         MEMBER STATUS
+    ======================================================= -->
+
+    <div class="dashboard-item" id="pendingRequestsCard">
+
+    <span class="dashboard-value"
+          id="pendingRequestCount">
+        0
+    </span>
+
+    <span class="dashboard-label">
+        Pending Requests
+    </span>
+
+</div>
+
+<div class="dashboard-item"
+     id="allMembersCard">
+
+    <span class="dashboard-value"
+          id="allMemberCount">
+        0
+    </span>
+
+    <span class="dashboard-label">
+        All Members
+    </span>
+
+</div>
+
+
+    <hr class="dashboard-divider">
+
+
+    <!-- ======================================================
+         TODAY'S LIVE SESSION
+    ======================================================= -->
+
+    <div class="dashboard-section">
+
+        <h3>
+
+            Today's Live Session
+
+        </h3>
+
+        <div class="dashboard-info">
+
+            <p>
+
+                Status
+
+            </p>
+
+            <span id="dashboardLiveStatus">
+
+                Not Started
+
+            </span>
+
+        </div>
+
+        <div class="dashboard-info">
+
+            <p>
+
+                Total Present
+
+            </p>
+
+            <span id="dashboardTotalPresent">
+
+                0
+
+            </span>
+
+        </div>
+
+        <div class="dashboard-info">
+
+            <p>
+
+                Absent
+
+            </p>
+
+            <span id="dashboardAbsent">
+
+                0
+
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <hr class="dashboard-divider">
+    
+
+
+
+    <!-- ======================================================
+         MONTH STATUS
+    ======================================================= -->
+
+    <div class="dashboard-section">
+
+        <h3>
+
+            This Month
+
+        </h3>
+
+        <div class="dashboard-info">
+
+            <p>
+
+                Total Classes
+
+            </p>
+
+            <span id="monthClasses">
+
+                0
+
+            </span>
+
+        </div>
+
+        <div class="dashboard-info">
+
+            <p>
+
+                Average Attendance
+
+            </p>
+
+            <span id="monthAttendance">
+
+                0%
+
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ==========================================================
+     LIVE YOGA CLASS SECTION
+========================================================== -->
+
+<section class="live-class-section">
+
+    <div class="live-class-card">
+
+        <!-- Live Status -->
+        <div class="live-status">
+
+            <span
+                class="live-indicator"
+                id="liveIndicator">
+            </span>
+
+            <span
+                class="live-status-text"
+                id="liveStatusText">
+                LIVE
+            </span>
+
+        </div>
+
+        <!-- Class Information -->
+        <div class="live-class-content">
+
+            <h2
+                class="live-class-title"
+                id="liveClassTitle">
+
+                Live Yoga Session
+
+            </h2>
+
+            <p
+                class="live-class-subtitle"
+                id="liveClassSubtitle">
+
+                Join today's guided yoga practice on Zoom.
+
+            </p>
+
+        </div>
+
+        <!-- Join Button -->
+        <button
+            class="join-live-button"
+            id="joinLiveButton"
+            type="button">
+
+            <span class="button-icon">
+                🧘
+            </span>
+
+            <span
+                class="button-text"
+                id="joinButtonText">
+
+                Join Live Class
+
+            </span>
+
+        </button>
+
+    </div>
+
+</section>
+
+
+
+
+    </div>
+
+</div>
+
+
+</div>
+
+<script type="module" src="js/script.js"></script>
+
+</body>
+</html>
