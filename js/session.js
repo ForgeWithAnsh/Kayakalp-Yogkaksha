@@ -1,409 +1,111 @@
-/* ==========================================================
-   SESSION.JS
-   CURRENT USER + SESSION CONTROL
-========================================================== */
-
-import {
-    auth,
-    db
-} from "./firebase.js";
-
-import {
-    onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-
-import {
-    doc,
-    getDoc
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
-import {
-    listenToAttendanceSession
-} from "./firebase.js";
-
-
-/* ==========================================================
-   CURRENT USER
-========================================================== */
+import { auth, db, listenToAttendanceSession } from "./firebase.js";
+import { signOut } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 export let currentUser = null;
+let profileRequest;
+let profileUid;
 
+export async function loadCurrentUser({ refresh = false } = {}) {
+    await auth.authStateReady();
+    const uid = auth.currentUser?.uid;
+    if (!uid) {
+        currentUser = null;
+        profileUid = undefined;
+        profileRequest = undefined;
+        return null;
+    }
 
-/* ==========================================================
-   LOAD CURRENT USER
-========================================================== */
-
-export async function loadCurrentUser(){
-
-    return new Promise(function(resolve){
-
-        onAuthStateChanged(
-
-            auth,
-
-            async function(user){
-
-                if(!user){
-
-                    currentUser = null;
-
-                    resolve(null);
-
-                    return;
-
-                }
-
-                const snapshot =
-                    await getDoc(
-                        doc(
-                            db,
-                            "users",
-                            user.uid
-                        )
-                    );
-
-                if(!snapshot.exists()){
-
-                    currentUser = null;
-
-                    resolve(null);
-
-                    return;
-
-                }
-
-                currentUser = {
-
-                    uid: user.uid,
-
-                    ...snapshot.data()
-
-                };
-
-                resolve(currentUser);
-
+    if (refresh || profileUid !== uid || !profileRequest) {
+        profileUid = uid;
+        profileRequest = getDoc(doc(db, "users", uid)).then((snapshot) => {
+            if (!snapshot.exists()) {
+                const error = new Error("Your account profile is missing. Return to registration to finish creating it.");
+                error.code = "profile/missing";
+                throw error;
             }
-
-        );
-
-    });
-
-}
-
-
-/* ==========================================================
-   ROLE + ACCESS CONTROL
-========================================================== */
-
-export function getUserRole(){
-
-    if(!currentUser){
-        return null;
+            return { ...snapshot.data(), uid };
+        });
     }
 
-    return currentUser.role || "member";
-
-}
-
-
-export function getUserPark(){
-
-    if(!currentUser){
-        return null;
+    const request = profileRequest;
+    try {
+        const profile = await request;
+        if (auth.currentUser?.uid !== uid) return null;
+        currentUser = profile;
+        return currentUser;
+    } catch (error) {
+        if (profileRequest === request) profileRequest = undefined;
+        throw error;
     }
-
-    return currentUser.park || null;
-
 }
 
-
-/* ==========================================================
-   ROLE CHECKS
-========================================================== */
-
-export function isAdmin(){
-
-    return getUserRole() === "admin";
-
+export function getUserRole() {
+    return currentUser ? currentUser.role || "member" : null;
 }
 
-
-export function isHost(){
-
-    return getUserRole() === "host";
-
+export function getUserPark() {
+    return currentUser?.park || null;
 }
 
-
-export function isModerator(){
-
-    return getUserRole() === "moderator";
-
-}
-
-
-export function isMember(){
-
-    return getUserRole() === "member";
-
-}
-
-
-/* ==========================================================
-   MULTI-ROLE CHECK
-========================================================== */
-
-export function hasRole(...roles){
-
+export function hasRole(...roles) {
     return roles.includes(getUserRole());
-
 }
 
-
-/* ==========================================================
-   DASHBOARD ACCESS
-========================================================== */
-
-export function canAccessDashboard(){
-
-    return hasRole(
-        "admin",
-        "host"
-    );
-
-}
-
-
-/* ==========================================================
-   ATTENDANCE MANAGEMENT ACCESS
-========================================================== */
-
-export function canManageAttendance(){
-
-    return hasRole(
-        "admin",
-        "host",
-        "moderator"
-    );
-
-}
-
-
-/* ==========================================================
-   VIEW ALL ATTENDANCE
-========================================================== */
-
-export function canViewAllAttendance(){
-
-    return hasRole(
-        "admin",
-        "host"
-    );
-
-}
-
-
-/* ==========================================================
-   MODIFY PAST ATTENDANCE
-========================================================== */
-
-export function canModifyPastAttendance(){
-
-    return hasRole(
-        "admin",
-        "host"
-    );
-
-}
-
-
-/* ==========================================================
-   GLOBAL ATTENDANCE CONTROL
-========================================================== */
-
-export function canManageAllAttendance(){
-
-    return isAdmin();
-
-}
-
-
-/* ==========================================================
-   CLASS MANAGEMENT
-========================================================== */
-
-export function canManageClass(){
-
-    return hasRole(
-        "admin",
-        "host"
-    );
-
-}
-
-
-/* ==========================================================
-   GLOBAL LIVE SESSION CONTROL
-========================================================== */
-
-export function canControlGlobalLiveSession(){
-
-    return isAdmin();
-
-}
-
-
-/* ==========================================================
-   ANNOUNCEMENT MANAGEMENT
-========================================================== */
-
-export function canCreateAnnouncement(){
-
-    return hasRole(
-        "admin",
-        "host"
-    );
-
-}
-
-
-export function canManageOwnAnnouncement(){
-
-    return hasRole(
-        "admin",
-        "host"
-    );
-
-}
-
-
-export function canDeleteOtherAnnouncements(){
-
-    return isAdmin();
-
-}
-
-
-/* ==========================================================
-   MEMBER INFORMATION
-========================================================== */
-
-export function canViewFullMemberInformation(){
-
-    return hasRole(
-        "admin",
-        "host"
-    );
-
-}
-
-
-/* ==========================================================
-   ROLE MANAGEMENT
-========================================================== */
-
-export function canManageRoles(){
-
-    return hasRole(
-        "admin",
-        "host"
-    );
-
-}
-
-
-/* ==========================================================
-   AVAILABLE ROLES FOR ROLE MANAGEMENT
-========================================================== */
-
-export function getManageableRoles(){
-
-    if(isAdmin()){
-
-        return [
-            "member",
-            "moderator",
-            "host"
-        ];
-
-    }
-
-    if(isHost()){
-
-        return [
-            "member",
-            "moderator"
-        ];
-
-    }
-
+export const isAdmin = () => hasRole("admin");
+export const isHost = () => hasRole("host");
+export const isModerator = () => hasRole("moderator");
+export const isMember = () => hasRole("member");
+
+const isManager = () => hasRole("admin", "host");
+
+export const canAccessDashboard = isManager;
+export const canManageAttendance = () => hasRole("admin", "host", "moderator");
+export const canViewAllAttendance = isManager;
+export const canModifyPastAttendance = isManager;
+export const canManageAllAttendance = isAdmin;
+export const canManageClass = isManager;
+export const canControlGlobalLiveSession = isAdmin;
+export const canCreateAnnouncement = isManager;
+export const canManageOwnAnnouncement = isManager;
+export const canDeleteOtherAnnouncements = isAdmin;
+export const canViewFullMemberInformation = isManager;
+export const canManageRoles = isManager;
+
+export function getManageableRoles() {
+    if (isAdmin()) return ["member", "moderator", "host"];
+    if (isHost()) return ["member", "moderator"];
     return [];
-
 }
 
-
-/* ==========================================================
-   CHECK LOGIN / APPROVAL
-========================================================== */
-
-export async function checkSession(){
-
-    await loadCurrentUser();
-
-    if(!currentUser){
-
-        window.location.href =
-            "pages/login.html";
-
-        return;
-
-    }
-
-    if(currentUser.approvalStatus === "pending"){
-
-        window.location.href =
-            "pages/waiting.html";
-
-        return;
-
-    }
-
-    if(currentUser.approvalStatus === "rejected"){
-
-        window.location.href =
-            "pages/rejected.html";
-
-        return;
-
-    }
-
+export function goToPage(path) {
+    location.replace(new URL(path, import.meta.url));
 }
 
-
-
-
-/* ==========================================================
-   LISTEN FOR WHOLE SESSION END
-========================================================== */
-
-export function listenForSessionEnd(callback){
-
-    return listenToAttendanceSession(
-        function(session){
-
-            if(!session){
-
-                callback(null);
-
-                return;
-
-            }
-
-            callback(session);
-
-        }
-    );
-
+export function routeAccount(user) {
+    if (!user) goToPage("../pages/login.html");
+    else if (user.approvalStatus === "pending") goToPage("../pages/waiting.html");
+    else if (user.approvalStatus === "rejected") goToPage("../pages/rejected.html");
+    else if (user.approvalStatus === "approved") goToPage("../index.html");
+    else throw new Error("Your account has an unknown approval status. Contact the organization for help.");
 }
 
+export async function checkSession({ roles, status = "approved" } = {}) {
+    const user = await loadCurrentUser();
+    if (!user || user.approvalStatus !== status || (roles && !roles.includes(getUserRole()))) {
+        routeAccount(user);
+        return null;
+    }
+    return user;
+}
 
+export async function signOutUser() {
+    await signOut(auth);
+    currentUser = null;
+    profileUid = undefined;
+    profileRequest = undefined;
+}
+
+export function listenForSessionEnd(callback, onError) {
+    return listenToAttendanceSession(callback, onError);
+}

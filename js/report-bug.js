@@ -1,3 +1,6 @@
+import { submitBugReport } from "./app-data.js";
+import { checkSession } from "./session.js";
+
 /* ==========================================================
    REPORT ISSUE PAGE
 ========================================================== */
@@ -125,7 +128,7 @@ attachButton.addEventListener("click", function(){
    SUBMIT REPORT
 ========================================================== */
 
-submitButton.addEventListener("click", function(){
+submitButton.addEventListener("click", async function(){
 
     if(issueTitle.value.trim() === ""){
 
@@ -178,15 +181,23 @@ submitButton.addEventListener("click", function(){
     }
 
 
-    showPopup(
-
-        "✅",
-
-        "Report Sent",
-
-        "Thank you! Your report has been submitted successfully."
-
-    );
+    submitButton.disabled = true;
+    try {
+        const user = await checkSession();
+        if (!user) return;
+        await submitBugReport(user.uid, {
+            title: issueTitle.value.trim(),
+            category: issueCategory.value,
+            description: issueDescription.value.trim(),
+            device: device.value.trim()
+        });
+        showPopup("✅", "Report sent", "Thank you for reporting the issue.");
+    } catch {
+        showPopup("⚠️", "Report not sent", "Check your connection and try again.");
+        return;
+    } finally {
+        submitButton.disabled = false;
+    }
 
 
     issueTitle.value = "";

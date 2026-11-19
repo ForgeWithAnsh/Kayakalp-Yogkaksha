@@ -1,755 +1,249 @@
-/* ==========================================================
-YOGA APP
-NAVIGATION DRAWER
-========================================================== */
-
+import { renderProfilePhoto } from "./profile-photo.js";
 import {
-    checkSession,
-    currentUser,
-    isAdmin,
+    canAccessDashboard,
     canManageAttendance,
-    canAccessDashboard
+    checkSession,
+    isAdmin
 } from "./session.js";
-
 import {
-    startAttendanceSession,
-    listenToAttendanceSession,
-    getPendingRequestCount,
+    endGlobalLiveClass,
     getApprovedMemberCount,
-    endGlobalLiveClass
+    getPendingRequestCount,
+    listenToAttendanceSession,
+    startAttendanceSession
 } from "./firebase.js";
+import { getSessionDate, getSessionHour } from "./date.js";
+import { getLiveMeetingUrl, getMonthlyClassStats, getRecordedAttendanceCounts } from "./app-data.js";
+import { subscribeToImportantAnnouncements } from "./announcement-data.js";
 
-// ==========================================================
-// ELEMENT REFERENCES
-// ==========================================================
+const byId = (id) => document.getElementById(id);
+const liveCard = document.querySelector(".live-class-card");
+const liveButton = byId("joinLiveButton");
+const liveMessage = byId("liveClassMessage");
+const zoomLink = byId("liveClassZoomLink");
+const adminDashboard = byId("adminDashboard");
 
-const menuButton = document.getElementById("menuButton");
-const sideDrawer = document.getElementById("sideDrawer");
-const drawerOverlay = document.getElementById("drawerOverlay");
-const profileCard = document.getElementById("profileCard");
+function setupNavigation() {
+    const menu = byId("menuButton");
+    const drawer = byId("sideDrawer");
+    const overlay = byId("drawerOverlay");
 
-const attendanceButton =
-    document.getElementById("attendanceButton");
-
-const allMembersButton =
-    document.getElementById("allMembersButton");
-    
-    
-    /* ==========================================================
-   APPLY ROLE BASED UI ACCESS
-========================================================== */
-
-function applyRoleAccess(){
-
-    const adminDashboard =
-        document.getElementById("adminDashboard");
-
-    if(!adminDashboard){
-        return;
+    function toggleDrawer(open) {
+        drawer.classList.toggle("open", open);
+        overlay.classList.toggle("active", open);
+        document.body.classList.toggle("drawer-open", open);
+        menu.setAttribute("aria-expanded", String(open));
     }
 
-    adminDashboard.hidden =
-        !canAccessDashboard();
+    menu.setAttribute("aria-expanded", "false");
+    menu.setAttribute("aria-controls", drawer.id);
+    menu.addEventListener("click", () => toggleDrawer(!drawer.classList.contains("open")));
+    overlay.addEventListener("click", () => toggleDrawer(false));
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") toggleDrawer(false);
+    });
 
-}
-
-// ==========================================================
-// OPEN DRAWER
-// ==========================================================
-
-function openDrawer() {
-
-sideDrawer.classList.add("open");  
-drawerOverlay.classList.add("active");  
-
-// Prevent background scrolling  
-document.body.style.overflow = "hidden";
-
-}
-
-// ==========================================================
-// CLOSE DRAWER
-// ==========================================================
-
-function closeDrawer() {
-
-sideDrawer.classList.remove("open");  
-drawerOverlay.classList.remove("active");  
-
-// Restore scrolling  
-document.body.style.overflow = "";
-
-}
-
-// ==========================================================
-// MENU BUTTON
-// ==========================================================
-
-menuButton.addEventListener("click", function () {
-
-openDrawer();
-
-});
-
-// ==========================================================
-// CLICK OUTSIDE TO CLOSE
-// ==========================================================
-
-drawerOverlay.addEventListener("click", function () {
-
-closeDrawer();
-
-});
-
-// ==========================================================
-// ESC KEY SUPPORT
-// ==========================================================
-
-document.addEventListener("keydown", function (event) {
-
-if (event.key === "Escape") {  
-
-    closeDrawer();  
-
-}
-
-});
-
-// ==========================================================
-// PREVENT DRAWER CLICK FROM CLOSING
-// ==========================================================
-
-sideDrawer.addEventListener("click", function (event) {
-
-event.stopPropagation();
-
-});
-
-/* ==========================================================
-ABOUT HOSTS
-========================================================== */
-
-const aboutHostsButton =
-document.getElementById("aboutHostsButton");
-
-aboutHostsButton.addEventListener("click", function(){
-
-window.location.href =  
-    "pages/about-hosts.html";
-
-});
-
-/* ==========================================================
-PROGRESS
-========================================================== */
-
-const progressButton =
-document.getElementById("progressButton");
-
-progressButton.addEventListener("click", function(){
-
-window.location.href =  
-    "pages/progress.html";
-
-});
-
-
-/* ==========================================================
-ATTENDANCE
-========================================================== */
-
-if(attendanceButton){
-
-    if(canManageAttendance()){
-
-        attendanceButton.hidden = false;
-
+    const routes = {
+        aboutHostsButton: "about-hosts",
+        progressButton: "progress",
+        attendanceButton: "attendance",
+        allMembersButton: "all-members",
+        routineButton: "routine",
+        yogaButton: "yoga-abhyas",
+        settingsButton: "settings",
+        bugButton: "report-bug",
+        aboutDeveloperButton: "about-developer",
+        announcementButton: "announcements"
+    };
+    for (const [id, page] of Object.entries(routes)) {
+        byId(id)?.addEventListener("click", () => location.assign(new URL("pages/" + page + ".html", location.href)));
     }
-    else{
+}
 
-        attendanceButton.hidden = true;
+function getGreeting() {
+    const hour = getSessionHour();
+    if (hour < 5 || hour >= 21) return "Good night";
+    if (hour < 12) return "Good morning";
+    if (hour < 17) return "Good afternoon";
+    return "Good evening";
+}
 
-    }
+function showGreeting(user, announcement) {
+    const name = user.fullName?.trim() || "Yoga member";
+    const card = byId("greetingCard");
+    card.classList.toggle("announcement-mode", Boolean(announcement));
+    card.classList.toggle("greeting-mode", !announcement);
+    byId("cardTitle").textContent = announcement?.title || getGreeting() + ", " + name.split(/\s+/)[0];
+    byId("cardMessage").textContent = announcement?.message || "Take a moment to breathe and make time for your practice.";
+    byId("announcementButton").classList.toggle("has-important-announcement", Boolean(announcement));
+}
 
+async function loadDashboard(isAdministrator) {
+    const requests = [getApprovedMemberCount()];
+    if (isAdministrator) requests.push(getPendingRequestCount());
 
-    attendanceButton.addEventListener(
-        "click",
-        function(){
+    const [members, pending] = await Promise.allSettled(requests);
+    if (members.status === "fulfilled") byId("allMemberCount").textContent = members.value;
+    if (pending?.status === "fulfilled") byId("pendingRequestCount").textContent = pending.value;
+}
 
-            window.location.href =
-                "pages/attendance.html";
+function showLiveMessage(message, showZoom = false) {
+    liveMessage.textContent = message;
+    liveMessage.hidden = !message;
+    zoomLink.hidden = !showZoom;
+}
 
+function setupLiveClass({ administrator, dashboard }) {
+    let session = null;
+    let ready = false;
+    let busy = false;
+    let meetingUrl;
+    let loadCounts = 0;
+
+    function render() {
+        const active = session?.status === "active";
+        const ended = session?.status === "ended";
+        liveCard.classList.toggle("offline", !active);
+        byId("liveStatusText").textContent = !ready ? "CONNECTING" : active ? "LIVE" : ended ? "ENDED" : "OFFLINE";
+
+        let subtitle = "The live class hasn't started yet.";
+        let label = "No Live Session";
+        if (active) {
+            subtitle = "Today's guided yoga class is live.";
+            label = administrator ? "End Session" : "Join Live Class";
+        } else if (administrator) {
+            subtitle = "Start the live class when you're ready.";
+            label = "Start Live Class";
+        } else if (ended) {
+            subtitle = "Today's live class has ended.";
+            label = "Class Has Ended";
         }
-    );
 
-}
-
-
-/* ==========================================================
-ALL MEMBERS
-========================================================== */
-
-if(allMembersButton){
-
-    allMembersButton.addEventListener(
-        "click",
-        function(){
-
-            window.location.href =
-                "pages/all-members.html";
-
+        byId("liveClassSubtitle").textContent = subtitle;
+        byId("joinButtonText").textContent = busy ? "Please wait…" : label;
+        liveButton.disabled = !ready || busy || (!administrator && !active);
+        if (dashboard) {
+            byId("dashboardLiveStatus").textContent = !ready ? "Connecting" : active ? "Live" : ended ? "Ended" : "Not started";
         }
-    );
-
-}
-
-/* ==========================================================
-ROUTINE
-========================================================== */
-
-const routineButton =
-document.getElementById("routineButton");
-
-if(routineButton){
-
-routineButton.addEventListener("click", function(){  
-
-    window.location.href =  
-        "pages/routine.html";  
-
-});
-
-}
-
-/* ==========================================================
-SETTINGS
-========================================================== */
-
-const settingsButton =
-document.getElementById("settingsButton");
-
-if(settingsButton){
-
-settingsButton.addEventListener("click", function(){  
-
-    window.location.href =  
-        "pages/settings.html";  
-
-});
-
-}
-
-/* ==========================================================
-YOGA ABHYAS
-========================================================== */
-
-const yogaButton =
-document.getElementById("yogaButton");
-
-if(yogaButton){
-
-yogaButton.addEventListener("click", function(){  
-
-    window.location.href =  
-        "pages/yoga-abhyas.html";  
-
-});
-
-}
-
-/* ==========================================================
-REPORT AN ISSUE
-========================================================== */
-
-const bugButton =
-document.getElementById("bugButton");
-
-if(bugButton){
-
-bugButton.addEventListener("click", function(){  
-
-    window.location.href =  
-        "pages/report-bug.html";  
-
-});
-
-}
-
-/* ==========================================================
-ABOUT DEVELOPER
-========================================================== */
-
-const aboutDeveloperButton =
-document.getElementById("aboutDeveloperButton");
-
-if(aboutDeveloperButton){
-
-aboutDeveloperButton.addEventListener("click", function(){  
-
-    window.location.href =  
-        "pages/about-developer.html";  
-
-});
-
-}
-
-/* ==========================================================
-PROFILE PAGE
-========================================================== */
-
-profileCard.addEventListener("click", function () {
-
-window.location.href =  
-    "pages/profile.html";
-
-});
-
-/* ==========================================================
-ANNOUNCEMENTS
-========================================================== */
-
-const announcementButton =
-document.getElementById("announcementButton");
-
-if(announcementButton){
-
-announcementButton.addEventListener("click", function(){  
-
-    window.location.href =  
-        "pages/announcements.html";  
-
-});
-
-}
-/* ==========================================================
-GREETING / ANNOUNCEMENT CARD
-========================================================== */
-
-// ==========================================================
-// DATA
-// ==========================================================
-
-const cardData = {
-isAnnouncement: false,
-
-username: "Ishu",  
-
-title: "",  
-
-message: "Every breath is a new beginning."
-
-};
-
-// ==========================================================
-// ELEMENTS
-// ==========================================================
-
-const greetingCard = document.getElementById("greetingCard");
-const cardTitle = document.getElementById("cardTitle");
-const cardMessage = document.getElementById("cardMessage");
-
-// ==========================================================
-// TIME-BASED GREETING
-// ==========================================================
-
-function getGreeting(){
-
-const hour = new Date().getHours();  
-
-if(hour >= 5 && hour < 12){  
-
-    return "🌅 Good Morning";  
-
-}  
-
-if(hour >= 12 && hour < 17){  
-
-    return "☀️ Good Afternoon";  
-
-}  
-
-if(hour >= 17 && hour < 21){  
-
-    return "🌇 Good Evening";  
-
-}  
-
-return "🌙 Good Night";
-
-}
-
-// ==========================================================
-// UPDATE CARD
-// ==========================================================
-
-function updateGreetingCard(){
-
-if(cardData.isAnnouncement){  
-
-    greetingCard.classList.remove("greeting-mode");  
-    greetingCard.classList.add("announcement-mode");  
-
-    cardTitle.textContent =  
-        "📢 Important Announcement";  
-
-    cardMessage.textContent =  
-        cardData.message;  
-
-}  
-
-else{  
-
-    greetingCard.classList.remove("announcement-mode");  
-    greetingCard.classList.add("greeting-mode");  
-
-    cardTitle.textContent =  
-        `${getGreeting()}, ${cardData.username}`;  
-
-    cardMessage.textContent =  
-        cardData.message;  
-
-}
-
-}
-
-// ==========================================================
-// INITIALIZE
-// ==========================================================
-
-updateGreetingCard();
-
-/* ==========================================================
-ADMIN DASHBOARD
-========================================================== */
-
-const adminDashboard =
-    document.getElementById("adminDashboard");
-
-const pendingRequestCount =
-document.getElementById(
-"pendingRequestCount"
-);
-
-const allMemberCount =
-document.getElementById(
-"allMemberCount"
-);
-
-const pendingRequestsCard =
-document.getElementById(
-"pendingRequestsCard"
-);
-
-const allMembersCard =
-document.getElementById(
-"allMembersCard"
-);
-
-const dashboardLiveStatus =
-document.getElementById(
-"dashboardLiveStatus"
-);
-
-const dashboardTotalPresent =
-document.getElementById(
-"dashboardTotalPresent"
-);
-
-const dashboardAbsent =
-document.getElementById(
-"dashboardAbsent"
-);
-
-const monthClasses =
-document.getElementById(
-"monthClasses"
-);
-
-const monthAttendance =
-document.getElementById(
-"monthAttendance"
-);
-
-
-
-async function loadDashboard(){
-    
-    if(!canAccessDashboard()){
-
-    return;
-
-}
-
-if(!pendingRequestCount){  
-
-    return;  
-
-}  
-
-const pending =  
-    await getPendingRequestCount();  
-
-const approved =  
-    await getApprovedMemberCount();  
-
-pendingRequestCount.textContent =  
-    pending;  
-
-allMemberCount.textContent =  
-approved;  
-
-dashboardLiveStatus.textContent =  
-    "🟡 Not Started";  
-
-dashboardTotalPresent.textContent =  
-    "0";  
-
-dashboardAbsent.textContent =  
-    approved;  
-
-monthClasses.textContent =  
-    "0";  
-
-monthAttendance.textContent =  
-    "0%";
-
-}
-
-loadDashboard();
-
-/* ==========================================================
-DASHBOARD SHORTCUTS
-========================================================== */
-
-pendingRequestsCard.addEventListener(
-
-"click",  
-
-function(){  
-
-    window.location.href =  
-        "pages/member-requests.html";  
-
-}
-
-);
-
-allMembersCard.addEventListener(
-
-"click",  
-
-function(){  
-
-    window.location.href =  
-        "pages/all-members.html";  
-
-}
-
-);
-
-
-
-
-/* ==========================================================
-   LIVE CLASS
-========================================================== */
-
-const liveClass = {
-    status: "none",
-    zoomMeetingLink: "https://us05web.zoom.us/j/6163697724?pwd=KA2JcFfYYKpMk4J1FzPDQjnKCAKbJA.1"
-};
-
-const liveClassCard =
-    document.querySelector(".live-class-card");
-
-const liveIndicator =
-    document.getElementById("liveIndicator");
-
-const liveStatusText =
-    document.getElementById("liveStatusText");
-
-const liveClassSubtitle =
-    document.getElementById("liveClassSubtitle");
-
-const joinLiveButton =
-    document.getElementById("joinLiveButton");
-
-const joinButtonText =
-    document.getElementById("joinButtonText");
-
-
-/* ==========================================================
-   UPDATE UI
-========================================================== */
-
-function updateLiveClass() {
-
-    if (liveClass.status === "active") {
-
-        liveClassCard.classList.remove("offline");
-        liveIndicator.style.background = "var(--accent)";
-        liveStatusText.textContent = "LIVE";
-        liveClassSubtitle.textContent =
-            "Today's guided yoga class is live.";
-
-        joinButtonText.textContent =
-            isAdmin() ? "End Live Class" : "Join Live Class";
-
-        joinLiveButton.disabled = false;
-        return;
     }
 
-    liveClassCard.classList.add("offline");
-
-    if (isAdmin()) {
-
-        liveStatusText.textContent = "OFFLINE";
-        liveClassSubtitle.textContent =
-            "Start the live class when you're ready.";
-
-        joinButtonText.textContent = "Start Live Class";
-        joinLiveButton.disabled = false;
-        return;
+    async function refreshCounts() {
+        if (!dashboard) return;
+        const request = ++loadCounts;
+        const [attendance, month] = await Promise.allSettled([
+            getRecordedAttendanceCounts(session?.id || getSessionDate(), session),
+            getMonthlyClassStats()
+        ]);
+        if (request !== loadCounts) return;
+        byId("dashboardTotalPresent").textContent = attendance.value?.present ?? "—";
+        byId("dashboardTotalShort").textContent = attendance.value?.short ?? "—";
+        byId("dashboardAbsent").textContent = attendance.value?.absent ?? "—";
+        byId("monthClasses").textContent = month.value?.classes ?? "—";
+        byId("monthAttendance").textContent = month.value?.percentage ?? "—";
     }
 
-    if (liveClass.status === "ended") {
+    liveButton.addEventListener("click", async () => {
+        if (!ready || busy) return;
+        const activeSession = session?.status === "active" ? session : null;
+        if (administrator && activeSession && !window.confirm("End the class in Kayakalp Yogkaksha for everyone? End the Zoom meeting separately.")) {
+            return;
+        }
 
-        liveStatusText.textContent = "ENDED";
-        liveClassSubtitle.textContent =
-            "The live class has been ended.";
+        // Open within the click event so mobile browsers can allow the new tab.
+        const popup = !administrator || !activeSession ? window.open("about:blank", "_blank") : null;
+        if (popup) popup.opener = null;
 
-        joinButtonText.textContent = "Class Has Been Ended";
-        joinLiveButton.disabled = true;
-        return;
-    }
-
-    liveStatusText.textContent = "OFFLINE";
-    liveClassSubtitle.textContent =
-        "The live class hasn't been started yet.";
-
-    joinButtonText.textContent = "Live Class Not Started";
-    joinLiveButton.disabled = true;
-}
-
-
-/* ==========================================================
-   MAIN LIVE CLASS BUTTON
-========================================================== */
-
-joinLiveButton.addEventListener("click", async function (e) {
-
-    e.preventDefault();
-
-    if (isAdmin()) {
-
+        busy = true;
+        showLiveMessage("");
+        render();
         try {
+            if (administrator && activeSession) {
+                await endGlobalLiveClass({
+                    date: activeSession.id || getSessionDate(),
+                    runId: activeSession.activeRunId ?? null
+                });
+                return;
+            }
 
-            joinLiveButton.disabled = true;
+            meetingUrl = await getLiveMeetingUrl();
+            if (!meetingUrl) {
+                popup?.close();
+                showLiveMessage("The Zoom meeting link hasn't been configured. Contact the administrator.");
+                return;
+            }
 
-            if (liveClass.status === "active") {
+            if (!administrator && (session?.status !== "active" || session?.id !== activeSession?.id ||
+                session?.activeRunId !== activeSession?.activeRunId)) {
+                popup?.close();
+                showLiveMessage("The class changed while Zoom was opening. Check the current status.");
+                return;
+            }
 
-                const confirmed = confirm(
-                    "End the live class for everyone?"
-                );
-
-                if (!confirmed) return;
-
-                joinButtonText.textContent = "Ending...";
-
-                await endGlobalLiveClass();
-
+            if (administrator) await startAttendanceSession();
+            zoomLink.href = meetingUrl;
+            if (popup && !popup.closed) {
+                popup.location.replace(meetingUrl);
             } else {
-
-    joinButtonText.textContent = "Starting...";
-
-    const zoomWindow = window.open("about:blank", "_blank");
-
-    try {
-
-        await startAttendanceSession();
-
-        if (zoomWindow) {
-            zoomWindow.location.href = liveClass.zoomMeetingLink;
+                showLiveMessage("Tap Open Zoom to open the meeting.", true);
+            }
+        } catch (error) {
+            popup?.close();
+            console.error("Live class action failed", error);
+            showLiveMessage("We couldn't complete that action. Refresh and try again.");
+        } finally {
+            busy = false;
+            render();
         }
+    });
 
-    } catch (error) {
-
-        if (zoomWindow) {
-            zoomWindow.close();
-        }
-
-        throw error;
-
-    }
-
+    render();
+    return listenToAttendanceSession((nextSession) => {
+        session = nextSession;
+        ready = true;
+        if (session?.status !== "active") showLiveMessage("");
+        render();
+        void refreshCounts();
+    }, (error) => {
+        ready = false;
+        console.error("Live class listener failed", error);
+        render();
+        showLiveMessage("We couldn't connect to the class. Check your connection and reload.");
+    });
 }
 
-        } catch (error) {
+async function initializeHome() {
+    const user = await checkSession();
+    if (!user) return;
 
-            console.error("Live class control failed:", error);
+    const administrator = isAdmin();
+    const dashboard = canAccessDashboard();
+    adminDashboard.hidden = !dashboard;
+    byId("pendingRequestsCard").hidden = !administrator;
+    byId("attendanceButton").hidden = !canManageAttendance();
+    byId("allMembersButton").hidden = !dashboard;
+    document.querySelector(".profile-name").textContent = user.fullName || "Kayakalp Yogkaksha";
+    renderProfilePhoto(byId("homeProfileInitial"), user.fullName, user.photoDataUrl);
 
-            alert("Unable to update the live class. Please try again.");
+    setupNavigation();
+    showGreeting(user);
+    if (dashboard) void loadDashboard(administrator);
+    const stopClass = setupLiveClass({ administrator, dashboard });
+    const stopAnnouncements = subscribeToImportantAnnouncements(
+        ([announcement]) => showGreeting(user, announcement),
+        () => showGreeting(user)
+    );
 
-        } finally {
-
-            updateLiveClass();
-
+    window.addEventListener("pagehide", (event) => {
+        if (!event.persisted) {
+            stopClass?.();
+            stopAnnouncements?.();
         }
+    });
+}
 
-        return;
-    }
-
-
-    // Members can only join an active class.
-    if (
-        liveClass.status !== "active" ||
-        !liveClass.zoomMeetingLink ||
-        liveClass.zoomMeetingLink === "YOUR_PERMANENT_ZOOM_LINK"
-    ) {
-        return;
-    }
-
-    window.open(liveClass.zoomMeetingLink, "_blank");
-
-});
-
-
-/* ==========================================================
-   LISTEN FOR TODAY'S GLOBAL SESSION
-========================================================== */
-
-listenToAttendanceSession(function (session) {
-
-    if (!session) {
-        liveClass.status = "none";
-    } else if (session.status === "active") {
-        liveClass.status = "active";
-    } else if (session.status === "ended") {
-        liveClass.status = "ended";
-    } else {
-        liveClass.status = "none";
-    }
-
-    updateLiveClass();
-
-});
-
-
-/* ==========================================================
-   INITIALIZE
-========================================================== */
-
-updateLiveClass();
-
-
-/* ==========================================================
-SESSION CHECK
-========================================================== */
-
-(async function(){
-
-    await checkSession();
-
-    applyRoleAccess();
-
-})();
+try {
+    await initializeHome();
+} catch (error) {
+    // The shared page access status handles account errors.
+    console.error("Home initialization failed", error);
+}

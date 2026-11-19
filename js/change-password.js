@@ -1,3 +1,5 @@
+import { changeAccountPassword } from "./app-data.js";
+
 /* ==========================================================
    CHANGE PASSWORD PAGE
 ========================================================== */
@@ -114,16 +116,16 @@ showPassword.addEventListener("change", function(){
    CHANGE PASSWORD
 ========================================================== */
 
-changePasswordButton.addEventListener("click", function(){
+changePasswordButton.addEventListener("click", async function(){
 
     const current =
-        currentPassword.value.trim();
+        currentPassword.value;
 
     const newPass =
-        newPassword.value.trim();
+        newPassword.value;
 
     const confirm =
-        confirmPassword.value.trim();
+        confirmPassword.value;
 
 
     if(current === "" ||
@@ -167,11 +169,17 @@ changePasswordButton.addEventListener("click", function(){
     }
 
 
-    showPopup(
-        "✅",
-        "Success",
-        "Password changed successfully!"
-    );
+    changePasswordButton.disabled = true;
+    try {
+        await changeAccountPassword(current, newPass);
+        showPopup("✅", "Success", "Password changed successfully.");
+    } catch (error) {
+        const invalidCredential = ["auth/wrong-password", "auth/invalid-credential"].includes(error.code);
+        showPopup("⚠️", "Password change failed", invalidCredential ? "The current password is incorrect." : "Please try again.");
+        return;
+    } finally {
+        changePasswordButton.disabled = false;
+    }
 
 
     currentPassword.value = "";

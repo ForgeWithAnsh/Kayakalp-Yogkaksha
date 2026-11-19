@@ -1,85 +1,14 @@
-/* ==========================================================
-   WAITING PAGE
-========================================================== */
+import { goToPage, signOutUser } from "./session.js";
 
-
-/* ==========================================================
-   ELEMENTS
-========================================================== */
-
-const goToLoginButton =
-    document.getElementById(
-        "goToLoginButton"
-    );
-
-
-/* ==========================================================
-   GO TO LOGIN
-========================================================== */
-
-goToLoginButton.addEventListener(
-    "click",
-
-    function(){
-
-        window.location.href =
-            "login.html";
-
+document.getElementById("refreshApprovalButton")?.addEventListener("click", () => location.reload());
+document.getElementById("goToLoginButton")?.addEventListener("click", async (event) => {
+    const button = event.currentTarget;
+    button.disabled = true;
+    try {
+        await signOutUser();
+        goToPage("../pages/login.html");
+    } catch {
+        button.disabled = false;
+        window.alert("We couldn’t sign you out. Please try again.");
     }
-
-);
-
-
-/* ==========================================================
-   DISABLE BACK BUTTON
-========================================================== */
-
-history.pushState(
-    null,
-
-    "",
-
-    location.href
-
-);
-
-window.addEventListener(
-
-    "popstate",
-
-    function(){
-
-        history.pushState(
-
-            null,
-
-            "",
-
-            location.href
-
-        );
-
-    }
-
-);
-
-
-/* ==========================================================
-   ENTER KEY
-========================================================== */
-
-document.addEventListener(
-
-    "keydown",
-
-    function(event){
-
-        if(event.key === "Enter"){
-
-            goToLoginButton.click();
-
-        }
-
-    }
-
-);
+});

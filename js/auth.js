@@ -1,152 +1,30 @@
-/* ==========================================================
-   SESSION
-========================================================== */
-
 import {
-
-    currentUser
-
+    canCreateAnnouncement,
+    canManageAttendance,
+    canManageRoles,
+    canViewFullMemberInformation,
+    getManageableRoles
 } from "./session.js";
 
-
-/* ==========================================================
-   ROLES
-========================================================== */
-
-export const Roles = {
-
+export const Roles = Object.freeze({
     ADMIN: "admin",
-
     HOST: "host",
-
     MODERATOR: "moderator",
-
     MEMBER: "member"
+});
 
-};
+const permissions = new Map([
+    ["sendAnnouncement", canCreateAnnouncement],
+    ["manageMembers", canManageRoles],
+    ["markAttendance", canManageAttendance],
+    ["changeRoles", canManageRoles],
+    ["viewMemberData", canViewFullMemberInformation]
+]);
 
-
-/* ==========================================================
-   ROLE HIERARCHY
-========================================================== */
-
-const RoleHierarchy = {
-
-    admin: 4,
-
-    host: 3,
-
-    moderator: 2,
-
-    member: 1
-
-};
-
-
-/* ==========================================================
-   PERMISSIONS
-========================================================== */
-
-const Permissions = {
-
-    sendAnnouncement: [
-
-        Roles.ADMIN,
-
-        Roles.HOST
-
-    ],
-
-    manageMembers: [
-
-        Roles.ADMIN,
-
-        Roles.HOST,
-
-        Roles.MODERATOR
-
-    ],
-
-    markAttendance: [
-
-        Roles.ADMIN,
-
-        Roles.HOST,
-
-        Roles.MODERATOR
-
-    ],
-
-    changeRoles: [
-
-        Roles.ADMIN,
-
-        Roles.HOST
-
-    ],
-
-    viewMemberData: [
-
-        Roles.ADMIN,
-
-        Roles.HOST
-
-    ]
-
-};
-
-
-/* ==========================================================
-   HAS PERMISSION
-========================================================== */
-
-export function hasPermission(permission){
-
-    if(!currentUser){
-
-        return false;
-
-    }
-
-    const allowedRoles =
-
-        Permissions[permission];
-
-    if(!allowedRoles){
-
-        return false;
-
-    }
-
-    return allowedRoles.includes(
-
-        currentUser.role
-
-    );
-
+export function hasPermission(permission) {
+    return permissions.get(permission)?.() ?? false;
 }
 
-
-/* ==========================================================
-   CAN EDIT USER
-========================================================== */
-
-export function canEditUser(targetRole){
-
-    if(!currentUser){
-
-        return false;
-
-    }
-
-    const myLevel =
-
-        RoleHierarchy[currentUser.role];
-
-    const targetLevel =
-
-        RoleHierarchy[targetRole];
-
-    return myLevel > targetLevel;
-
+export function canEditUser(targetRole = Roles.MEMBER) {
+    return getManageableRoles().includes(targetRole);
 }

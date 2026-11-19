@@ -1,61 +1,21 @@
-/* ==========================================================
-   YOGA ABHYAS PAGE
-========================================================== */
+const exercises = document.querySelectorAll(".asana[data-youtube-id]");
+const videoStatus = document.getElementById("videoStatus");
+const youtubeIdPattern = /^[a-zA-Z0-9_-]{11}$/;
 
+for (const exercise of exercises) {
+    const videoId = exercise.dataset.youtubeId;
+    if (!youtubeIdPattern.test(videoId)) continue;
 
-/* ==========================================================
-   BACK BUTTON
-========================================================== */
+    const link = document.createElement("a");
+    const url = new URL("https://www.youtube.com/watch");
+    url.searchParams.set("v", videoId);
 
-const backButton =
-    document.getElementById("backButton");
-
-if(backButton){
-
-    backButton.addEventListener("click", function(){
-
-        window.history.back();
-
-    });
-
+    link.className = "video-button";
+    link.href = url.href;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = "Watch video";
+    link.setAttribute("aria-label", "Watch video for " + exercise.querySelector("h2").textContent);
+    exercise.append(link);
+    videoStatus.hidden = true;
 }
-
-
-/* ==========================================================
-   VIDEO POPUP
-========================================================== */
-
-const videoButtons =
-    document.querySelectorAll(".video-button");
-
-const videoPopupOverlay =
-    document.getElementById("videoPopupOverlay");
-
-const closeVideoPopup =
-    document.getElementById("closeVideoPopup");
-
-videoButtons.forEach(function(button){
-
-    button.addEventListener("click", function(){
-
-        videoPopupOverlay.classList.add("show");
-
-    });
-
-});
-
-closeVideoPopup.addEventListener("click", function(){
-
-    videoPopupOverlay.classList.remove("show");
-
-});
-
-videoPopupOverlay.addEventListener("click", function(event){
-
-    if(event.target === videoPopupOverlay){
-
-        videoPopupOverlay.classList.remove("show");
-
-    }
-
-});

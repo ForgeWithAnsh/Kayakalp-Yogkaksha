@@ -1,219 +1,59 @@
-/* ==========================================================
-   BACK BUTTON
-========================================================== */
+import { renderProfilePhoto } from "./profile-photo.js";
+import { getPersonalAttendance } from "./app-data.js";
+import { checkSession, goToPage, signOutUser } from "./session.js";
+import { calculateProgress, formatPracticeTime } from "./statistics.js";
 
-const backButton =
-    document.getElementById("backButton");
+const user = await checkSession().catch(() => null);
+if (user) initializeProfile(user);
 
-backButton.addEventListener("click", function(){
+function initializeProfile(profile) {
+    const byId = (id) => document.getElementById(id);
+    renderProfilePhoto(byId("profilePhoto"), profile.fullName, profile.photoDataUrl);
+    const fields = {
+        profileFullName: profile.fullName,
+        profileMemberId: profile.memberId && "Member ID: " + profile.memberId,
+        profileRole: "Role: " + (profile.role || "member").replace(/^./, (letter) => letter.toUpperCase()),
+        profileAge: ageOn(new Date(), profile.dob),
+        profileGender: profile.gender,
+        profileDob: profile.dob,
+        profilePhone: profile.phone,
+        profileEmail: profile.email,
+        profileAddress: profile.address
+    };
+    for (const [id, value] of Object.entries(fields)) byId(id).textContent = value ?? "—";
 
-    window.location.href =
-        "../index.html";
+    byId("backButton").addEventListener("click", () => goToPage("../index.html"));
+    byId("editProfileButton").addEventListener("click", () => goToPage("../pages/edit-profile.html"));
 
-});
+    const overlay = byId("logoutPopupOverlay");
+    byId("logoutButton").addEventListener("click", () => overlay.classList.add("show"));
+    byId("logoutCancelButton").addEventListener("click", () => overlay.classList.remove("show"));
+    byId("logoutConfirmButton").addEventListener("click", async (event) => {
+        const button = event.currentTarget;
+        button.disabled = true;
+        try {
+            await signOutUser();
+            goToPage("../pages/login.html");
+        } catch {
+            button.disabled = false;
+            byId("logoutPopupMessage").textContent = "We couldn’t sign you out. Please try again.";
+        }
+    });
 
-
-
-/* ==========================================================
-   EDIT PROFILE
-========================================================== */
-
-const editProfileButton =
-    document.getElementById("editProfileButton");
-
-/* ==========================================================
-   EDIT PROFILE PAGE
-========================================================== */
-
-editProfileButton.addEventListener("click", function(){
-
-    window.location.href =
-        "../pages/edit-profile.html";
-
-});
-
-
-/* ==========================================================
-   LOAD PROFILE HEADER
-========================================================== */
-
-function loadProfileHeader(){
-
-    document.getElementById("profilePhoto").src =
-        profileData.profilePhoto;
-
-    document.getElementById("profileFullName").textContent =
-        profileData.fullName;
-
-    document.getElementById("profileMemberId").textContent =
-        "Member ID : " + profileData.memberId;
-
-    document.getElementById("profileMemberStatus").textContent =
-        profileData.memberStatus;
-        
-    document.getElementById("profileRole").textContent =
-    "Role : " + profileData.role;
-
+    getPersonalAttendance(profile).then((rows) => {
+        const stats = calculateProgress(rows);
+        byId("totalAttendance").textContent = stats.totalSessions;
+        byId("currentStreak").textContent = stats.currentStreak;
+        byId("practiceHours").textContent = formatPracticeTime(stats.totalSeconds);
+    }).catch(() => {
+        byId("profileStatsStatus").textContent = "Attendance is temporarily unavailable.";
+    });
 }
 
-loadProfileHeader();
-
-
-
-/* ==========================================================
-   LOAD PERSONAL INFORMATION
-========================================================== */
-
-function loadPersonalInformation(){
-
-    document.getElementById("profileAge").textContent =
-        profileData.age;
-
-    document.getElementById("profileGender").textContent =
-        profileData.gender;
-
-    document.getElementById("profileDob").textContent =
-        profileData.dob;
-
-    document.getElementById("profilePhone").textContent =
-        profileData.phone;
-
-    document.getElementById("profileEmail").textContent =
-        profileData.email;
-
-    document.getElementById("profileAddress").textContent =
-        profileData.address;
-
+function ageOn(today, value) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(value ?? "")) return null;
+    const [year, month, day] = value.split("-").map(Number);
+    const hasBirthday = today.getMonth() + 1 > month || (today.getMonth() + 1 === month && today.getDate() >= day);
+    const age = today.getFullYear() - year - Number(!hasBirthday);
+    return age >= 0 ? age : null;
 }
-
-loadPersonalInformation();
-
-
-/* ==========================================================
-   LOAD YOGA STATISTICS
-========================================================== */
-
-function loadYogaStatistics(){
-
-    document.getElementById(
-        "totalAttendance"
-    ).textContent =
-        profileData.statistics.totalAttendance;
-
-    document.getElementById(
-        "currentStreak"
-    ).textContent =
-        profileData.statistics.currentStreak;
-
-    document.getElementById(
-        "practiceHours"
-    ).textContent =
-        profileData.statistics.practiceHours;
-
-}
-
-loadYogaStatistics();
-
-
-/* ==========================================================
-   CHANGE PASSWORD
-========================================================== */
-
-const changePasswordButton =
-    document.getElementById("changePasswordButton");
-
-changePasswordButton.addEventListener("click", function(){
-
-    window.location.href =
-        "../pages/change-password.html";
-
-});
-
-
-/* ==========================================================
-   LOGOUT
-========================================================== */
-
-const logoutButton =
-    document.getElementById("logoutButton");
-
-const logoutPopupOverlay =
-    document.getElementById("logoutPopupOverlay");
-
-const logoutPopupTitle =
-    document.getElementById("logoutPopupTitle");
-
-const logoutPopupMessage =
-    document.getElementById("logoutPopupMessage");
-
-const logoutCancelButton =
-    document.getElementById("logoutCancelButton");
-
-const logoutConfirmButton =
-    document.getElementById("logoutConfirmButton");
-
-let confirmLogout = false;
-
-
-/* ==========================================================
-   OPEN POPUP
-========================================================== */
-
-logoutButton.addEventListener("click", function(){
-
-    confirmLogout = false;
-
-    logoutPopupTitle.textContent =
-        "Logout";
-
-    logoutPopupMessage.textContent =
-        "Are you sure you want to logout?";
-
-    logoutConfirmButton.textContent =
-        "Logout";
-
-    logoutPopupOverlay.classList.add("show");
-
-});
-
-
-/* ==========================================================
-   GO BACK
-========================================================== */
-
-logoutCancelButton.addEventListener("click", function(){
-
-    logoutPopupOverlay.classList.remove("show");
-
-});
-
-
-/* ==========================================================
-   CONFIRM
-========================================================== */
-
-logoutConfirmButton.addEventListener("click", function(){
-
-    if(!confirmLogout){
-
-        confirmLogout = true;
-
-        logoutPopupTitle.textContent =
-            "Confirm Logout";
-
-        logoutPopupMessage.textContent =
-            "You will need to login again to access your account.";
-
-        logoutConfirmButton.textContent =
-            "Confirm Logout";
-
-        return;
-
-    }
-
-    // Later we'll clear login session here
-
-    window.location.href =
-        "../pages/login.html";
-
-});
