@@ -1,268 +1,160 @@
-/* ==========================================================
-   ANNOUNCEMENTS PAGE
-========================================================== */
-
-.announcement-content{
-
-    position:relative;
-
-    z-index:1;
-
-    padding:24px 22px 130px;
-
+.announcement-content {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 760px);
+    margin-inline: auto;
+    padding: 24px 22px 70px;
 }
 
-
-/* ==========================================================
-   HEADER
-========================================================== */
-
-.announcement-header{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:18px;
-
-    margin-bottom:34px;
-
+.announcement-header {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 26px;
 }
 
-.announcement-header h1{
-
-    color:#5B4636;
-
-    font-size:1.7rem;
-
-    font-weight:500;
-
+.announcement-header h1 {
+    color: #5b4636;
+    font-size: clamp(1.45rem, 4vw, 1.7rem);
+    font-weight: 500;
 }
 
-
-/* ==========================================================
-   ANNOUNCEMENT CARD
-========================================================== */
-
-.announcement-card{
-
-    background:#FFFDF8;
-
-    border:1px solid #E6D3AF;
-
-    border-radius:22px;
-
-    padding:20px;
-
-    margin-bottom:20px;
-
-    box-shadow:0 4px 14px rgba(0,0,0,.05);
-
+.announcement-header .back-button {
+    display: grid;
+    place-items: center;
+    min-width: 44px;
+    min-height: 44px;
+    text-decoration: none;
 }
 
-
-/* ==========================================================
-   CARD TOP
-========================================================== */
-
-.announcement-top{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin-bottom:14px;
-
-    gap:10px;
-
+.announcement-card,
+.announcement-editor {
+    background: #fffdf8;
+    border: 1px solid #e6d3af;
+    border-radius: 22px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 14px rgb(0 0 0 / 5%);
 }
 
-.announcement-icon{
-
-    font-size:1.35rem;
-
+.announcement-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
 }
 
-.announcement-date{
-
-    color:#8A7460;
-
-    font-size:.8rem;
-
-    text-align:right;
-
+.announcement-icon {
+    font-size: 1.35rem;
 }
 
-
-/* ==========================================================
-   CARD TITLE
-========================================================== */
-
-.announcement-card h2{
-
-    color:#4D392A;
-
-    font-size:1.15rem;
-
-    margin-bottom:10px;
-
+.announcement-date {
+    color: #685445;
+    font-size: .85rem;
+    text-align: right;
 }
 
-
-/* ==========================================================
-   CARD TEXT
-========================================================== */
-
-.announcement-card p{
-
-    color:#6B5745;
-
-    line-height:1.7;
-
-    font-size:.95rem;
-
-    margin:0;
-
+.announcement-card h2 {
+    color: #4d392a;
+    font-size: 1.15rem;
+    margin: 0 0 10px;
+    overflow-wrap: anywhere;
 }
 
-
-/* ==========================================================
-   INPUT SECTION
-========================================================== */
-
-.announcement-input{
-
-    position:fixed;
-
-    left:0;
-
-    right:0;
-
-    bottom:0;
-
-    padding:16px 20px calc(16px + env(safe-area-inset-bottom));
-
-    background:#FAF8F1;
-
-    border-top:1px solid #E6D3AF;
-
-    z-index:50;
-
+.announcement-message,
+.announcement-status {
+    color: #594737;
+    line-height: 1.65;
+    font-size: .95rem;
 }
 
-
-/* ==========================================================
-   INPUT WRAPPER
-========================================================== */
-
-.input-wrapper{
-
-    position:relative;
-
+.announcement-message {
+    margin: 0;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
 }
 
-
-/* ==========================================================
-   TEXTAREA
-========================================================== */
-
-.announcement-input textarea{
-
-    width:100%;
-
-    min-height:70px;
-
-    max-height:140px;
-
-    resize:none;
-
-    border:1px solid #E6D3AF;
-
-    border-radius:20px;
-
-    padding:16px 64px 16px 16px;
-
-    background:#FFFDF8;
-
-    color:#4D392A;
-
-    font-size:.95rem;
-
-    line-height:1.5;
-
-    outline:none;
-
-    box-sizing:border-box;
-
-    font-family:inherit;
-
+.announcement-status:empty {
+    display: none;
 }
 
-.announcement-input textarea:focus{
-
-    border-color:#C62828;
-
+.announcement-editor summary {
+    padding-block: 5px;
+    color: #4d392a;
+    cursor: pointer;
+    font-weight: 600;
 }
 
-
-/* ==========================================================
-   SEND BUTTON
-========================================================== */
-
-#sendAnnouncementButton{
-
-    position:absolute;
-
-    right:12px;
-
-    bottom:12px;
-
-    width:42px;
-
-    height:42px;
-
-    border:none;
-
-    border-radius:50%;
-
-    background:#C62828;
-
-    color:#FFF;
-
-    font-size:1.1rem;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    cursor:pointer;
-
-    transition:.2s;
-
+.announcement-editor form {
+    display: grid;
+    gap: 10px;
+    margin-top: 12px;
 }
 
-#sendAnnouncementButton:active{
-
-    transform:scale(.92);
-
+.announcement-editor input:not([type="checkbox"]),
+.announcement-editor textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #a58d6c;
+    border-radius: 10px;
+    background: #fff;
+    color: #4d392a;
+    font: inherit;
 }
 
-
-/* ==========================================================
-   MOBILE
-========================================================== */
-
-@media(max-width:600px){
-
-    .announcement-header h1{
-
-        font-size:1.45rem;
-
-    }
-
+.announcement-editor textarea {
+    resize: vertical;
 }
 
+.announcement-important {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+}
+
+.announcement-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.announcement-card .announcement-actions {
+    margin-top: 16px;
+}
+
+.announcement-actions[hidden] {
+    display: none;
+}
+
+.announcement-actions button {
+    min-height: 44px;
+    padding: 7px 13px;
+    border: 1px solid #b99976;
+    border-radius: 10px;
+    background: #fffdf8;
+    color: #4d392a;
+    font: inherit;
+    cursor: pointer;
+}
+
+.announcement-actions .announcement-primary {
+    border-color: #c62828;
+    background: #c62828;
+    color: #fff;
+}
+
+.announcement-actions .delete-announcement {
+    color: #9b2020;
+}
+
+.announcement-actions button:disabled {
+    opacity: .55;
+    cursor: default;
+}
+
+.announcement-content :focus-visible {
+    outline: 2px solid #9b2020;
+    outline-offset: 3px;
+}

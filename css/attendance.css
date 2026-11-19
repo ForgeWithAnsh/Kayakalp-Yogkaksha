@@ -1,1120 +1,298 @@
-/* ==========================================================
-   ATTENDANCE PAGE
-========================================================== */
-
 .attendance-page {
-
-    width: 100%;
-    max-width: 900px;
-
+    width: min(100%, 900px);
     margin: 0 auto;
-
-    padding: 24px 20px 110px;
-
-    box-sizing: border-box;
-
+    padding: 24px 20px 170px;
 }
 
+.attendance-page,
+.attendance-edit-bar {
+    font-family: system-ui, sans-serif;
+}
 
-/* ==========================================================
-   HEADER
-========================================================== */
+.attendance-page [hidden],
+.attendance-edit-bar[hidden] {
+    display: none;
+}
 
 .attendance-header {
-
     display: flex;
-
     align-items: center;
-
-    gap: 14px;
-
+    flex-wrap: wrap;
+    gap: 12px;
     margin-bottom: 24px;
-
 }
 
-
-.attendance-header-info {
-
+.attendance-header > div {
     flex: 1;
-
 }
 
-
-.attendance-header-info h1 {
-
+.attendance-header h1 {
     margin: 0;
-
-    font-size: 26px;
-
+    font-size: clamp(24px, 5vw, 32px);
 }
 
-
-.attendance-date-button {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 5px;
-
-    margin-top: 4px;
-
-    padding: 0;
-
-    border: none;
-
-    background: none;
-
-    color: inherit;
-
-    font-size: 13px;
-
-    cursor: pointer;
-
-    opacity: .7;
-
+.attendance-header p,
+.session-status-card p {
+    margin: 4px 0 0;
+    color: #574a44;
 }
 
-
-.date-arrow {
-
-    font-size: 11px;
-
+.attendance-page h2 {
+    margin: 0 0 12px;
+    font-size: 19px;
 }
 
-
-/* ==========================================================
-   MARK ATTENDANCE BUTTON
-========================================================== */
-
-.mark-attendance-button {
-
-    border: none;
-
+.attendance-back,
+.attendance-primary,
+.attendance-secondary,
+.attendance-field input,
+.attendance-field select {
+    min-height: 44px;
+    border: 1px solid #b9a69a;
     border-radius: 12px;
+    padding: 8px 12px;
+    background: #fffaf5;
+    color: #332720;
+    font: inherit;
+}
 
-    padding: 10px 14px;
-
-    background: var(--primary);
-
-    color: white;
-
-    font-size: 13px;
-
+.attendance-primary,
+.attendance-secondary,
+.attendance-back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
     font-weight: 600;
-
     cursor: pointer;
-
-    white-space: nowrap;
-
 }
 
-
-.mark-attendance-button:active {
-
-    transform: scale(.97);
-
+.attendance-back {
+    width: 44px;
+    padding: 0;
+    font-size: 20px;
 }
 
+.attendance-primary {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: white;
+}
 
-/* ==========================================================
-   SUMMARY
-========================================================== */
+.attendance-primary:disabled,
+.attendance-secondary:disabled {
+    opacity: .6;
+    cursor: default;
+}
+
+.attendance-page :focus-visible,
+.attendance-edit-bar :focus-visible {
+    outline: 3px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.attendance-message {
+    margin: 12px 0;
+    color: #574a44;
+}
+
+.attendance-message[data-error="true"] {
+    color: #9e2222;
+}
+
+.attendance-filters {
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 12px 0 18px;
+}
+
+.attendance-field {
+    display: grid;
+    min-width: 0;
+    gap: 5px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.attendance-field input,
+.attendance-field select {
+    width: 100%;
+    min-width: 0;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.attendance-search-field {
+    flex: 1 1 180px;
+}
 
 .attendance-summary-section {
-
     margin-bottom: 28px;
-
 }
 
-
-.attendance-summary-section h2,
-.members-attendance-section h2,
-.manual-attendance-section h2 {
-
-    margin: 0;
-
-    font-size: 18px;
-
+.session-status-card,
+.summary-item,
+.attendance-member-card {
+    border: 1px solid #e6dbd1;
+    background: #fffcf8;
 }
-
-
-/* ==========================================================
-   SESSION STATUS
-========================================================== */
 
 .session-status-card {
-
     display: flex;
-
     align-items: center;
-
-    gap: 14px;
-
-    margin-top: 14px;
-
-    padding: 16px;
-
+    gap: 12px;
+    padding: 13px;
     border-radius: 16px;
-
-    background: rgba(255,255,255,.55);
-
-    border: 1px solid rgba(0,0,0,.06);
-
 }
 
-
-.session-status-icon {
-
+.session-status-icon,
+.attendance-avatar {
+    display: grid;
+    flex: 0 0 42px;
+    place-items: center;
     width: 42px;
-
     height: 42px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    flex-shrink: 0;
-
     border-radius: 12px;
-
-    background: rgba(198,40,40,.08);
-
-    font-size: 20px;
-
+    background: #f7e9e5;
+    color: #912323;
+    font-weight: 700;
 }
-
-
-.session-status-card strong {
-
-    display: block;
-
-    font-size: 14px;
-
-}
-
-
-.session-status-card p {
-
-    margin: 4px 0 0;
-
-    font-size: 12px;
-
-    opacity: .65;
-
-    line-height: 1.4;
-
-}
-
-
-/* ==========================================================
-   SUMMARY STATISTICS
-========================================================== */
 
 .attendance-summary {
-
     display: grid;
-
-    grid-template-columns:
-        repeat(4, 1fr);
-
-    gap: 10px;
-
-    margin-top: 14px;
-
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    margin: 12px 0 0;
 }
-
 
 .summary-item {
-
-    padding: 14px 8px;
-
-    border-radius: 14px;
-
+    display: flex;
+    align-items: center;
+    flex-direction: column-reverse;
+    gap: 3px;
+    padding: 10px 3px;
+    border-radius: 12px;
     text-align: center;
-
-    background: rgba(255,255,255,.55);
-
-    border: 1px solid rgba(0,0,0,.06);
-
 }
 
-
-.summary-value {
-
-    display: block;
-
-    font-size: 20px;
-
-    font-weight: 700;
-
-}
-
-
-.summary-label {
-
-    display: block;
-
-    margin-top: 3px;
-
-    font-size: 10px;
-
-    opacity: .6;
-
-}
-
-
-/* ==========================================================
-   MANUAL ATTENDANCE
-========================================================== */
-
-.manual-attendance-section {
-
-    margin-bottom: 28px;
-
-}
-
-
-.section-heading-row {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 15px;
-
-}
-
-
-.section-heading-row p,
-.members-list-header p {
-
-    margin: 4px 0 0;
-
-    font-size: 12px;
-
-    opacity: .6;
-
-}
-
-
-.section-action-button {
-
-    border: none;
-
-    background: transparent;
-
-    color: var(--primary);
-
+.summary-item dt {
+    color: #574a44;
     font-size: 13px;
-
-    font-weight: 600;
-
-    cursor: pointer;
-
 }
 
+.summary-item dd {
+    margin: 0;
+    font-size: 21px;
+    font-weight: 700;
+}
 
-.manual-members-container {
-
-    display: flex;
-
-    flex-direction: column;
-
+.attendance-members {
+    display: grid;
     gap: 8px;
-
-    margin-top: 12px;
-
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
-
-
-/* ==========================================================
-   MEMBERS HEADER
-========================================================== */
-
-.members-list-header {
-
-    display: flex;
-
-    align-items: flex-end;
-
-    justify-content: space-between;
-
-    gap: 15px;
-
-    margin-bottom: 12px;
-
-}
-
-
-.sort-control {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 7px;
-
-}
-
-
-.sort-control label {
-
-    font-size: 11px;
-
-    opacity: .6;
-
-}
-
-
-.sort-control select {
-
-    border: 1px solid rgba(0,0,0,.1);
-
-    border-radius: 9px;
-
-    padding: 7px 9px;
-
-    background: rgba(255,255,255,.7);
-
-    color: inherit;
-
-    font-size: 11px;
-
-    outline: none;
-
-}
-
-
-/* ==========================================================
-   MEMBER LIST
-========================================================== */
-
-.attendance-members-container {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 7px;
-
-}
-
-
-/* ==========================================================
-   MEMBER CARD
-========================================================== */
 
 .attendance-member-card {
-
     display: flex;
-
     align-items: center;
-
-    min-height: 62px;
-
-    padding: 8px 10px;
-
-    border-radius: 14px;
-
-    background: rgba(255,255,255,.58);
-
-    border: 1px solid rgba(0,0,0,.05);
-
-    box-sizing: border-box;
-
-}
-
-
-.member-main-info {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 11px;
-
-    min-width: 0;
-
-    flex: 1;
-
-}
-
-
-.member-avatar {
-
-    width: 42px;
-
-    height: 42px;
-
-    flex-shrink: 0;
-
-    border-radius: 50%;
-
-    overflow: hidden;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    background: #e8e3d8;
-
-    font-size: 16px;
-
-    font-weight: 600;
-
-}
-
-
-.member-avatar img {
-
-    width: 100%;
-
-    height: 100%;
-
-    object-fit: cover;
-
-}
-
-
-.member-text {
-
-    min-width: 0;
-
-}
-
-
-.member-name {
-
-    margin: 0;
-
-    font-size: 13px;
-
-    font-weight: 600;
-
-    white-space: nowrap;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
-
-}
-
-
-.member-id {
-
-    margin: 3px 0 0;
-
-    font-size: 10px;
-
-    opacity: .55;
-
-}
-
-
-/* ==========================================================
-   NORMAL STATUS INDICATOR
-========================================================== */
-
-.member-status-indicator {
-
-    width: 24px;
-
-    height: 24px;
-
-    flex-shrink: 0;
-
-    border-radius: 7px;
-
-    background: rgba(0,0,0,.06);
-
-    border: 1px solid rgba(0,0,0,.08);
-
-    position: relative;
-
-}
-
-
-/* ==========================================================
-   STATUS COLORS
-
-   Only ONE status is active at a time.
-========================================================== */
-
-.member-status-indicator.present {
-
-    background: #4caf50;
-
-    border-color: #4caf50;
-
-}
-
-
-.member-status-indicator.short {
-
-    background: #f2c94c;
-
-    border-color: #f2c94c;
-
-}
-
-
-.member-status-indicator.absent {
-
-    background: #e53935;
-
-    border-color: #e53935;
-
-}
-
-
-/* ==========================================================
-   MARK ATTENDANCE MODE
-========================================================== */
-
-.attendance-member-card.editing {
-
-    padding-right: 8px;
-
-}
-
-
-.attendance-status-options {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 4px;
-
-    flex-shrink: 0;
-
-}
-
-
-.attendance-status-option {
-
-    width: 23px;
-
-    height: 23px;
-
-    padding: 0;
-
-    border-radius: 6px;
-
-    border: 1px solid rgba(0,0,0,.08);
-
-    background: rgba(0,0,0,.05);
-
-    cursor: pointer;
-
-}
-
-
-.attendance-status-option.present.selected {
-
-    background: #4caf50;
-
-    border-color: #4caf50;
-
-}
-
-
-.attendance-status-option.short.selected {
-
-    background: #f2c94c;
-
-    border-color: #f2c94c;
-
-}
-
-
-.attendance-status-option.absent.selected {
-
-    background: #e53935;
-
-    border-color: #e53935;
-
-}
-
-
-.attendance-status-option:active {
-
-    transform: scale(.9);
-
-}
-
-
-/* ==========================================================
-   EMPTY STATE
-========================================================== */
-
-.attendance-empty-state {
-
-    padding: 40px 20px;
-
-    text-align: center;
-
-    opacity: .55;
-
-    font-size: 13px;
-
-}
-
-
-/* ==========================================================
-   DATE POPUP
-========================================================== */
-
-.date-popup-overlay,
-.manual-members-overlay {
-
-    position: fixed;
-
-    inset: 0;
-
-    z-index: 1000;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    padding: 20px;
-
-    background: rgba(0,0,0,.35);
-
-    backdrop-filter: blur(7px);
-
-}
-
-
-.date-popup,
-.manual-members-popup {
-
-    width: 100%;
-
-    max-width: 430px;
-
-    max-height: 85vh;
-
-    overflow-y: auto;
-
-    padding: 20px;
-
-    border-radius: 20px;
-
-    background: var(--bg, #faf8f1);
-
-    box-shadow: 0 15px 50px rgba(0,0,0,.2);
-
-    box-sizing: border-box;
-
-}
-
-
-.date-popup-header,
-.manual-popup-header {
-
-    display: flex;
-
-    align-items: flex-start;
-
-    justify-content: space-between;
-
-    gap: 15px;
-
-    margin-bottom: 18px;
-
-}
-
-
-.date-popup-header h2,
-.manual-popup-header h2 {
-
-    margin: 0;
-
-    font-size: 18px;
-
-}
-
-
-.date-popup-header p,
-.manual-popup-header p {
-
-    margin: 5px 0 0;
-
-    font-size: 12px;
-
-    opacity: .6;
-
-}
-
-
-.popup-close-button {
-
-    width: 32px;
-
-    height: 32px;
-
-    flex-shrink: 0;
-
-    border: none;
-
-    border-radius: 50%;
-
-    background: rgba(0,0,0,.07);
-
-    color: inherit;
-
-    font-size: 20px;
-
-    cursor: pointer;
-
-}
-
-
-/* ==========================================================
-   DATE POPUP OPTIONS
-========================================================== */
-
-.date-popup-option {
-
-    width: 100%;
-
-    display: grid;
-
-    grid-template-columns: 35px 1fr auto;
-
-    align-items: center;
-
+    flex-wrap: wrap;
     gap: 10px;
-
-    padding: 14px;
-
-    margin-top: 8px;
-
-    border: 1px solid rgba(0,0,0,.06);
-
-    border-radius: 13px;
-
-    background: rgba(255,255,255,.55);
-
-    color: inherit;
-
-    text-align: left;
-
-    cursor: pointer;
-
-}
-
-
-.date-popup-option > span:first-child {
-
-    font-size: 20px;
-
-}
-
-
-.date-popup-option strong {
-
-    display: block;
-
-    font-size: 13px;
-
-}
-
-
-.date-popup-option small {
-
-    display: block;
-
-    margin-top: 3px;
-
-    font-size: 10px;
-
-    opacity: .55;
-
-}
-
-
-/* ==========================================================
-   MANUAL MEMBER OPTIONS
-========================================================== */
-
-.manual-members-options {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 7px;
-
-}
-
-
-.manual-member-option {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
-    padding: 11px;
-
-    border-radius: 12px;
-
-    background: rgba(255,255,255,.55);
-
-    cursor: pointer;
-
-}
-
-
-.manual-member-option input {
-
-    accent-color: var(--primary);
-
-}
-
-
-.manual-member-option span {
-
-    font-size: 12px;
-
-}
-
-
-.manual-popup-footer {
-
-    margin-top: 18px;
-
-}
-
-
-.save-manual-members-button {
-
-    width: 100%;
-
     padding: 12px;
-
-    border: none;
-
-    border-radius: 12px;
-
-    background: var(--primary);
-
-    color: white;
-
-    font-size: 13px;
-
-    font-weight: 600;
-
-    cursor: pointer;
-
+    border-radius: 14px;
 }
 
+.attendance-member-info {
+    display: grid;
+    flex: 1 1 135px;
+    min-width: 0;
+    gap: 3px;
+    overflow-wrap: anywhere;
+}
 
-/* ==========================================================
-   EDIT BAR
-========================================================== */
+.attendance-member-info span {
+    color: #574a44;
+    font-size: 13px;
+}
+
+.attendance-badge {
+    align-self: center;
+    padding: 4px 8px;
+    border-radius: 7px;
+    background: #eee8df;
+    color: #43372d;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.attendance-badge[data-status="present"] {
+    background: #e5f2e9;
+    color: #205839;
+}
+
+.attendance-badge[data-status="short"] {
+    background: #fff1d6;
+    color: #684611;
+}
+
+.attendance-badge[data-status="absent"] {
+    background: #f9e5e5;
+    color: #8c2525;
+}
+
+.attendance-pagination,
+.attendance-edit-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.attendance-pagination {
+    margin-top: 14px;
+}
 
 .attendance-edit-bar {
-
     position: fixed;
+    inset: auto 0 0;
+    z-index: 20;
+    border-top: 1px solid #e6dbd1;
+    padding: 10px 16px max(12px, env(safe-area-inset-bottom));
+    background: #fffcf8;
+}
 
-    left: 50%;
-
-    bottom: 18px;
-
-    z-index: 900;
-
-    width: calc(100% - 32px);
-
-    max-width: 500px;
-
+.attendance-edit-controls {
     display: flex;
-
-    gap: 10px;
-
-    padding: 9px;
-
-    border-radius: 16px;
-
-    transform: translateX(-50%);
-
-    background: rgba(255,255,255,.9);
-
-    border: 1px solid rgba(0,0,0,.08);
-
-    box-shadow: 0 10px 35px rgba(0,0,0,.15);
-
-    backdrop-filter: blur(12px);
-
-    box-sizing: border-box;
-
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    max-width: 860px;
+    margin: 0 auto;
 }
 
-
-.cancel-attendance-button,
-.save-attendance-button {
-
-    flex: 1;
-
-    padding: 11px;
-
-    border-radius: 11px;
-
-    font-size: 13px;
-
-    font-weight: 600;
-
-    cursor: pointer;
-
+.attendance-edit-controls p {
+    margin: 0 auto 8px 0;
+    font-size: 14px;
 }
 
-
-.cancel-attendance-button {
-
-    border: 1px solid rgba(0,0,0,.1);
-
-    background: transparent;
-
-    color: inherit;
-
-}
-
-
-.save-attendance-button {
-
-    border: none;
-
-    background: var(--primary);
-
-    color: white;
-
-}
-
-
-/* ==========================================================
-   HIDDEN
-========================================================== */
-
-[hidden] {
-
-    display: none !important;
-
-}
-
-
-/* ==========================================================
-   RESPONSIVE
-========================================================== */
-
-@media (max-width: 600px) {
-
+@media (max-width: 480px) {
     .attendance-page {
-
-        padding:
-            18px
-            14px
-            100px;
-
+        padding-inline: 12px;
     }
 
-
-    .attendance-header {
-
-        gap: 10px;
-
+    .attendance-header .attendance-primary {
+        margin-left: 56px;
     }
 
-
-    .attendance-header-info h1 {
-
-        font-size: 22px;
-
+    .attendance-edit-buttons {
+        align-self: stretch;
     }
 
-
-    .mark-attendance-button {
-
-        padding: 9px 10px;
-
-        font-size: 11px;
-
+    .attendance-edit-controls p {
+        margin-right: 0;
     }
-
-
-    .attendance-summary {
-
-        grid-template-columns:
-            repeat(2, 1fr);
-
-    }
-
-
-    .members-list-header {
-
-        align-items: flex-start;
-
-        flex-direction: column;
-
-    }
-
-
-    .sort-control {
-
-        width: 100%;
-
-        justify-content: space-between;
-
-    }
-
-
-    .sort-control select {
-
-        flex: 1;
-
-        max-width: 180px;
-
-    }
-
-}
-
-
-@media (max-width: 380px) {
-
-    .mark-attendance-button {
-
-        max-width: 100px;
-
-        white-space: normal;
-
-    }
-
-
-    .member-avatar {
-
-        width: 38px;
-
-        height: 38px;
-
-    }
-
-
-    .member-name {
-
-        font-size: 12px;
-
-    }
-
 }

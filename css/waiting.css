@@ -506,3 +506,14 @@ body{
     }
 
 }
+#refreshApprovalButton {
+    min-height: 44px;
+    margin-block: 8px;
+    padding: 8px 16px;
+    border: 1px solid #a62828;
+    border-radius: 10px;
+    background: #fff;
+    color: #8e2020;
+    font: inherit;
+    cursor: pointer;
+}

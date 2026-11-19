@@ -1571,3 +1571,91 @@ button,
 
 }
 
+
+body.drawer-open {
+    overflow: hidden;
+}
+
+.profile-card,
+.dashboard-item {
+    text-decoration: none;
+}
+
+.brand-mark {
+    display: grid;
+    place-items: center;
+    margin-inline: auto;
+    color: #a52323;
+    font-size: clamp(2rem, 9vw, 3.5rem);
+    line-height: 1;
+}
+
+.live-class-message {
+    color: #69423a;
+    font-size: 0.9rem;
+}
+
+.live-class-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: #952322;
+    font-weight: 700;
+}
+
+.notification-btn.has-important-announcement {
+    box-shadow: inset 0 0 0 2px var(--accent);
+}
+
+.password-visibility-slash {
+    display: none;
+}
+
+.eye-button[aria-pressed="true"] .password-visibility-slash {
+    display: inline;
+}
+
+.primary-button[aria-busy="true"] .account-button-label {
+    display: none;
+}
+
+.primary-button[aria-busy="true"] .button-loader {
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin-inline: auto;
+    border: 3px solid rgb(255 255 255 / 35%);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: account-loading 700ms linear infinite;
+}
+
+@keyframes account-loading {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .primary-button[aria-busy="true"] .button-loader {
+        animation: none;
+    }
+}
+
+.profile-initial {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    place-items: center;
+    background: #f4dccc;
+    color: #792b24;
+    font-size: clamp(1.375rem, 5vw, 2rem);
+    font-weight: 700;
+}
+
+.profile-initial img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

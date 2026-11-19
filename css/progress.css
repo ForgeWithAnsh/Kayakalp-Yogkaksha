@@ -325,3 +325,23 @@
     }
 
 }
+.attendance-history {
+    display: grid;
+    gap: 8px;
+    padding: 0;
+    margin-block: 12px;
+    list-style: none;
+}
+
+.attendance-history li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 4px 12px;
+    padding-block: 8px;
+    border-bottom: 1px solid #e9dacc;
+}
+
+.attendance-history time {
+    font-weight: 600;
+}

@@ -1,488 +1,184 @@
-/* ==========================================================
-   ABOUT HOSTS PAGE
-========================================================== */
-
-.about-hosts-content{
-
-    position:relative;
-
-    z-index:1;
-
-    padding:24px 22px 40px;
-
+.about-hosts-content {
+    position: relative;
+    width: min(100%, 720px);
+    margin: auto;
+    padding: 24px 22px 42px;
+    color: #5b4636;
 }
 
-/* ==========================================================
-   PAPER BACKGROUND
-========================================================== */
-
-.paper-background{
-
-    background:linear-gradient(
-        180deg,
-        #F9F3E7 0%,
-        #F4E8D2 100%
-    );
-
+.hosts-header {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 28px;
 }
 
-/* ==========================================================
-   HEADER
-========================================================== */
-
-.hosts-header{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:18px;
-
-    margin-bottom:34px;
-
+.hosts-header h1 {
+    font-size: clamp(1.45rem, 4vw, 1.7rem);
+    font-weight: 500;
 }
 
-.hosts-header h1{
-
-    color:#5B4636;
-
-    font-size:1.7rem;
-
-    font-weight:500;
-
-    letter-spacing:.4px;
-
+.hosts-header .back-button {
+    display: grid;
+    flex: 0 0 46px;
+    place-items: center;
+    min-height: 46px;
+    border-radius: 50%;
+    background: #fffdf8;
+    color: #6a4a32;
+    font-size: 1.4rem;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 8%);
 }
 
-/* ==========================================================
-   BACK BUTTON
-========================================================== */
-
-.back-button{
-
-    width:46px;
-    height:46px;
-
-    border:none;
-
-    border-radius:50%;
-
-    background:#FFFDF8;
-
-    color:#6A4A32;
-
-    font-size:1.4rem;
-
-    cursor:pointer;
-
-    box-shadow:
-        0 4px 12px rgba(0,0,0,.08);
-
+.host-card {
+    display: grid;
+    justify-items: center;
+    gap: 8px;
+    padding: 24px 10px;
+    text-align: center;
+    overflow-wrap: anywhere;
 }
 
-/* ==========================================================
-   HOST CARD
-========================================================== */
-
-.host-card{
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    text-align:center;
-
-    padding:10px 8px;
-
+.host-card + .host-card {
+    border-top: 1px solid #d9c8a8;
 }
 
-/* ==========================================================
-   PROFILE PHOTO
-========================================================== */
-
-.host-photo{
-
-    width:110px;
-
-    height:110px;
-
-    border-radius:50%;
-
-    object-fit:cover;
-
-    border:4px solid #E6D3AF;
-
-    margin-bottom:18px;
-
+.host-avatar {
+    display: grid;
+    place-items: center;
+    width: 94px;
+    height: 94px;
+    border: 4px solid #e6d3af;
+    border-radius: 50%;
+    background: #fffdf8;
+    color: #8e3025;
+    font-size: 2.15rem;
+    font-weight: 700;
 }
 
-/* ==========================================================
-   HOST NAME
-========================================================== */
-
-.host-card h2{
-
-    color:#4D392A;
-
-    font-size:1.45rem;
-
-    font-weight:500;
-
-    line-height:1.5;
-
+.host-card h2,
+.bio-popup h2 {
+    color: #4d392a;
+    font-size: 1.35rem;
+    font-weight: 600;
 }
 
-/* ==========================================================
-   MAIN HOST LABEL
-========================================================== */
-
-.main-host{
-
-    color:#B65A3A;
-
-    font-size:.95rem;
-
-    font-weight:400;
-
+.host-branch,
+.host-experience,
+.host-introduction,
+.hosts-status {
+    color: #685443;
+    line-height: 1.65;
 }
 
-/* ==========================================================
-   BRANCH
-========================================================== */
-
-.host-branch{
-
-    margin-top:10px;
-
-    color:#7B634C;
-
-    font-size:1rem;
-
-    font-weight:400;
-
+.host-introduction {
+    white-space: pre-wrap;
 }
 
-/* ==========================================================
-   INFO
-========================================================== */
-
-.host-info{
-
-    width:100%;
-
-    margin-top:24px;
-
-    display:flex;
-
-    justify-content:space-around;
-
-    gap:20px;
-
+.host-card p:empty,
+.hosts-status:empty {
+    display: none;
 }
 
-.host-info p{
-
-    color:#5A4638;
-
-    font-size:.96rem;
-
-    font-weight:300;
-
-    line-height:1.8;
-
+.add-bio-section {
+    display: grid;
+    place-items: center;
+    margin-top: 24px;
 }
 
-.host-info strong{
-
-    font-weight:500;
-
-    color:#3F2E22;
-
+.add-bio-button {
+    width: min(100%, 320px);
+    min-height: 68px;
+    border: 2px dashed #b99a70;
+    border-radius: 20px;
+    background: #fffdf5;
+    color: #604b35;
+    font: 600 1rem system-ui, sans-serif;
+    cursor: pointer;
 }
-
-/* ==========================================================
-   DIVIDER
-========================================================== */
-
-.host-divider{
-
-    border:none;
-
-    border-top:1px solid #D9C8A8;
-
-    margin:44px 0;
-
-}
-
-/* ==========================================================
-   RESPONSIVE
-========================================================== */
-
-@media(max-width:600px){
-
-    .host-photo{
-
-        width:95px;
-        height:95px;
-
-    }
-
-    .host-card h2{
-
-        font-size:1.3rem;
-
-    }
-
-    .host-info{
-
-        flex-direction:column;
-
-        gap:14px;
-
-    }
-
-}
-
-
-/* ==========================================
-   ADD BIO SECTION
-========================================== */
-
-.add-bio-section{
-
-    margin:40px 0 60px;
-
-    display:flex;
-    justify-content:center;
-
-}
-
-/* ==========================================
-   BUTTON
-========================================== */
-
-.add-bio-button{
-
-    width:100%;
-    max-width:320px;
-
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    gap:12px;
-
-    padding:28px;
-
-    background:#FFFDF5;
-
-    border:2px dashed #D8C7A1;
-    border-radius:24px;
-
-    cursor:pointer;
-
-    transition:.25s;
-
-}
-
-.add-bio-button:hover{
-
-    transform:translateY(-3px);
-
-    background:#FFF8E8;
-
-}
-
-.add-bio-button:active{
-
-    transform:scale(.98);
-
-}
-
-.add-bio-icon{
-
-    font-size:2.4rem;
-
-    color:#A67C52;
-
-    font-weight:300;
-
-}
-
-.add-bio-text{
-
-    font-size:1rem;
-
-    color:#6F5B3E;
-
-    font-weight:500;
-
-}
-
-
-.bio-modal {
-
-    display:none;
-
-    position:fixed;
-
-    top:0;
-    left:0;
-
-    width:100%;
-    height:100%;
-
-    background:rgba(0,0,0,.35);
-
-    z-index:10;
-
-    justify-content:center;
-    align-items:center;
-
-}
-
 
 .bio-popup {
-
-    width:85%;
-
-    max-width:350px;
-
-    padding:24px;
-
-    background:#FFFDF8;
-
-    border-radius:24px;
-
-    box-shadow:0 10px 30px rgba(0,0,0,.15);
-
+    position: fixed;
+    inset: 0;
+    width: min(calc(100% - 28px), 420px);
+    max-height: calc(100% - 28px);
+    margin: auto;
+    padding: 20px;
+    border: 0;
+    border-radius: 22px;
+    background: #fffdf8;
+    color: #4d392a;
+    box-shadow: 0 10px 30px rgb(0 0 0 / 15%);
 }
 
-
-.bio-popup h3{
-
-    color:#5B4636;
-
-    margin-bottom:18px;
-
+.bio-popup::backdrop {
+    background: rgb(0 0 0 / 40%);
 }
 
-
-.bio-popup textarea{
-
-    width:100%;
-
-    height:130px;
-
-    padding:14px;
-
-    border-radius:14px;
-
-    border:1px solid #D9C8A8;
-
-    resize:none;
-
+.bio-popup fieldset {
+    display: grid;
+    gap: 7px;
+    margin-block: 12px;
+    border: 0;
 }
 
-
-.bio-popup input {
-
-    width:100%;
-
-    padding:13px 14px;
-
-    margin-bottom:14px;
-
-    border-radius:12px;
-
-    border:1px solid #D9C8A8;
-
-    background:#FFF8E8;
-
-    color:#5B4636;
-
-    font-size:1rem;
-
-    outline:none;
-
+.bio-popup label {
+    margin-top: 3px;
+    font-weight: 600;
 }
 
-
-.bio-actions {
-
-    display:flex;
-
-    gap:12px;
-
-    margin-top:18px;
-
+.bio-popup input,
+.bio-popup textarea {
+    width: 100%;
+    min-height: 44px;
+    padding: 8px 10px;
+    border: 1px solid #a58d6c;
+    border-radius: 10px;
+    background: #fff;
+    color: #4d392a;
+    font: inherit;
 }
 
-
-.bio-actions button {
-
-    flex:1;
-
-    padding:12px;
-
-    border:none;
-
-    border-radius:12px;
-
-    font-size:1rem;
-
-    cursor:pointer;
-
+.bio-popup textarea {
+    resize: vertical;
 }
 
-
-#saveBioButton {
-
-    background:#C62828;
-
-    color:white;
-
+.host-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
 }
 
-
-#cancelBioButton {
-
-    background:#E8DCC5;
-
-    color:#5B4636;
-
+.host-actions button {
+    min-height: 44px;
+    padding: 7px 13px;
+    border: 1px solid #b99976;
+    border-radius: 10px;
+    background: #fffdf8;
+    color: #4d392a;
+    font: inherit;
+    cursor: pointer;
 }
 
-
-.photo-upload {
-
-    display:block;
-
-    text-align:center;
-
-    padding:12px;
-
-    margin-bottom:16px;
-
-    border:2px dashed #D8C7A1;
-
-    border-radius:14px;
-
-    background:#FFF8E8;
-
-    color:#6F5B3E;
-
-    cursor:pointer;
-
-    font-size:1rem;
-
+.host-actions .save-host {
+    border-color: #c62828;
+    background: #c62828;
+    color: #fff;
 }
 
+.host-actions .delete-host {
+    color: #9b2020;
+}
 
-.photo-upload input {
+.host-actions button:disabled {
+    opacity: .55;
+    cursor: default;
+}
 
-    display:none;
-
+.about-hosts-content :focus-visible,
+.bio-popup :focus-visible {
+    outline: 2px solid #9b2020;
+    outline-offset: 3px;
 }

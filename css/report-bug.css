@@ -224,3 +224,36 @@
     }
 
 }
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: none;
+    place-items: center;
+    padding: 16px;
+    background: rgb(38 27 20 / 52%);
+}
+
+.popup-overlay.show {
+    display: grid;
+}
+
+.popup {
+    width: min(100%, 360px);
+    padding: 24px;
+    border-radius: 16px;
+    background: #fffaf5;
+    color: #33251e;
+    text-align: center;
+}
+
+.popup button {
+    min-height: 44px;
+    padding: 8px 24px;
+    border: 0;
+    border-radius: 8px;
+    background: #ac2424;
+    color: #fff;
+    font: inherit;
+    cursor: pointer;
+}

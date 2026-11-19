@@ -1,680 +1,264 @@
-/* ==========================================================
-   MEMBER REQUESTS
-========================================================== */
-
-*{
-
-    margin:0;
-
-    padding:0;
-
-    box-sizing:border-box;
-
+:root {
+    --bg: #faf8f1;
+    --bg-gradient: #f6f0e3;
+    --primary: #c62828;
+    --primary-dark: #8e1b1b;
+    --text: #4e342e;
+    --text-light: #6c5b53;
+    --border: #e5d8c2;
+    --card: #fffdf8;
+    --shadow: 0 10px 28px rgb(0 0 0 / 8%);
 }
 
-:root{
-
-    --bg:#FAF8F1;
-
-    --bg-gradient:#F6F0E3;
-
-    --primary:#C62828;
-
-    --primary-dark:#8E1B1B;
-
-    --accent:#4CAF50;
-
-    --text:#4E342E;
-
-    --text-light:#7A6A63;
-
-    --border:#E5D8C2;
-
-    --card:rgba(255,255,255,.72);
-
-    --shadow:0 16px 40px rgba(0,0,0,.10);
-
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-body{
-
-    min-height:100vh;
-
-    font-family:
-
-        "Poppins",
-
-        sans-serif;
-
-    background:
-
-        linear-gradient(
-
-            180deg,
-
-            var(--bg),
-
-            var(--bg-gradient)
-
-        );
-
-    color:var(--text);
-
+body {
+    min-height: 100vh;
+    background: linear-gradient(180deg, var(--bg), var(--bg-gradient));
+    color: var(--text);
+    font-family: system-ui, sans-serif;
 }
 
-.memberRequestsPage{
-
-    max-width:700px;
-
-    margin:auto;
-
-    padding:24px 18px 40px;
-
+.memberRequestsPage {
+    max-width: 700px;
+    margin: auto;
+    padding: 24px 18px 40px;
 }
 
-
-/* ==========================================================
-   TOP BAR
-========================================================== */
-
-.topBar{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:16px;
-
-    margin-bottom:28px;
-
+.topBar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 26px;
 }
 
-.backButton{
-
-    width:48px;
-
-    height:48px;
-
-    border:none;
-
-    border-radius:16px;
-
-    background:#fff;
-
-    color:var(--primary);
-
-    box-shadow:var(--shadow);
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    cursor:pointer;
-
-    transition:.25s;
-
+.backButton {
+    display: grid;
+    flex: 0 0 48px;
+    place-items: center;
+    height: 48px;
+    border-radius: 16px;
+    background: #fff;
+    color: var(--primary);
+    box-shadow: var(--shadow);
 }
 
-.backButton:hover{
-
-    transform:translateY(-2px);
-
+.backButton svg {
+    width: 24px;
+    height: 24px;
 }
 
-.backButton svg{
-
-    width:24px;
-
-    height:24px;
-
+.topBar h1 {
+    color: var(--primary);
+    font-size: clamp(1.35rem, 4vw, 1.7rem);
 }
 
-.topBar h1{
-
-    font-size:1.8rem;
-
-    font-weight:700;
-
+.topBar p,
+.requestCount {
+    color: var(--text-light);
+    font-size: .95rem;
 }
 
-.topBar p{
-
-    margin-top:4px;
-
-    color:var(--text-light);
-
-    font-size:.95rem;
-
+.requestTabs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    margin-bottom: 16px;
 }
 
-
-/* ==========================================================
-   TABS
-========================================================== */
-
-.requestTabs{
-
-    display:flex;
-
-    gap:10px;
-
-    margin-bottom:22px;
-
+.tabButton {
+    min-height: 44px;
+    padding-inline: 6px;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    background: var(--card);
+    color: var(--text);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
 }
 
-.tabButton{
-
-    flex:1;
-
-    height:46px;
-
-    border:none;
-
-    border-radius:14px;
-
-    background:#fff;
-
-    color:var(--text);
-
-    font-size:.95rem;
-
-    font-weight:600;
-
-    cursor:pointer;
-
-    transition:.25s;
-
-    box-shadow:0 4px 12px rgba(0,0,0,.05);
-
+.tabButton.active {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: #fff;
 }
 
-.tabButton.active{
-
-    background:var(--primary);
-
-    color:#fff;
-
+.requestCount,
+.requestActionStatus {
+    margin-bottom: 10px;
 }
 
-
-/* ==========================================================
-   REQUEST COUNT
-========================================================== */
-
-.requestCount{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:8px;
-
-    margin-bottom:24px;
-
-    color:var(--text-light);
-
-    font-size:.95rem;
-
+.requestActionStatus {
+    color: var(--primary-dark);
+    font-weight: 600;
 }
 
-#requestCount{
-
-    min-width:34px;
-
-    height:34px;
-
-    border-radius:50%;
-
-    background:var(--primary);
-
-    color:#fff;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    font-weight:700;
-
+.requestActionStatus:empty {
+    display: none;
 }
 
-
-/* ==========================================================
-   REQUESTS CONTAINER
-========================================================== */
-
-#requestsContainer{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:18px;
-
+#requestsContainer {
+    display: grid;
+    gap: 12px;
 }
 
-
-/* ==========================================================
-   REQUEST CARD
-========================================================== */
-
-.requestCard{
-
-    background:var(--card);
-
-    border:1px solid var(--border);
-
-    border-radius:22px;
-
-    padding:22px;
-
-    box-shadow:var(--shadow);
-
-    backdrop-filter:blur(12px);
-
-    animation:fadeUp .35s ease;
-
+.requestCard {
+    padding: 17px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--card);
+    box-shadow: var(--shadow);
 }
 
-.requestName{
-
-    font-size:1.2rem;
-
-    font-weight:700;
-
-    margin-bottom:16px;
-
-    color:var(--text);
-
+.requestName {
+    font-size: 1.12rem;
 }
 
-.requestInfo{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-
-    margin-bottom:12px;
-
-    color:var(--text-light);
-
-    font-size:.95rem;
-
+.requestDetailsButton {
+    min-height: 44px;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    overflow-wrap: anywhere;
+    cursor: pointer;
 }
 
-.requestInfo svg{
-
-    width:18px;
-
-    height:18px;
-
-    color:var(--primary);
-
-    flex-shrink:0;
-
+.requestDetailsButton:hover {
+    text-decoration: underline;
 }
 
-
-/* ==========================================================
-   ACTION BUTTONS
-========================================================== */
-
-.requestActions{
-
-    display:flex;
-
-    gap:12px;
-
-    margin-top:24px;
-
+.requestInfo {
+    color: var(--text-light);
 }
 
-.requestActions button{
-
-    flex:1;
-
-    height:48px;
-
-    border:none;
-
-    border-radius:14px;
-
-    font-size:.95rem;
-
-    font-weight:600;
-
-    cursor:pointer;
-
-    transition:.25s;
-
+.requestActions {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
 }
 
-.approveButton{
-
-    background:var(--accent);
-
-    color:#fff;
-
+.requestActions[hidden],
+.requestActions button[hidden] {
+    display: none;
 }
 
-.approveButton:hover{
-
-    transform:translateY(-2px);
-
-    box-shadow:
-
-        0 10px 24px
-
-        rgba(76,175,80,.25);
-
+.requestActions button,
+.closePopupButton {
+    min-height: 44px;
+    border: 1px solid transparent;
+    border-radius: 11px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
 }
 
-.rejectButton{
-
-    background:#FBEAEA;
-
-    color:var(--primary);
-
+.requestActions button {
+    padding-inline: 13px;
 }
 
-.rejectButton:hover{
-
-    transform:translateY(-2px);
-
-    background:#F7DADA;
-
+.approveButton {
+    background: #e5f5e8;
+    color: #24592c;
 }
 
-
-/* ==========================================================
-   EMPTY STATE
-========================================================== */
-
-#emptyState{
-
-    margin-top:80px;
-
-    text-align:center;
-
-    color:var(--text-light);
-
+.rejectButton {
+    background: #fbe8e8;
+    color: var(--primary-dark);
 }
 
-#emptyState svg{
-
-    width:72px;
-
-    height:72px;
-
-    margin-bottom:20px;
-
-    color:var(--primary);
-
-    opacity:.7;
-
+.requestActions button:disabled {
+    opacity: .6;
+    cursor: default;
 }
 
-#emptyState h2{
-
-    color:var(--text);
-
-    margin-bottom:10px;
-
+.requestDetailsDialog {
+    position: fixed;
+    inset: 0;
+    width: min(calc(100% - 32px), 460px);
+    max-height: calc(100% - 32px);
+    margin: auto;
+    padding: 0;
+    overflow: auto;
+    border: 0;
+    border-radius: 22px;
+    background: var(--card);
+    color: var(--text);
+    box-shadow: var(--shadow);
 }
 
-#emptyState p{
-
-    line-height:1.6;
-
+.requestDetailsDialog::backdrop {
+    background: rgb(0 0 0 / 42%);
 }
 
-
-/* ==========================================================
-   ANIMATIONS
-========================================================== */
-
-@keyframes fadeUp{
-
-    from{
-
-        opacity:0;
-
-        transform:translateY(20px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:translateY(0);
-
-    }
-
+.detailsPopup {
+    position: relative;
+    padding: 22px 18px;
 }
 
-
-/* ==========================================================
-   RESPONSIVE
-========================================================== */
-
-@media(max-width:520px){
-
-    .topBar h1{
-
-        font-size:1.5rem;
-
-    }
-
-    .requestCard{
-
-        padding:18px;
-
-    }
-
-    .requestActions{
-
-        flex-direction:column;
-
-    }
-
-    .requestActions button{
-
-        width:100%;
-
-    }
-
+.closePopupButton {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 44px;
+    border-radius: 50%;
+    background: var(--bg-gradient);
+    color: var(--text);
+    font-size: 1.45rem;
 }
 
-/* ==========================================================
-   MEMBER DETAILS POPUP
-========================================================== */
-
-.detailsOverlay{
-
-    position:fixed;
-
-    inset:0;
-
-    background:rgba(0,0,0,.45);
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    padding:20px;
-
-    z-index:999;
-
-    backdrop-filter:blur(4px);
-
+.popupHeader {
+    display: grid;
+    justify-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+    text-align: center;
+    overflow-wrap: anywhere;
 }
 
-.detailsPopup{
-
-    width:100%;
-
-    max-width:420px;
-
-    background:#fff;
-
-    border-radius:24px;
-
-    padding:26px;
-
-    position:relative;
-
-    animation:popupShow .25s ease;
-
-    box-shadow:0 20px 50px rgba(0,0,0,.20);
-
+.request-avatar {
+    display: grid;
+    place-items: center;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    font-size: 1.85rem;
+    font-weight: 700;
 }
 
-.closePopupButton{
-
-    position:absolute;
-
-    top:18px;
-
-    right:18px;
-
-    width:40px;
-
-    height:40px;
-
-    border:none;
-
-    border-radius:50%;
-
-    background:#F3F3F3;
-
-    cursor:pointer;
-
-    font-size:1.1rem;
-
-    transition:.25s;
-
+.detailRow {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding-block: 9px;
+    border-bottom: 1px solid var(--border);
 }
 
-.closePopupButton:hover{
-
-    background:#E8E8E8;
-
+.detailRow:last-child {
+    border-bottom: 0;
 }
 
-.popupHeader{
-
-    display:flex;
-
-    flex-direction:column;
-
-    align-items:center;
-
-    margin-bottom:24px;
-
+.detailRow dt {
+    color: var(--text-light);
+    font-weight: 600;
 }
 
-.popupHeader img{
-
-    width:90px;
-
-    height:90px;
-
-    border-radius:50%;
-
-    object-fit:cover;
-
-    border:4px solid var(--primary);
-
-    margin-bottom:14px;
-
+.detailRow dd {
+    min-width: 0;
+    text-align: right;
+    overflow-wrap: anywhere;
 }
 
-.popupHeader h2{
-
-    font-size:1.35rem;
-
-    color:var(--text);
-
-}
-
-.popupDetails{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:14px;
-
-}
-
-.detailRow{
-
-    padding:12px 0;
-
-    border-bottom:1px solid #EEEEEE;
-
-}
-
-.detailRow:last-child{
-
-    border-bottom:none;
-
-}
-
-.detailRow span{
-
-    display:block;
-
-    font-size:.82rem;
-
-    color:var(--text-light);
-
-    margin-bottom:4px;
-
-}
-
-.detailRow p{
-
-    font-size:1rem;
-
-    font-weight:600;
-
-    color:var(--text);
-
-    word-break:break-word;
-
-}
-
-@keyframes popupShow{
-
-    from{
-
-        opacity:0;
-
-        transform:scale(.92);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:scale(1);
-
-    }
-
-}
-
-.detailsOverlay[hidden]{
-
-    display:none !important;
-
+.memberRequestsPage :focus-visible,
+.requestDetailsDialog :focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
 }

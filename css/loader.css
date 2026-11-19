@@ -15,3 +15,10 @@ body{
             background:#FAF8F1;
 
 }
+body {
+    flex-direction: column;
+    gap: 12px;
+    padding: 24px;
+    box-sizing: border-box;
+    text-align: center;
+}
