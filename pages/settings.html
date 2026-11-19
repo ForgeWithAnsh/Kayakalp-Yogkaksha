@@ -14,9 +14,18 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/settings.css">
 
+    <link rel="stylesheet" href="../css/access.css">
+    <script type="module" src="../js/page-access.js"></script>
 </head>
 
-<body>
+<body data-access="approved">
+    <section class="access-status" aria-label="Account access">
+        <p role="status">Checking your account…</p>
+        <div class="access-status__actions" hidden>
+            <button type="button" data-retry>Try again</button>
+            <button type="button" data-sign-out>Sign out</button>
+        </div>
+    </section>
 
     <!-- Background -->
 
@@ -51,136 +60,33 @@
         ========================================== -->
 
         <section class="settings-section">
-
-            <h2>
-
-                Notifications
-
-            </h2>
-
-            <div class="setting-item">
-
-                <div>
-
-                    <h3>
-
-                        Announcement Notifications
-
-                    </h3>
-
-                    <p>
-
-                        Receive important announcements.
-
-                    </p>
-
-                </div>
-
-                <label class="switch">
-
-                    <input
-                        type="checkbox"
-                        id="announcementNotification"
-                        checked>
-
-                    <span class="slider"></span>
-
-                </label>
-
-            </div>
-
-            <div class="setting-item">
-
-                <div>
-
-                    <h3>
-
-                        Live Class Reminder
-
-                    </h3>
-
-                    <p>
-
-                        Notify before live yoga classes.
-
-                    </p>
-
-                </div>
-
-                <label class="switch">
-
-                    <input
-                        type="checkbox"
-                        id="liveReminder"
-                        checked>
-
-                    <span class="slider"></span>
-
-                </label>
-
-            </div>
-
+            <h2>Account</h2>
+            <a class="settings-button" href="change-password.html">Change password</a>
+            <a class="settings-button" href="forgot-password.html">Reset password</a>
+            <button class="settings-button" id="settingsSignOut" type="button">Sign out</button>
+            <p id="settingsStatus" role="status"></p>
         </section>
 
-
-
-        <!-- ==========================================
-             APP
-        ========================================== -->
-
-        <section class="settings-section">
-
-            <h2>
-
-                App
-
-            </h2>
-
-            <button
-                class="settings-button"
-                id="checkUpdatesButton">
-
-                Check for Updates
-
-            </button>
-
-            <button
-                class="settings-button"
-                id="privacyPolicyButton">
-
-                Privacy Policy
-
-            </button>
-
-            <button
-                class="settings-button"
-                id="termsButton">
-
-                Terms & Conditions
-
-            </button>
-
-            <div class="version-box">
-
-                <span>
-
-                    Version
-
-                </span>
-
-                <strong>
-
-                    v1.0.0
-
-                </strong>
-
-            </div>
-
+        <section class="settings-section" id="adminSettings" hidden>
+            <h2>Class settings</h2>
+            <form class="settings-form" id="meetingSettings">
+                <label for="meetingUrl">Zoom invitation</label>
+                <input id="meetingUrl" type="url" required autocomplete="off">
+                <button class="settings-button" type="submit">Save invitation</button>
+            </form>
+            <h2>Locations</h2>
+            <ul class="settings-locations" id="locationList"></ul>
+            <form class="settings-form" id="locationSettings">
+                <label for="newLocation">Location name</label>
+                <input id="newLocation" required maxlength="80">
+                <button class="settings-button" type="submit">Add location</button>
+            </form>
+            <p id="adminSettingsStatus" role="status"></p>
         </section>
 
     </div>
 
-    <script src="../js/settings.js"></script>
+    <script type="module" src="../js/settings.js"></script>
 
 </body>
 

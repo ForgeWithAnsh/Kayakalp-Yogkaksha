@@ -1,303 +1,117 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Yoga Abhyas</title>
-
-<link rel="stylesheet" href="../css/style.css">
-<link rel="stylesheet" href="../css/yoga-abhyas.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Yoga Abhyas | Kayakalp Yogkaksha</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/yoga-abhyas.css">
+    <link rel="stylesheet" href="../css/access.css">
+    <script type="module" src="../js/page-access.js"></script>
 </head>
-
-<body>
-
-<div class="background paper-background"></div>
-
-<div class="yoga-content">
-
-<header class="yoga-header">
-
-<button class="back-button" id="backButton">
-    ←
-</button>
-
-<h1>
-    Yoga Abhyas
-</h1>
-
-</header>
-
-
-<div class="asana">
-
-    <div class="asana-details">
-
-        <h2>1. Sukhasana</h2>
-
-        <p>
-            5:00 AM - 5:10 AM
-            <br>
-            (10 minutes)
-        </p>
-
-    </div>
-
-    <button class="video-button">▶</button>
-
-</div>
-
-
-<div class="asana">
-
-    <div class="asana-details">
-
-        <h2>2. Surya Namaskar</h2>
-
-        <p>
-            5:10 AM - 5:25 AM
-            <br>
-            (15 minutes)
-        </p>
-
-    </div>
-
-    <button class="video-button">▶</button>
-
-</div>
-
-
-<div class="asana">
-
-    <div class="asana-details">
-
-        <h2>3. Tadasana</h2>
-
-        <p>
-            5:25 AM - 5:35 AM
-            <br>
-            (10 minutes)
-        </p>
-
-    </div>
-
-    <button class="video-button">▶</button>
-
-</div>
-
-
-<div class="asana">
-
-    <div class="asana-details">
-
-        <h2>4. Vrikshasana</h2>
-
-        <p>
-            5:35 AM - 5:45 AM
-            <br>
-            (10 minutes)
-        </p>
-
-    </div>
-
-    <button class="video-button">▶</button>
-
-</div>
-
-
-<div class="asana">
-
-    <div class="asana-details">
-
-        <h2>5. Bhujangasana</h2>
-
-        <p>
-            5:45 AM - 5:55 AM
-            <br>
-            (10 minutes)
-        </p>
-
-    </div>
-
-    <button class="video-button">▶</button>
-
-</div>
-
-
-<div class="asana">
-
-    <div class="asana-details">
-
-        <h2>6. Vajrasana</h2>
-
-        <p>
-            5:55 AM - 6:05 AM
-            <br>
-            (10 minutes)
-        </p>
-
-    </div>
-
-    <button class="video-button">▶</button>
-
-</div>
-
-
-<div class="asana">
-
-    <div class="asana-details">
-
-        <h2>7. Trikonasana</h2>
-
-        <p>
-            6:05 AM - 6:15 AM
-            <br>
-            (10 minutes)
-        </p>
-
-    </div>
-
-    <button class="video-button">▶</button>
-
-</div>
-
-
-<div class="asana">
-
-    <div class="asana-details">
-
-        <h2>8. Padmasana</h2>
-
-        <p>
-            6:15 AM - 6:30 AM
-            <br>
-            (15 minutes)
-        </p>
-
-    </div>
-
-    <button class="video-button">▶</button>
-
-</div>
-
-
-<div class="asana">
-
-    <div class="asana-details">
-
-        <h2>9. Anulom Vilom Pranayama</h2>
-
-        <p>
-            6:30 AM - 6:45 AM
-            <br>
-            (15 minutes)
-        </p>
-
-    </div>
-
-    <button class="video-button">▶</button>
-
-</div>
-
-
-<div class="asana">
-
-    <div class="asana-details">
-
-        <h2>10. Kapalbhati Pranayama</h2>
-
-        <p>
-            6:45 AM - 7:00 AM
-            <br>
-            (15 minutes)
-        </p>
-
-    </div>
-
-    <button class="video-button">▶</button>
-
-</div>
-
-
-<div class="asana">
-
-    <div class="asana-details">
-
-        <h2>11. Meditation</h2>
-
-        <p>
-            7:00 AM - 7:15 AM
-            <br>
-            (15 minutes)
-        </p>
-
-    </div>
-
-    <button class="video-button">▶</button>
-
-</div>
-
-
-<div class="asana">
-
-    <div class="asana-details">
-
-        <h2>12. Shavasana</h2>
-
-        <p>
-            7:15 AM - 7:25 AM
-            <br>
-            (10 minutes)
-        </p>
-
-    </div>
-
-    <button class="video-button">▶</button>
-
-</div>
-
-</div>
-
-<!-- ==========================================================
-     VIDEO COMING SOON POPUP
-========================================================== -->
-
-<div
-    class="popup-overlay"
-    id="videoPopupOverlay">
-
-    <div class="popup-card">
-
-        <div class="popup-icon">
-            📹
+<body data-access="approved">
+    <section class="access-status" aria-label="Account access">
+        <p role="status">Checking your account…</p>
+        <div class="access-status__actions" hidden>
+            <button type="button" data-retry>Try again</button>
+            <button type="button" data-sign-out>Sign out</button>
         </div>
+    </section>
+    <div class="background paper-background" aria-hidden="true"></div>
 
-        <h2>
-            Video Tutorial
-        </h2>
+    <main class="yoga-content">
+        <header class="yoga-header">
+            <a class="back-button" href="../index.html" aria-label="Back to home">←</a>
+            <h1>Yoga Abhyas</h1>
+        </header>
 
-        <p>
-            Video tutorials will be available in a future update.
-        </p>
+        <p id="videoStatus" class="video-status">Video tutorials have not been added yet.</p>
 
-        <button
-            class="popup-button"
-            id="closeVideoPopup">
+        <article class="asana">
+            <div class="asana-details">
+                <h2>1. Sukhasana</h2>
+                <p>5:00–5:10 AM · 10 minutes</p>
+            </div>
+        </article>
 
-            OK
+        <article class="asana">
+            <div class="asana-details">
+                <h2>2. Surya Namaskar</h2>
+                <p>5:10–5:25 AM · 15 minutes</p>
+            </div>
+        </article>
 
-        </button>
+        <article class="asana">
+            <div class="asana-details">
+                <h2>3. Tadasana</h2>
+                <p>5:25–5:35 AM · 10 minutes</p>
+            </div>
+        </article>
 
-    </div>
+        <article class="asana">
+            <div class="asana-details">
+                <h2>4. Vrikshasana</h2>
+                <p>5:35–5:45 AM · 10 minutes</p>
+            </div>
+        </article>
 
-</div>
+        <article class="asana">
+            <div class="asana-details">
+                <h2>5. Bhujangasana</h2>
+                <p>5:45–5:55 AM · 10 minutes</p>
+            </div>
+        </article>
 
-<script src="../js/yoga-abhyas.js"></script>
+        <article class="asana">
+            <div class="asana-details">
+                <h2>6. Vajrasana</h2>
+                <p>5:55–6:05 AM · 10 minutes</p>
+            </div>
+        </article>
 
+        <article class="asana">
+            <div class="asana-details">
+                <h2>7. Trikonasana</h2>
+                <p>6:05–6:15 AM · 10 minutes</p>
+            </div>
+        </article>
+
+        <article class="asana">
+            <div class="asana-details">
+                <h2>8. Padmasana</h2>
+                <p>6:15–6:30 AM · 15 minutes</p>
+            </div>
+        </article>
+
+        <article class="asana">
+            <div class="asana-details">
+                <h2>9. Anulom Vilom Pranayama</h2>
+                <p>6:30–6:45 AM · 15 minutes</p>
+            </div>
+        </article>
+
+        <article class="asana">
+            <div class="asana-details">
+                <h2>10. Kapalbhati Pranayama</h2>
+                <p>6:45–7:00 AM · 15 minutes</p>
+            </div>
+        </article>
+
+        <article class="asana">
+            <div class="asana-details">
+                <h2>11. Meditation</h2>
+                <p>7:00–7:15 AM · 15 minutes</p>
+            </div>
+        </article>
+
+        <article class="asana">
+            <div class="asana-details">
+                <h2>12. Shavasana</h2>
+                <p>7:15–7:25 AM · 10 minutes</p>
+            </div>
+        </article>
+    </main>
+
+    <script type="module" src="../js/yoga-abhyas.js"></script>
 </body>
-
 </html>

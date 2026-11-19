@@ -1,290 +1,77 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
-    <title>
-
-        Member Requests
-
-    </title>
-
-    <link
-        rel="stylesheet"
-        href="../css/member-requests.css">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Member Requests | Kayakalp Yogkaksha</title>
+    <link rel="stylesheet" href="../css/member-requests.css">
+    <link rel="stylesheet" href="../css/access.css">
+    <script type="module" src="../js/page-access.js"></script>
 </head>
-
-<body>
-
+<body data-access="admin">
+    <section class="access-status" aria-label="Account access">
+        <p role="status">Checking your account…</p>
+        <div class="access-status__actions" hidden>
+            <button type="button" data-retry>Try again</button>
+            <button type="button" data-sign-out>Sign out</button>
+        </div>
+    </section>
     <main class="memberRequestsPage">
-
-        <!-- =========================
-             TOP BAR
-        ========================== -->
-
         <header class="topBar">
-
-            <button
-                id="backButton"
-                class="backButton"
-                aria-label="Go Back">
-
-                <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2">
-
-                    <path
-                        d="M15 18l-6-6 6-6"/>
-
+            <a class="backButton" href="../index.html" aria-label="Back to home">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M15 18l-6-6 6-6"/>
                 </svg>
-
-            </button>
-
+            </a>
             <div>
-
-                <h1>
-
-                    Member Requests
-
-                </h1>
-
-                <p>
-
-                    Review and manage new member requests
-
-                </p>
-
+                <h1>Member Requests</h1>
+                <p>Review and manage new member requests</p>
             </div>
-
         </header>
 
+        <nav class="requestTabs" aria-label="Request status">
+            <button class="tabButton active" type="button" data-status="pending" aria-pressed="true">Pending</button>
+            <button class="tabButton" type="button" data-status="approved" aria-pressed="false">Approved</button>
+            <button class="tabButton" type="button" data-status="rejected" aria-pressed="false">Rejected</button>
+        </nav>
 
-        <!-- =========================
-             FILTERS
-        ========================== -->
-
-        <section class="requestTabs">
-
-            <button
-                class="tabButton active"
-                id="pendingTab">
-
-                Pending
-
-            </button>
-
-            <button
-                class="tabButton"
-                id="approvedTab">
-
-                Approved
-
-            </button>
-
-            <button
-                class="tabButton"
-                id="rejectedTab">
-
-                Rejected
-
-            </button>
-
-        </section>
-
-
-        <!-- =========================
-             REQUEST COUNT
-        ========================== -->
-
-        <section
-            class="requestCount">
-
-            <span id="requestCount">
-
-                0
-
-            </span>
-
-            Requests Found
-
-        </section>
-
-
-        <!-- =========================
-             REQUESTS
-        ========================== -->
-
-        <section
-            id="requestsContainer">
-
-            <!--
-
-            Request cards
-            will be generated
-            using JavaScript.
-
-            -->
-
-        </section>
-
-
-        <!-- =========================
-             EMPTY STATE
-        ========================== -->
-
-        <section
-            id="emptyState"
-            hidden>
-
-            <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2">
-
-                <path
-                    d="M12 2v20"/>
-
-                <path
-                    d="M2 12h20"/>
-
-            </svg>
-
-            <h2>
-
-                No Requests
-
-            </h2>
-
-            <p>
-
-                There are no member requests at the moment.
-
-            </p>
-
-        </section>
-
+        <p id="requestStatus" class="requestCount" role="status">Loading requests…</p>
+        <p id="requestActionStatus" class="requestActionStatus" role="status"></p>
+        <div id="requestsContainer"></div>
     </main>
-    
-    <!-- =========================
-     MEMBER DETAILS POPUP
-========================== -->
 
-<div
-    id="detailsOverlay"
-    class="detailsOverlay"
-    hidden>
-
-    <div
-        class="detailsPopup">
-
-        <button
-            id="closePopupButton"
-            class="closePopupButton"
-            aria-label="Close">
-
-            ✕
-
-        </button>
-
-        <div class="popupHeader">
-
-            <img
-                id="popupProfileImage"
-                src="../assets/images/default-profile.png"
-                alt="Profile">
-
-            <h2
-                id="popupName">
-
-                Member Name
-
+    <template id="requestCardTemplate">
+        <article class="requestCard">
+            <h2 class="requestName">
+                <button class="requestDetailsButton" type="button"></button>
             </h2>
+            <p class="requestInfo"></p>
+            <div class="requestActions" hidden>
+                <button class="approveButton" type="button">Approve</button>
+                <button class="rejectButton" type="button">Reject</button>
+            </div>
+        </article>
+    </template>
 
+    <dialog id="detailsOverlay" class="requestDetailsDialog" aria-labelledby="popupName">
+        <div class="detailsPopup">
+            <button id="closePopupButton" class="closePopupButton" type="button" aria-label="Close details">×</button>
+            <div class="popupHeader">
+                <span id="requestAvatar" class="request-avatar" aria-hidden="true"></span>
+                <h2 id="popupName"></h2>
+            </div>
+            <dl class="popupDetails">
+                <div class="detailRow"><dt>Email</dt><dd id="popupEmail"></dd></div>
+                <div class="detailRow"><dt>Phone</dt><dd id="popupPhone"></dd></div>
+                <div class="detailRow"><dt>Gender</dt><dd id="popupGender"></dd></div>
+                <div class="detailRow"><dt>Date of birth</dt><dd id="popupDob"></dd></div>
+                <div class="detailRow"><dt>Address</dt><dd id="popupAddress"></dd></div>
+                <div class="detailRow"><dt>Location</dt><dd id="popupPark"></dd></div>
+                <div class="detailRow"><dt>Health information</dt><dd id="popupHealth"></dd></div>
+            </dl>
         </div>
+    </dialog>
 
-
-        <div class="popupDetails">
-
-            <div class="detailRow">
-
-                <span>Email</span>
-
-                <p id="popupEmail"></p>
-
-            </div>
-
-            <div class="detailRow">
-
-                <span>Phone</span>
-
-                <p id="popupPhone"></p>
-
-            </div>
-
-            <div class="detailRow">
-
-                <span>Gender</span>
-
-                <p id="popupGender"></p>
-
-            </div>
-
-            <div class="detailRow">
-
-                <span>Date of Birth</span>
-
-                <p id="popupDob"></p>
-
-            </div>
-
-            <div class="detailRow">
-
-                <span>Address</span>
-
-                <p id="popupAddress"></p>
-
-            </div>
-
-            <div class="detailRow">
-
-                <span>Preferred Park</span>
-
-                <p id="popupPark"></p>
-
-            </div>
-
-            <div class="detailRow">
-
-                <span>Health Issues</span>
-
-                <p id="popupHealth"></p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-    <script
-        type="module"
-        src="../js/member-requests.js">
-
-    </script>
-
+    <script type="module" src="../js/member-requests.js"></script>
 </body>
-
 </html>

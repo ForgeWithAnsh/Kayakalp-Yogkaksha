@@ -14,9 +14,18 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/profile.css">
 
+    <link rel="stylesheet" href="../css/access.css">
+    <script type="module" src="../js/page-access.js"></script>
 </head>
 
-<body>
+<body data-access="approved">
+    <section class="access-status" aria-label="Account access">
+        <p role="status">Checking your account…</p>
+        <div class="access-status__actions" hidden>
+            <button type="button" data-retry>Try again</button>
+            <button type="button" data-sign-out>Sign out</button>
+        </div>
+    </section>
 
     <!-- ==========================================
          ANIMATED BACKGROUND
@@ -86,9 +95,7 @@
 
                 <div class="profile-photo">
 
-    <img
-        id="profilePhoto"
-        alt="Profile Photo">
+    <span class="profile-initial" id="profilePhoto" aria-hidden="true">K</span>
 
 </div>
 
@@ -115,41 +122,13 @@
 </p>
 
 
-<!-- Status -->
 
-<div class="member-status">
-
-    <span class="status-dot"></span>
-
-    <span id="profileMemberStatus"></span>
-
-</div>
 
              
 
             </div>
 
         </section>
-        
-        
-        <!-- ==========================================
-     EDIT PROFILE
-========================================== -->
-
-<section class="edit-profile-section">
-
-    <button
-        class="edit-profile-button"
-        id="editProfileButton"
-        type="button">
-
-        ✏️ Edit Profile
-
-    </button>
-
-</section>
-        
-        
         
         
         <!-- ==========================================
@@ -214,6 +193,7 @@
 
         </h2>
 
+        <p id="profileStatsStatus" role="status"></p>
         <div class="statistics-grid">
 
             <!-- Attendance -->
@@ -222,8 +202,7 @@
 
                 <h3
                     class="stat-number"
-                    id="totalAttendance">
-                </h3>
+                    id="totalAttendance">—</h3>
 
                 <p class="stat-label">
 
@@ -239,8 +218,7 @@
 
                 <h3
                     class="stat-number"
-                    id="currentStreak">
-                </h3>
+                    id="currentStreak">—</h3>
 
                 <p class="stat-label">
 
@@ -256,8 +234,7 @@
 
                 <h3
                     class="stat-number"
-                    id="practiceHours">
-                </h3>
+                    id="practiceHours">—</h3>
 
                 <p class="stat-label">
 
@@ -274,25 +251,14 @@
 </section>
 
 
-<!-- ==========================================
-     CHANGE PASSWORD
-========================================== -->
-
-<section class="profile-section">
+<section class="edit-profile-section">
 
     <button
-        class="settings-button"
-        id="changePasswordButton">
+        class="edit-profile-button"
+        id="editProfileButton"
+        type="button">
 
-        <span class="settings-icon">🔒</span>
-
-        <span class="settings-text">
-
-            Change Password
-
-        </span>
-
-        <span class="settings-arrow">›</span>
+        ✏️ Edit Profile
 
     </button>
 
@@ -390,8 +356,7 @@
 
     </div>
     
-    <script src="../js/user-data.js"></script>
-    <script src="../js/profile.js"></script>
+    <script type="module" src="../js/profile.js"></script>
 
 </body>
 

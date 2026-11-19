@@ -1,156 +1,71 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1">
-
-    <title>Announcements</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Announcements | Kayakalp Yogkaksha</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/announcements.css">
-
+    <link rel="stylesheet" href="../css/access.css">
+    <script type="module" src="../js/page-access.js"></script>
 </head>
+<body data-access="approved">
+    <section class="access-status" aria-label="Account access">
+        <p role="status">Checking your account…</p>
+        <div class="access-status__actions" hidden>
+            <button type="button" data-retry>Try again</button>
+            <button type="button" data-sign-out>Sign out</button>
+        </div>
+    </section>
+    <div class="background paper-background" aria-hidden="true"></div>
 
-<body>
-
-    <!-- Background -->
-
-    <div class="background paper-background"></div>
-
-    <div class="announcement-content">
-
-        <!-- Header -->
-
+    <main class="announcement-content">
         <header class="announcement-header">
-
-            <button
-                class="back-button"
-                id="backButton">
-
-                ←
-
-            </button>
-
-            <h1>
-
-                Announcements
-
-            </h1>
-
+            <a class="back-button" href="../index.html" aria-label="Back to home">←</a>
+            <h1>Announcements</h1>
         </header>
 
+        <details class="announcement-editor" id="announcementEditor" hidden>
+            <summary id="announcementEditorTitle">New announcement</summary>
+            <form id="announcementForm">
+                <label for="announcementTitle">Title</label>
+                <input id="announcementTitle" name="title" maxlength="120" required>
 
-        <!-- Announcements Container -->
+                <label for="announcementText">Message</label>
+                <textarea id="announcementText" name="message" rows="4" maxlength="2000" required></textarea>
 
-        <div id="announcementsContainer">
+                <label class="announcement-important">
+                    <input name="important" type="checkbox">
+                    Show on the home page
+                </label>
 
-            <!-- Announcement 1 -->
-
-            <section class="announcement-card">
-
-                <div class="announcement-top">
-
-                    <span class="announcement-icon">
-
-                        📢
-
-                    </span>
-
-                    <span class="announcement-date">
-
-                        27 Jul 2026 • 8:45 PM
-
-                    </span>
-
+                <div class="announcement-actions">
+                    <button class="announcement-primary" id="sendAnnouncementButton" type="submit">Publish</button>
+                    <button id="cancelAnnouncementButton" type="button">Cancel</button>
                 </div>
+                <p class="announcement-status" id="announcementFormStatus" role="status"></p>
+            </form>
+        </details>
 
-                <h2>
+        <p class="announcement-status" id="announcementStatus" role="status">Loading announcements…</p>
+        <div id="announcementsContainer"></div>
+    </main>
 
-                    Tomorrow's Class Timing
+    <template id="announcementCardTemplate">
+        <article class="announcement-card">
+            <header class="announcement-top">
+                <span class="announcement-icon" aria-hidden="true">📢</span>
+                <time class="announcement-date"></time>
+            </header>
+            <h2></h2>
+            <p class="announcement-message"></p>
+            <div class="announcement-actions" hidden>
+                <button class="edit-announcement" type="button">Edit</button>
+                <button class="delete-announcement" type="button">Delete</button>
+            </div>
+        </article>
+    </template>
 
-                </h2>
-
-                <p>
-
-                    Tomorrow's yoga class will begin at
-                    <strong>5:15 AM</strong> instead of
-                    <strong>5:00 AM</strong>.
-                    Please join the session five minutes early.
-
-                </p>
-
-            </section>
-
-
-            <!-- Announcement 2 -->
-
-            <section class="announcement-card">
-
-                <div class="announcement-top">
-
-                    <span class="announcement-icon">
-
-                        🌿
-
-                    </span>
-
-                    <span class="announcement-date">
-
-                        24 Jul 2026 • 6:30 PM
-
-                    </span>
-
-                </div>
-
-                <h2>
-
-                    Sunday Meditation Session
-
-                </h2>
-
-                <p>
-
-                    A special meditation and pranayama session
-                    will be conducted this Sunday.
-                    All members are requested to attend.
-
-                </p>
-
-            </section>
-
-        </div>
-
-    </div>
-
-
-    <!-- Create Announcement -->
-
-    <div class="announcement-input">
-
-        <div class="input-wrapper">
-
-            <textarea
-                id="announcementText"
-                placeholder="Write an announcement..."></textarea>
-
-            <button
-                id="sendAnnouncementButton">
-
-                ➤
-
-            </button>
-
-        </div>
-
-    </div>
-
-    <script src="../js/announcements.js"></script>
-
+    <script type="module" src="../js/announcements.js"></script>
 </body>
-
 </html>

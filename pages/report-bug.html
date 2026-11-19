@@ -14,9 +14,18 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/report-bug.css">
 
+    <link rel="stylesheet" href="../css/access.css">
+    <script type="module" src="../js/page-access.js"></script>
 </head>
 
-<body>
+<body data-access="approved">
+    <section class="access-status" aria-label="Account access">
+        <p role="status">Checking your account…</p>
+        <div class="access-status__actions" hidden>
+            <button type="button" data-retry>Try again</button>
+            <button type="button" data-sign-out>Sign out</button>
+        </div>
+    </section>
 
     <!-- Background -->
 
@@ -59,7 +68,7 @@
 
             <input
                 type="text"
-                id="issueTitle"
+                id="issueTitle" maxlength="120"
                 placeholder="Short title">
 
 
@@ -127,7 +136,7 @@
             </label>
 
             <textarea
-                id="issueDescription"
+                id="issueDescription" maxlength="3000"
                 rows="6"
                 placeholder="Describe the issue in detail..."></textarea>
 
@@ -142,7 +151,7 @@
 
             <input
                 type="text"
-                id="device"
+                id="device" maxlength="200"
                 placeholder="e.g. Redmi Note 13">
 
 
@@ -172,11 +181,16 @@
     </div>
     
     <div class="popup-overlay" id="messagePopupOverlay">
-    ...
-</div>
+        <section class="popup" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+            <div id="popupIcon" aria-hidden="true"></div>
+            <h2 id="popupTitle"></h2>
+            <p id="popupMessage"></p>
+            <button id="popupButton" type="button">OK</button>
+        </section>
+    </div>
 
 
-    <script src="../js/report-bug.js"></script>
+    <script type="module" src="../js/report-bug.js"></script>
 
 </body>
 

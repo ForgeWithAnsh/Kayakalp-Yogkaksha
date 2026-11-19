@@ -1,743 +1,124 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
-    <title>All Members</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>All Members | Kayakalp Yogkaksha</title>
     <link rel="stylesheet" href="../css/style.css">
-
     <link rel="stylesheet" href="../css/all-members.css">
-
+    <link rel="stylesheet" href="../css/access.css">
+    <script type="module" src="../js/page-access.js"></script>
 </head>
-
-<body>
-
-    <!-- Background -->
-
-    <div class="background paper-background"></div>
-
-
-    <!-- ==========================================================
-         APP CONTENT
-    ========================================================== -->
-
-    <div class="app-content">
-
-
-        <!-- ==========================================================
-             ALL MEMBERS
-        ========================================================== -->
-
-        <main class="all-members-page">
-
-
-            <!-- ======================================================
-                 HEADER
-            ======================================================= -->
-
-            <header class="members-header">
-
-                <button
-                    id="backButton"
-                    class="back-button">
-
-                    ←
-
-                </button>
-
-                <div>
-
-                    <h1>
-
-                        All Members
-
-                    </h1>
-
-                    <p>
-
-                        Manage every approved member
-
-                    </p>
-
-                </div>
-
-            </header>
-
-
-            <!-- ======================================================
-                 SEARCH
-            ======================================================= -->
-
-            <section class="search-section">
-
-                <input
-
-                    type="text"
-
-                    id="searchInput"
-
-                    placeholder="Search members...">
-
-            </section>
-
-
-            <!-- ======================================================
-                 SORT
-            ======================================================= -->
-
-            <section class="sort-section">
-
-                <label>
-
-                    Sort By
-
-                </label>
-
-                <select id="sortSelect">
-
-                    <option value="az">
-
-                        A → Z
-
-                    </option>
-
-                    <option value="za">
-
-                        Z → A
-
-                    </option>
-
-                    <option value="newest">
-
-                        Newest Joined
-
-                    </option>
-
-                    <option value="oldest">
-
-                        Oldest Joined
-
-                    </option>
-
-                    <option value="memberid">
-
-                        Member ID
-
-                    </option>
-
-                </select>
-
-            </section>
-
-
-            <!-- ======================================================
-                 MEMBERS LIST
-            ======================================================= -->
-
-            <section
-                id="membersContainer"
-                class="members-container">
-
-            </section>
-
-
-            <!-- ======================================================
-                 EMPTY STATE
-            ======================================================= -->
-
-            <section
-                id="emptyState"
-                class="empty-state">
-
-                <p>
-
-                    No members found.
-
-                </p>
-
-            </section>
-
-
-        </main>
-
-    </div>
-    
-    
-    <!-- ==========================================================
-     MEMBER PROFILE OVERLAY
-========================================================== -->
-
-<div
-    id="memberProfileOverlay"
-    class="member-profile-overlay">
-
-
-    <!-- ======================================================
-         BOTTOM SHEET
-    ======================================================= -->
-
-    <div
-        id="memberProfileSheet"
-        class="member-profile-sheet">
-
-
-        <!-- Handle -->
-
-        <div class="sheet-handle"></div>
-
-
-        <!-- ==================================================
-             PROFILE HEADER
-        =================================================== -->
-
-        <section class="profile-header">
-
-            <div
-                id="profileAvatar"
-                class="profile-avatar">
-
-                A
-
-            </div>
-
-            <h2 id="profileName">
-
-                Member Name
-
-            </h2>
-
-            <span
-                id="profileRole"
-                class="profile-role">
-
-                MEMBER
-
-            </span>
-
-            <p
-                id="profileMemberId"
-                class="profile-member-id">
-
-                YG-000001
-
-            </p>
-
-        </section>
-
-
-        <!-- ==================================================
-             DETAILS
-        =================================================== -->
-
-        <section class="profile-details">
-
-
-            <div class="detail-row">
-
-                <span>📞 Phone</span>
-
-                <span id="profilePhone">-</span>
-
-            </div>
-
-
-            <div class="detail-row">
-
-                <span>⚧ Gender</span>
-
-                <span id="profileGender">-</span>
-
-            </div>
-
-
-            <div class="detail-row">
-
-                <span>🎂 DOB</span>
-
-                <span id="profileDob">-</span>
-
-            </div>
-
-
-            <div class="detail-row">
-
-                <span>📅 Age</span>
-
-                <span id="profileAge">-</span>
-
-            </div>
-
-
-            <div class="detail-row">
-
-                <span>🌳 Park</span>
-
-                <span id="profilePark">-</span>
-
-            </div>
-
-
-            <div class="detail-row">
-
-                <span>❤️ Health</span>
-
-                <span id="profileHealth">-</span>
-
-            </div>
-
-
-            <div class="detail-row">
-
-                <span>✉️ Email</span>
-
-                <span id="profileEmail">-</span>
-
-            </div>
-
-
-            <div class="detail-row">
-
-                <span>🏠 Address</span>
-
-                <span id="profileAddress">-</span>
-
-            </div>
-
-
-            <div class="detail-row">
-
-                <span>🗓 Joined</span>
-
-                <span id="profileJoined">-</span>
-
-            </div>
-
-
-            <div class="detail-row">
-
-                <span>📈 Attendance</span>
-
-                <span id="profileAttendance">
-
-                    0%
-
-                </span>
-
-            </div>
-
-        </section>
-
-
-        <!-- ==================================================
-             MANAGE BUTTON
-        =================================================== -->
-
-        <button
-            id="manageMemberButton"
-            class="manage-member-button">
-
-            ⚙️ Manage
-
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- ==========================================================
-     MANAGE MEMBER POPUP
-========================================================== -->
-
-<!-- ==========================================================
-     MANAGE MEMBER POPUP
-========================================================== -->
-
-<div
-    id="managePopupOverlay"
-    class="manage-popup-overlay">
-
-    <div class="manage-popup">
-
-
-        <!-- ==================================================
-             HEADER
-        =================================================== -->
-
-        <div class="manage-popup-header">
-
+<body data-access="staff">
+    <section class="access-status" aria-label="Account access">
+        <p role="status">Checking your account…</p>
+        <div class="access-status__actions" hidden>
+            <button type="button" data-retry>Try again</button>
+            <button type="button" data-sign-out>Sign out</button>
+        </div>
+    </section>
+    <div class="background paper-background" aria-hidden="true"></div>
+
+    <main class="all-members-page">
+        <header class="members-header">
+            <a class="back-button" href="../index.html" aria-label="Back to home">←</a>
             <div>
-
-                <h2>
-                    Manage Member
-                </h2>
-
-                <p id="manageMemberName">
-                    Member
-                </p>
-
+                <h1>All Members</h1>
+                <p>Manage approved members</p>
             </div>
-
-            <button
-                id="closeManagePopup"
-                class="manage-close-button"
-                type="button">
-
-                ×
-
-            </button>
-
-        </div>
-
-
-        <!-- ==================================================
-             ROLE
-        =================================================== -->
-
-        <section class="manage-section">
-
-            <h3>
-                Edit Role
-            </h3>
-
-
-            <div
-                id="currentRoleCard"
-                class="current-role-card">
-
-                🟢 Member
-
-            </div>
-
-
-            <p class="manage-label">
-
-                Change role to
-
-            </p>
-
-
-            <div
-                id="roleOptions"
-                class="role-options">
-
-                <!-- JavaScript will add available roles -->
-
-            </div>
-
-        </section>
-
-
-        <!-- ==================================================
-             TIMEOUT
-        =================================================== -->
-
-        <section class="manage-section">
-
-            <h3>
-                Timeout
-            </h3>
-
-
-            <div
-                id="timeoutOptions"
-                class="timeout-options">
-
-
-                <button
-                    type="button"
-                    class="timeout-option selected"
-                    data-timeout="none">
-
-                    <span class="timeout-circle">
-                        ○
-                    </span>
-
-                    <span>
-                        None
-                    </span>
-
-                </button>
-
-
-                <button
-                    type="button"
-                    class="timeout-option"
-                    data-timeout="1h">
-
-                    <span class="timeout-circle">
-                        ○
-                    </span>
-
-                    <span>
-                        1 Hour
-                    </span>
-
-                </button>
-
-
-                <button
-                    type="button"
-                    class="timeout-option"
-                    data-timeout="12h">
-
-                    <span class="timeout-circle">
-                        ○
-                    </span>
-
-                    <span>
-                        12 Hours
-                    </span>
-
-                </button>
-
-
-                <button
-                    type="button"
-                    class="timeout-option"
-                    data-timeout="1d">
-
-                    <span class="timeout-circle">
-                        ○
-                    </span>
-
-                    <span>
-                        1 Day
-                    </span>
-
-                </button>
-
-
-                <button
-                    type="button"
-                    class="timeout-option"
-                    data-timeout="3d">
-
-                    <span class="timeout-circle">
-                        ○
-                    </span>
-
-                    <span>
-                        3 Days
-                    </span>
-
-                </button>
-
-
-                <button
-                    type="button"
-                    class="timeout-option"
-                    data-timeout="7d">
-
-                    <span class="timeout-circle">
-                        ○
-                    </span>
-
-                    <span>
-                        7 Days
-                    </span>
-
-                </button>
-
-
-                <button
-                    type="button"
-                    class="timeout-option"
-                    data-timeout="30d">
-
-                    <span class="timeout-circle">
-                        ○
-                    </span>
-
-                    <span>
-                        30 Days
-                    </span>
-
-                </button>
-
-
-            </div>
-
-        </section>
-
-
-        <!-- ==================================================
-             MODERATION
-        =================================================== -->
-
-        <section class="manage-section">
-
-            <h3>
-                Moderation
-            </h3>
-
-
-            <!-- KICK -->
-
-            <label
-                class="moderation-option"
-                id="kickOption">
-
-                <input
-                    type="checkbox"
-                    id="kickCheckbox">
-
-                <span class="moderation-check">
-
-                    ✓
-
-                </span>
-
-                <span class="moderation-text">
-
-                    <strong>
-                        Kick Member
-                    </strong>
-
-                    <small>
-                        Sign the member out of the app
-                    </small>
-
-                </span>
-
+        </header>
+
+        <section class="member-filters" aria-label="Member filters">
+            <label class="member-search" for="searchInput">
+                Search by name or member ID
+                <input id="searchInput" type="search" placeholder="Search members">
             </label>
-
-
-            <!-- BAN -->
-
-            <label
-                class="moderation-option ban-option"
-                id="banOption">
-
-                <input
-                    type="checkbox"
-                    id="banCheckbox">
-
-                <span class="moderation-check">
-
-                    ✓
-
-                </span>
-
-                <span class="moderation-text">
-
-                    <strong>
-                        Ban Member
-                    </strong>
-
-                    <small>
-                        Prevent the member from accessing the app
-                    </small>
-
-                </span>
-
+            <label for="locationSelect">
+                Location
+                <select id="locationSelect">
+                    <option value="">All Locations</option>
+                </select>
             </label>
-
+            <label for="memberRoleSelect">
+                Role
+                <select id="memberRoleSelect">
+                    <option value="">All Roles</option>
+                    <option value="admin">Admin</option>
+                    <option value="host">Host</option>
+                    <option value="moderator">Moderator</option>
+                    <option value="member">Member</option>
+                </select>
+            </label>
+            <label for="sortSelect">
+                Sort by
+                <select id="sortSelect">
+                    <option value="az">Name (A–Z)</option>
+                    <option value="za">Name (Z–A)</option>
+                    <option value="newest">Newest Joined</option>
+                    <option value="oldest">Oldest Joined</option>
+                    <option value="memberid">Member ID</option>
+                </select>
+            </label>
         </section>
 
+        <p id="memberListStatus" class="member-list-status" role="status">Loading members…</p>
+        <button id="retryMembers" class="member-secondary-button" type="button" hidden>Try again</button>
+        <div id="membersContainer" class="members-container"></div>
+    </main>
 
-        <!-- ==================================================
-             SAVE
-        =================================================== -->
+    <template id="memberCardTemplate">
+        <button class="member-card" type="button">
+            <span class="member-photo" aria-hidden="true"></span>
+            <span class="member-info">
+                <span class="member-name"></span>
+                <span class="member-id"></span>
+            </span>
+        </button>
+    </template>
 
-        <div class="manage-save-area">
-
-            <button
-                id="saveChangesButton"
-                class="save-changes-button"
-                type="button"
-                disabled>
-
-                Save Changes
-
-            </button>
-
+    <dialog id="memberProfileOverlay" class="member-profile-dialog" aria-labelledby="profileName">
+        <div class="member-profile-sheet">
+            <button id="closeMemberProfile" class="manage-close-button profile-close-button" type="button" aria-label="Close profile">×</button>
+            <div class="sheet-handle" aria-hidden="true"></div>
+            <header class="profile-header">
+                <span id="profileAvatar" class="profile-avatar" aria-hidden="true"></span>
+                <h2 id="profileName"></h2>
+                <p id="profileRole" class="profile-role"></p>
+                <p id="profileMemberId" class="profile-member-id"></p>
+            </header>
+            <dl class="profile-details">
+                <div class="detail-row"><dt>Phone</dt><dd id="profilePhone"></dd></div>
+                <div class="detail-row"><dt>Gender</dt><dd id="profileGender"></dd></div>
+                <div class="detail-row"><dt>Date of birth</dt><dd id="profileDob"></dd></div>
+                <div class="detail-row"><dt>Age</dt><dd id="profileAge"></dd></div>
+                <div class="detail-row"><dt>Location</dt><dd id="profilePark"></dd></div>
+                <div class="detail-row"><dt>Health information</dt><dd id="profileHealth"></dd></div>
+                <div class="detail-row"><dt>Email</dt><dd id="profileEmail"></dd></div>
+                <div class="detail-row"><dt>Address</dt><dd id="profileAddress"></dd></div>
+                <div class="detail-row"><dt>Joined</dt><dd id="profileJoined"></dd></div>
+            </dl>
+            <button id="manageMemberButton" class="manage-member-button" type="button" hidden>Change role</button>
         </div>
+    </dialog>
 
+    <dialog id="managePopupOverlay" class="manage-popup" aria-labelledby="manageTitle">
+        <header class="manage-popup-header">
+            <div>
+                <h2 id="manageTitle">Change role</h2>
+                <p id="manageMemberName"></p>
+            </div>
+            <button id="closeManagePopup" class="manage-close-button" type="button" aria-label="Close role editor">×</button>
+        </header>
+        <form id="memberRoleForm">
+            <p id="currentRoleCard" class="current-role-card"></p>
+            <fieldset id="roleOptions" class="role-options">
+                <legend>New role</legend>
+            </fieldset>
+            <p id="memberRoleStatus" class="member-list-status" role="status"></p>
+            <button id="saveChangesButton" class="save-changes-button" type="submit" disabled>Save role</button>
+        </form>
+    </dialog>
 
-    </div>
-
-</div>
-
-
-<!-- ==========================================================
-     CONFIRMATION POPUP
-========================================================== -->
-
-<div
-    id="moderationConfirmOverlay"
-    class="moderation-confirm-overlay">
-
-    <div class="moderation-confirm-popup">
-
-        <div
-            id="confirmationIcon"
-            class="confirmation-icon">
-
-            ⚠️
-
-        </div>
-
-
-        <h2 id="confirmationTitle">
-
-            Confirm Action
-
-        </h2>
-
-
-        <p id="confirmationMessage">
-
-            Are you sure you want to continue?
-
-        </p>
-
-
-        <div class="confirmation-buttons">
-
-            <button
-                id="cancelConfirmation"
-                class="confirmation-cancel-button"
-                type="button">
-
-                Cancel
-
-            </button>
-
-
-            <button
-                id="confirmModeration"
-                class="confirmation-confirm-button"
-                type="button">
-
-                Confirm
-
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-
-
-
-    <script
-        type="module"
-        src="../js/all-members.js">
-
-    </script>
-
+    <script type="module" src="../js/all-members.js"></script>
 </body>
-
 </html>

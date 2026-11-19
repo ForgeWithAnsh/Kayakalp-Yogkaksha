@@ -14,9 +14,18 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/edit-profile.css">
 
+    <link rel="stylesheet" href="../css/access.css">
+    <script type="module" src="../js/page-access.js"></script>
 </head>
 
-<body>
+<body data-access="approved">
+    <section class="access-status" aria-label="Account access">
+        <p role="status">Checking your account…</p>
+        <div class="access-status__actions" hidden>
+            <button type="button" data-retry>Try again</button>
+            <button type="button" data-sign-out>Sign out</button>
+        </div>
+    </section>
 
     <!-- ==========================================
          ANIMATED BACKGROUND
@@ -91,20 +100,12 @@
 
     <div class="edit-profile-photo">
 
-        <img
-            id="editProfilePhoto"
-            alt="Profile Photo">
-
+        <span class="profile-initial" id="editProfilePhoto" aria-hidden="true">K</span>
     </div>
+    <label for="editPhotoInput">Change profile photo</label>
+    <input id="editPhotoInput" type="file" accept="image/jpeg,image/png,image/webp">
 
-    <button
-        class="change-photo-button"
-        id="changePhotoButton"
-        type="button">
-
-        Change Photo
-
-    </button>
+    
 
 </section>
 
@@ -141,20 +142,7 @@
 
     <!-- Age -->
 
-    <div class="input-group">
-
-        <label for="ageInput">
-
-            Age
-
-        </label>
-
-        <input
-            type="number"
-            id="ageInput"
-            placeholder="Enter age">
-
-    </div>
+    
 
     <!-- Gender -->
 
@@ -223,7 +211,7 @@
 
         <input
             type="email"
-            id="emailInput"
+            id="emailInput" readonly
             placeholder="example@email.com">
 
     </div>
@@ -262,6 +250,7 @@
         Save Changes
 
     </button>
+        <p id="profileFormStatus" role="status"></p>
 
 </section>
 
@@ -273,8 +262,7 @@
 
     </div>
 
-    <script src="../js/user-data.js"></script>
-    <script src="../js/edit-profile.js"></script>
+    <script type="module" src="../js/edit-profile.js"></script>
 
 </body>
 

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Registration decision | Kayakalp Yogkaksha</title>
+    <link rel="stylesheet" href="../css/waiting.css">
+    <link rel="stylesheet" href="../css/access.css">
+    <script type="module" src="../js/page-access.js"></script>
+</head>
+<body data-access="rejected">
+    <section class="access-status" aria-label="Account access">
+        <p role="status">Checking your account…</p>
+        <div class="access-status__actions" hidden>
+            <button type="button" data-retry>Try again</button>
+            <button type="button" data-sign-out>Sign out</button>
+        </div>
+    </section>
+    <main class="waitingPage">
+        <div class="backgroundGlow"></div>
+        <section class="waitingCard">
+            <h1>Registration declined</h1>
+            <p class="description">Your account request was declined. Contact the Kayakalp Yogkaksha organizers if you think this was a mistake.</p>
+            <button id="refreshApprovalButton" type="button">Check approval status</button>
+            <button id="goToLoginButton" type="button">Sign out</button>
+        </section>
+    </main>
+    <script type="module" src="../js/waiting.js"></script>
+</body>
+</html>

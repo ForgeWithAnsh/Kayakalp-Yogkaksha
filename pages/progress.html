@@ -14,10 +14,18 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/progress.css">
 
+    <link rel="stylesheet" href="../css/access.css">
+    <script type="module" src="../js/page-access.js"></script>
 </head>
 
-<body>
-    <h1 style="color:red;">TEST</h1>
+<body data-access="approved">
+    <section class="access-status" aria-label="Account access">
+        <p role="status">Checking your account…</p>
+        <div class="access-status__actions" hidden>
+            <button type="button" data-retry>Try again</button>
+            <button type="button" data-sign-out>Sign out</button>
+        </div>
+    </section>
 
     <!-- Background -->
 
@@ -60,11 +68,7 @@
 
             </div>
 
-            <h2>
-
-                12
-
-            </h2>
+            <h2 id="currentStreak">—</h2>
 
             <p>
 
@@ -95,11 +99,7 @@
 
                 </div>
 
-                <h3>
-
-                    24 / 31
-
-                </h3>
+                <h3 id="monthlyAttendance">—</h3>
 
                 <p>
 
@@ -118,11 +118,7 @@
 
                 </div>
 
-                <h3>
-
-                    18h 45m
-
-                </h3>
+                <h3 id="monthlyPractice">—</h3>
 
                 <p>
 
@@ -153,7 +149,7 @@
 
                 <span>Total Sessions</span>
 
-                <strong>156</strong>
+                <strong id="lifetimeSessions">—</strong>
 
             </div>
 
@@ -161,7 +157,7 @@
 
                 <span>Total Hours</span>
 
-                <strong>102h</strong>
+                <strong id="lifetimeHours">—</strong>
 
             </div>
 
@@ -169,7 +165,7 @@
 
                 <span>Longest Streak</span>
 
-                <strong>28 Days</strong>
+                <strong id="longestStreak">—</strong>
 
             </div>
 
@@ -179,6 +175,13 @@
         <!-- ==========================================================
              ACHIEVEMENTS
         ========================================================== -->
+
+        <section class="stats-card" aria-labelledby="attendanceHistoryTitle">
+            <h2 id="attendanceHistoryTitle">Attendance history</h2>
+            <p id="attendanceHistoryStatus" role="status"></p>
+            <ul class="attendance-history" id="attendanceHistory"></ul>
+            <button class="view-all-button" id="moreAttendance" type="button" hidden>Show more dates</button>
+        </section>
 
         <section class="achievement-card">
 
@@ -190,43 +193,14 @@
 
             <hr>
 
-            <div class="achievement">
-
-                🥉 First Session
-
-            </div>
-
-            <div class="achievement">
-
-                🥈 7-Day Streak
-
-            </div>
-
-            <div class="achievement locked">
-
-                🔒 30-Day Streak
-
-            </div>
-
-            <div class="achievement locked">
-
-                🔒 100 Hours Practice
-
-            </div>
-
-           <button
-    class="view-all-button"
-    id="viewAllButton">
-
-    View All →
-
-</button>
+            <div id="progressAchievements"></div>
+            <p id="progressStatus" role="status"></p>
 
         </section>
 
     </div>
 
-    <script src="../js/progress.js"></script>
+    <script type="module" src="../js/progress.js"></script>
 
 </body>
 

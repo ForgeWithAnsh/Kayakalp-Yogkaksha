@@ -1,237 +1,77 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1">
-
-    <title>About Hosts</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>About Hosts | Kayakalp Yogkaksha</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/about-hosts.css">
-
+    <link rel="stylesheet" href="../css/access.css">
+    <script type="module" src="../js/page-access.js"></script>
 </head>
+<body data-access="approved">
+    <section class="access-status" aria-label="Account access">
+        <p role="status">Checking your account…</p>
+        <div class="access-status__actions" hidden>
+            <button type="button" data-retry>Try again</button>
+            <button type="button" data-sign-out>Sign out</button>
+        </div>
+    </section>
+    <div class="background paper-background" aria-hidden="true"></div>
 
-<body>
-
-    <!-- Background -->
-
-    <div class="background paper-background"></div>
-
-    <div class="about-hosts-content">
-
-        <!-- Header -->
-
+    <main class="about-hosts-content">
         <header class="hosts-header">
-
-            <button
-                class="back-button"
-                id="backButton">
-
-                ←
-
-            </button>
-
-            <h1>
-
-                About Hosts
-
-            </h1>
-
+            <a class="back-button" href="../index.html" aria-label="Back to home">←</a>
+            <h1>About Hosts</h1>
         </header>
 
-        <!-- =========================
-             HOST 1
-        ========================== -->
-
-        <section class="host-card">
-
-            <img
-                src="../assets/pfp.jpg"
-                class="host-photo">
-
-            <h2>
-
-                Karuna Gupta
-                <span class="main-host">
-
-                    • Main Host
-
-                </span>
-
-            </h2>
-
-            <p class="host-branch">
-
-                📍 Gwalior Branch
-
-            </p>
-
-            <div class="host-info">
-
-                <p>
-
-                    <strong>Experience</strong><br>
-
-                    12 Years
-
-                </p>
-
-                <p>
-
-                    <strong>Contact</strong><br>
-
-                    +91 9876543210
-
-                </p>
-
-            </div>
-
-        </section>
-
-        <hr class="host-divider">
-
-        <!-- =========================
-             HOST 2
-        ========================== -->
-
-        <section class="host-card">
-
-            <img
-                src="../assets/pfp.jpg"
-                class="host-photo">
-
-            <h2>
-
-                Rahul Sharma
-
-            </h2>
-
-            <p class="host-branch">
-
-                📍 Bhopal Branch
-
-            </p>
-
-            <div class="host-info">
-
-                <p>
-
-                    <strong>Experience</strong><br>
-
-                    8 Years
-
-                </p>
-
-                <p>
-
-                    <strong>Contact</strong><br>
-
-                    +91 9876543211
-
-                </p>
-
-            </div>
-
-        </section>
-        
-        
-
-<div id="newHostContainer"></div>
-
-
-<!-- ==========================================
-     ADD YOUR BIO
-========================================== -->
-
-<hr class="host-divider">
-
-<section class="add-bio-section">
-
-    <button
-        class="add-bio-button"
-        id="addBioButton">
-
-        <span class="add-bio-icon">+</span>
-
-        <span class="add-bio-text">
-            Add Your Bio
-        </span>
-
-    </button>
-
-</section>
-
-
-
-<div id="addBioSection" class="bio-modal">
-
-    <div class="bio-popup">
-
-        <h3>Add Host</h3>
-
-
-        <label class="photo-upload">
-
-    Choose Profile Photo
-
-    <input 
-        type="file"
-        id="hostPhotoInput">
-
-</label>
-
-
-        <input
-            type="text"
-            id="hostNameInput"
-            placeholder="Host Name">
-
-
-        <input
-            type="text"
-            id="hostBranchInput"
-            placeholder="Branch">
-
-
-        <input
-            type="number"
-            id="hostExperienceInput"
-            placeholder="Experience">
-
-
-        <input
-            type="number"
-            id="hostContactInput"
-            placeholder="Contact">
-
-
-        <div class="bio-actions">
-
-            <button id="saveBioButton">
-                Save
-            </button>
-
-
-            <button id="cancelBioButton">
-                Cancel
-            </button>
-
+        <p id="hostsStatus" class="hosts-status" role="status">Loading host profiles…</p>
+        <div id="hostsList"></div>
+        <div class="add-bio-section">
+            <button id="addBioButton" class="add-bio-button" type="button" hidden>Add host profile</button>
         </div>
+    </main>
 
+    <template id="hostCardTemplate">
+        <article class="host-card">
+            <span class="host-avatar" aria-hidden="true"></span>
+            <h2></h2>
+            <p class="host-branch"></p>
+            <p class="host-experience"></p>
+            <p class="host-introduction"></p>
+            <div class="host-actions" hidden>
+                <button class="edit-host" type="button">Edit</button>
+                <button class="delete-host" type="button">Remove</button>
+            </div>
+        </article>
+    </template>
 
-    </div>
+    <dialog id="hostEditor" class="bio-popup" aria-labelledby="hostEditorTitle">
+        <h2 id="hostEditorTitle">Add host profile</h2>
+        <form id="hostForm">
+            <fieldset>
+                <label for="hostNameInput">Name</label>
+                <input id="hostNameInput" name="hostName" maxlength="120" required>
 
-<div></div>iv>
+                <label for="hostLocationInput">Location</label>
+                <input id="hostLocationInput" name="hostLocation" list="hostLocationOptions" maxlength="80">
+                <datalist id="hostLocationOptions"></datalist>
 
-    </div>
+                <label for="hostExperienceInput">Experience</label>
+                <input id="hostExperienceInput" name="hostExperience" maxlength="120">
 
-    <script src="../js/about-hosts.js"></script>
+                <label for="hostIntroductionInput">Introduction</label>
+                <textarea id="hostIntroductionInput" name="hostIntroduction" maxlength="1000" rows="4"></textarea>
+            </fieldset>
 
+            <p id="hostFormStatus" class="hosts-status" role="status"></p>
+            <div class="host-actions">
+                <button id="saveBioButton" class="save-host" type="submit">Save</button>
+                <button id="cancelBioButton" type="button">Cancel</button>
+            </div>
+        </form>
+    </dialog>
+
+    <script type="module" src="../js/about-hosts.js"></script>
 </body>
-
 </html>

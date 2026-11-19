@@ -16,9 +16,18 @@
         rel="stylesheet"
         href="../css/waiting.css">
 
+    <link rel="stylesheet" href="../css/access.css">
+    <script type="module" src="../js/page-access.js"></script>
 </head>
 
-<body>
+<body data-access="pending">
+    <section class="access-status" aria-label="Account access">
+        <p role="status">Checking your account…</p>
+        <div class="access-status__actions" hidden>
+            <button type="button" data-retry>Try again</button>
+            <button type="button" data-sign-out>Sign out</button>
+        </div>
+    </section>
 
     <main class="waitingPage">
 
@@ -81,7 +90,7 @@
 
                 <br><br>
 
-                It is currently under review by the host.
+                An administrator is reviewing your request.
 
                 Once approved, you'll be able to log in and access all features of the app.
 
@@ -108,7 +117,7 @@
 
                     <li>
 
-                        The host will review your request.
+                        An administrator will review your request.
 
                     </li>
 
@@ -125,10 +134,11 @@
 
             <!-- Button -->
 
+            <button id="refreshApprovalButton" type="button">Check approval status</button>
             <button
                 id="goToLoginButton">
 
-                Go to Login
+                Sign out
 
             </button>
 
@@ -145,8 +155,7 @@
 
     </main>
 
-    <script
-        src="../js/waiting.js">
+    <script type="module" src="../js/waiting.js">
 
     </script>
 

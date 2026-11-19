@@ -1,581 +1,127 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
-    <title>Attendance</title>
-
-    <link
-        rel="stylesheet"
-        href="../css/style.css">
-
-    <link
-        rel="stylesheet"
-        href="../css/attendance.css">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance | Kayakalp Yogkaksha</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/attendance.css">
+    <link rel="stylesheet" href="../css/access.css">
+    <script type="module" src="../js/page-access.js"></script>
 </head>
-
-<body>
-
-
-    <!-- ==========================================================
-         BACKGROUND
-    ========================================================== -->
-
+<body data-access="attendance">
+    <section class="access-status" aria-label="Account access">
+        <p role="status">Checking your account…</p>
+        <div class="access-status__actions" hidden>
+            <button type="button" data-retry>Try again</button>
+            <button type="button" data-sign-out>Sign out</button>
+        </div>
+    </section>
     <div class="background paper-background"></div>
 
+    <main class="attendance-page app-content">
+        <header class="attendance-header">
+            <a class="attendance-back" href="../index.html" aria-label="Back to home">←</a>
+            <div>
+                <h1>Attendance</h1>
+                <p id="attendance-scope"></p>
+            </div>
+            <button id="mark-attendance" class="attendance-primary" type="button" hidden>Mark attendance</button>
+        </header>
 
-    <!-- ==========================================================
-         APP CONTENT
-    ========================================================== -->
+        <p id="attendance-message" class="attendance-message" role="status">Checking access…</p>
 
-    <div class="app-content">
+        <div id="attendance-content" hidden>
+            <div class="attendance-filters">
+                <label class="attendance-field">
+                    Date (IST)
+                    <input id="attendance-date" type="date" required>
+                </label>
+                <label id="attendance-location-filter" class="attendance-field">
+                    Location
+                    <select id="attendance-location">
+                        <option value="">All Locations</option>
+                    </select>
+                </label>
+                <button id="refresh-attendance" class="attendance-secondary" type="button">Refresh</button>
+            </div>
 
-
-        <main class="attendance-page">
-
-
-            <!-- ==================================================
-                 HEADER
-            ================================================== -->
-
-            <header class="attendance-header">
-
-                <button
-                    id="backButton"
-                    class="back-button"
-                    type="button"
-                    aria-label="Go back">
-
-                    ←
-
-                </button>
-
-
-                <div class="attendance-header-info">
-
-                    <h1>
-                        Attendance
-                    </h1>
-
-                    <button
-                        id="dateButton"
-                        class="attendance-date-button"
-                        type="button">
-
-                        <span id="currentDate">
-                            Today
-                        </span>
-
-                        <span class="date-arrow">
-                            ▾
-                        </span>
-
-                    </button>
-
-                </div>
-
-
-                <div class="attendance-header-actions">
-
-                    <button
-                        id="markAttendanceButton"
-                        class="mark-attendance-button"
-                        type="button">
-
-                        Mark Attendance
-
-                    </button>
-
-                </div>
-
-            </header>
-
-
-            <!-- ==================================================
-                 TODAY'S SUMMARY
-            ================================================== -->
-
-            <section class="attendance-summary-section">
-
-                <h2>
-                    Today's Summary
-                </h2>
-
-
-                <!-- Before / during session -->
-
-                <div
-                    id="sessionStatusCard"
-                    class="session-status-card">
-
-                    <span
-                        id="sessionStatusIcon"
-                        class="session-status-icon">
-
-                        🧘
-
-                    </span>
-
+            <section class="attendance-summary-section" aria-labelledby="attendance-summary-title">
+                <h2 id="attendance-summary-title">Summary</h2>
+                <div id="session-status-card" class="session-status-card">
+                    <span class="session-status-icon" aria-hidden="true">🧘</span>
                     <div>
-
-                        <strong id="sessionStatusTitle">
-                            Session Not Started
-                        </strong>
-
-                        <p id="sessionStatusMessage">
-                            Attendance will be available after the
-                            session ends.
-                        </p>
-
+                        <strong id="session-status-title"></strong>
+                        <p id="session-status-message"></p>
                     </div>
-
                 </div>
-
-
-                <!-- Attendance statistics -->
-
-                <div
-                    id="attendanceSummary"
-                    class="attendance-summary"
-                    hidden>
-
-
+                <dl id="attendance-totals" class="attendance-summary">
                     <div class="summary-item">
-
-                        <span
-                            id="presentCount"
-                            class="summary-value">
-
-                            0
-
-                        </span>
-
-                        <span class="summary-label">
-                            Present
-                        </span>
-
+                        <dt>Present</dt>
+                        <dd id="attendance-present">—</dd>
                     </div>
-
-
                     <div class="summary-item">
-
-                        <span
-                            id="shortSessionCount"
-                            class="summary-value">
-
-                            0
-
-                        </span>
-
-                        <span class="summary-label">
-                            Short Session
-                        </span>
-
+                        <dt>Short</dt>
+                        <dd id="attendance-short">—</dd>
                     </div>
-
-
                     <div class="summary-item">
-
-                        <span
-                            id="absentCount"
-                            class="summary-value">
-
-                            0
-
-                        </span>
-
-                        <span class="summary-label">
-                            Absent
-                        </span>
-
+                        <dt>Absent</dt>
+                        <dd id="attendance-absent">—</dd>
                     </div>
-
-
                     <div class="summary-item">
-
-                        <span
-                            id="totalMembersCount"
-                            class="summary-value">
-
-                            0
-
-                        </span>
-
-                        <span class="summary-label">
-                            Total
-                        </span>
-
+                        <dt>Members</dt>
+                        <dd id="attendance-total">—</dd>
                     </div>
-
-                </div>
-
+                </dl>
             </section>
 
-
-            <!-- ==================================================
-                 MANUAL ATTENDANCE
-            ================================================== -->
-
-            <section
-                id="manualAttendanceSection"
-                class="manual-attendance-section"
-                hidden>
-
-
-                <div class="section-heading-row">
-
-                    <div>
-
-                        <h2>
-                            Manual Attendance
-                        </h2>
-
-                        <p>
-                            Members whose attendance is managed manually
-                        </p>
-
-                    </div>
-
-
-                    <button
-                        id="manageManualMembersButton"
-                        class="section-action-button"
-                        type="button">
-
-                        Manage
-
-                    </button>
-
-                </div>
-
-
-                <div
-                    id="manualMembersContainer"
-                    class="manual-members-container">
-
-                </div>
-
-            </section>
-
-
-            <!-- ==================================================
-                 MEMBER LIST
-            ================================================== -->
-
-            <section class="members-attendance-section">
-
-
-                <!-- List Header -->
-
-                <div class="members-list-header">
-
-                    <div>
-
-                        <h2>
-                            Members
-                        </h2>
-
-                        <p id="memberListSubtitle">
-                            Today's attendance
-                        </p>
-
-                    </div>
-
-
-                    <!-- Sort -->
-
-                    <div class="sort-control">
-
-                        <label
-                            for="attendanceSort">
-
-                            Sort
-
-                        </label>
-
-                        <select
-                            id="attendanceSort">
-
-                            <option value="az">
-                                A → Z
-                            </option>
-
-                            <option value="za">
-                                Z → A
-                            </option>
-
-                            <option value="present">
-                                Present
-                            </option>
-
-                            <option value="short">
-                                Short Session
-                            </option>
-
-                            <option value="absent">
-                                Absent
-                            </option>
-
-                            <option value="memberid">
-                                Member ID
-                            </option>
-
+            <section aria-labelledby="attendance-members-title">
+                <h2 id="attendance-members-title">Members</h2>
+                <div class="attendance-filters">
+                    <label class="attendance-field attendance-search-field">
+                        Search
+                        <input id="attendance-search" type="search" placeholder="Name or member ID">
+                    </label>
+                    <label class="attendance-field">
+                        Status
+                        <select id="attendance-status-filter">
+                            <option value="">All statuses</option>
+                            <option value="present">Present</option>
+                            <option value="short">Short</option>
+                            <option value="absent">Absent</option>
+                            <option value="active">Active</option>
+                            <option value="paused">Paused</option>
+                            <option value="unmarked">Unmarked</option>
                         </select>
-
-                    </div>
-
+                    </label>
                 </div>
-
-
-                <!-- ==================================================
-                     MEMBERS
-                ================================================== -->
-
-                <div
-                    id="membersContainer"
-                    class="attendance-members-container">
-
-                    <!-- JavaScript will create member cards -->
-
-                </div>
-
-
-                <!-- Empty State -->
-
-                <div
-                    id="attendanceEmptyState"
-                    class="attendance-empty-state"
-                    hidden>
-
-                    <p>
-                        No members found.
-                    </p>
-
-                </div>
-
+                <p id="attendance-empty" class="attendance-message" hidden></p>
+                <ul id="attendance-members" class="attendance-members"></ul>
+                <nav id="attendance-pagination" class="attendance-pagination" aria-label="Attendance pages" hidden>
+                    <button id="attendance-previous" class="attendance-secondary" type="button">Previous</button>
+                    <span id="attendance-page-number"></span>
+                    <button id="attendance-next" class="attendance-secondary" type="button">Next</button>
+                </nav>
             </section>
-
-
-        </main>
-
-    </div>
-
-
-    <!-- ==========================================================
-         DATE / MONTH POPUP
-    ========================================================== -->
-
-    <div
-        id="datePopupOverlay"
-        class="date-popup-overlay"
-        hidden>
-
-
-        <div class="date-popup">
-
-            <div class="date-popup-header">
-
-                <div>
-
-                    <h2>
-                        Attendance History
-                    </h2>
-
-                    <p>
-                        View saved attendance and statistics
-                    </p>
-
-                </div>
-
-
-                <button
-                    id="closeDatePopup"
-                    class="popup-close-button"
-                    type="button">
-
-                    ×
-
-                </button>
-
-            </div>
-
-
-            <button
-                id="openAttendanceHistoryButton"
-                class="date-popup-option"
-                type="button">
-
-                <span>
-                    📅
-                </span>
-
-                <div>
-
-                    <strong>
-                        Attendance History
-                    </strong>
-
-                    <small>
-                        View attendance for previous days
-                    </small>
-
-                </div>
-
-                <span>
-                    →
-                </span>
-
-            </button>
-
-
-            <button
-                id="openAttendanceStatisticsButton"
-                class="date-popup-option"
-                type="button">
-
-                <span>
-                    📊
-                </span>
-
-                <div>
-
-                    <strong>
-                        Attendance Statistics
-                    </strong>
-
-                    <small>
-                        View attendance statistics for members
-                    </small>
-
-                </div>
-
-                <span>
-                    →
-                </span>
-
-            </button>
-
         </div>
+    </main>
 
-    </div>
-
-
-    <!-- ==========================================================
-         MANAGE MANUAL MEMBERS POPUP
-    ========================================================== -->
-
-    <div
-        id="manualMembersOverlay"
-        class="manual-members-overlay"
-        hidden>
-
-
-        <div class="manual-members-popup">
-
-            <div class="manual-popup-header">
-
-                <div>
-
-                    <h2>
-                        Manual Attendance
-                    </h2>
-
-                    <p>
-                        Choose members who require manual attendance
-                    </p>
-
-                </div>
-
-
-                <button
-                    id="closeManualMembersPopup"
-                    class="popup-close-button"
-                    type="button">
-
-                    ×
-
-                </button>
-
+    <section id="attendance-edit-bar" class="attendance-edit-bar" aria-label="Attendance editing" hidden>
+        <div class="attendance-edit-controls">
+            <label class="attendance-field">
+                Record as
+                <select id="attendance-source">
+                    <option value="offline">Physical attendance</option>
+                    <option value="manual">Manual correction</option>
+                </select>
+            </label>
+            <p id="attendance-draft-count" role="status">No changes</p>
+            <div class="attendance-edit-buttons">
+                <button id="cancel-attendance" class="attendance-secondary" type="button">Cancel</button>
+                <button id="save-attendance" class="attendance-primary" type="button" disabled>Save</button>
             </div>
-
-
-            <div
-                id="manualMembersOptions"
-                class="manual-members-options">
-
-                <!-- JavaScript will create options -->
-
-            </div>
-
-
-            <div class="manual-popup-footer">
-
-                <button
-                    id="saveManualMembersButton"
-                    class="save-manual-members-button"
-                    type="button">
-
-                    Save
-
-                </button>
-
-            </div>
-
         </div>
-
-    </div>
-
-
-    <!-- ==========================================================
-         ATTENDANCE MODE FOOTER
-    ========================================================== -->
-
-    <div
-        id="attendanceEditBar"
-        class="attendance-edit-bar"
-        hidden>
-
-        <button
-            id="cancelAttendanceButton"
-            class="cancel-attendance-button"
-            type="button">
-
-            Cancel
-
-        </button>
-
-
-        <button
-            id="saveAttendanceButton"
-            class="save-attendance-button"
-            type="button">
-
-            Save
-
-        </button>
-
-    </div>
-
-
-    <!-- ==========================================================
-         JAVASCRIPT
-    ========================================================== -->
-
-    <script
-        type="module"
-        src="../js/attendance.js">
-
-    </script>
-
-
+    </section>
+    <script type="module" src="../js/attendance.js"></script>
 </body>
-
 </html>

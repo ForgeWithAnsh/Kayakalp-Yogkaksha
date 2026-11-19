@@ -35,10 +35,7 @@
 
         <section class="brand-section">
 
-            <img
-                src="../assets/logo.png"
-                class="brand-logo"
-                alt="Kayakalp Logo">
+            <span class="brand-logo brand-mark" aria-hidden="true">ॐ</span>
 
             <h1>
 
@@ -83,9 +80,10 @@
 
             <!-- Email -->
 
-            <div class="input-group">
+            <form id="loginForm">
+<div class="input-group">
 
-                <label>
+                <label for="emailInput">
 
                     Email Address
 
@@ -93,7 +91,7 @@
 
                 <input
                     type="email"
-                    id="emailInput"
+                    id="emailInput" required autocomplete="email"
                     placeholder="Enter your email">
 
             </div>
@@ -103,7 +101,7 @@
 
             <div class="input-group">
 
-                <label>
+                <label for="passwordInput">
 
                     Password
 
@@ -113,7 +111,7 @@
 
     <input
         type="password"
-        id="passwordInput"
+        id="passwordInput" required autocomplete="current-password"
         placeholder="Enter your password">
 
     <button
@@ -121,31 +119,12 @@
         id="togglePassword"
         class="eye-button"
         aria-label="Show Password">
-
-        <!-- Eye Icon -->
-
-        <svg
-            id="eyeIcon"
-            xmlns="http://www.w3.org/2000/svg"
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round">
-
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-
-            <circle
-                cx="12"
-                cy="12"
-                r="3"></circle>
-
-        </svg>
-
-    </button>
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"></path>
+    <circle cx="12" cy="12" r="3"></circle>
+    <path class="password-visibility-slash" d="M3 3l18 18"></path>
+</svg>
+</button>
 
 </div>
 
@@ -157,7 +136,7 @@
             <div class="forgot-password">
 
                 <button
-                    id="forgotPasswordButton">
+                    id="forgotPasswordButton" type="button">
 
                     Forgot Password?
 
@@ -169,7 +148,7 @@
             <!-- Firebase Error -->
 
             <p
-                id="loginError"
+                id="loginError" role="status"
                 class="login-error">
 
             </p>
@@ -178,22 +157,23 @@
             <!-- Continue -->
 
             <button
-                id="loginButton"
+                id="loginButton" type="submit"
                 class="primary-button">
 
-                <span id="loginButtonText">
+                <span id="loginButtonText" class="account-button-label">
 
                     Continue
 
                 </span>
 
                 <span
-                    id="loginLoader"
+                    id="loginLoader" aria-hidden="true"
                     class="button-loader">
 
                 </span>
 
             </button>
+        </form>
 
 
             <!-- Divider -->
@@ -212,7 +192,7 @@
             <!-- Join -->
 
             <button
-                id="createAccountButton"
+                id="createAccountButton" type="button"
                 class="secondary-button">
 
                 Join Kayakalp Yog Kaksha
