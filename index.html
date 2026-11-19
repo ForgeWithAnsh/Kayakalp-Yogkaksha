@@ -3,13 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yoga App</title>
+    <title>Kayakalp Yogkaksha</title>
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/profile.css">
     
+    <link rel="stylesheet" href="css/access.css">
+    <script type="module" src="js/page-access.js"></script>
 </head>
-<body>
+<body data-access="approved">
+    <section class="access-status" aria-label="Account access">
+        <p role="status">Checking your account…</p>
+        <div class="access-status__actions" hidden>
+            <button type="button" data-retry>Try again</button>
+            <button type="button" data-sign-out>Sign out</button>
+        </div>
+    </section>
 
     <!-- Animated Background -->
     <div class="background">
@@ -26,23 +35,22 @@
 <header class="top-navbar">
 
     <!-- ========= Profile Card ========= -->
-    <div class="profile-card"
-         id="profileCard">
+    <a class="profile-card" id="profileCard" href="pages/profile.html">
 
         <!-- Profile Image -->
         <div class="profile-image">
-            <img src="assets/profile.png" alt="Profile">
+            <span class="profile-initial" id="homeProfileInitial" aria-hidden="true">K</span>
         </div>
 
         <!-- User Information -->
         <div class="profile-info">
-            <h2 class="profile-name">Ishu</h2>
+            <h2 class="profile-name">Kayakalp Yogkaksha</h2>
             <p class="profile-subtitle">
                 Every breath is a new beginning.
             </p>
         </div>
 
-    </div>
+    </a>
 
 
     <!-- ========= Right Side Buttons ========= -->
@@ -178,7 +186,7 @@
 
     <button
         class="drawer-item"
-        id="allMembersButton">
+        id="allMembersButton" hidden>
 
         <span class="drawer-icon">👥</span>
 
@@ -289,7 +297,7 @@
             <h2
                 class="card-title"
                 id="cardTitle">
-                🌅 Good Morning, Ishu
+                Welcome to Kayakalp Yogkaksha
             </h2>
 
             <!-- Card Message -->
@@ -328,32 +336,27 @@
          MEMBER STATUS
     ======================================================= -->
 
-    <div class="dashboard-item" id="pendingRequestsCard">
+    <a class="dashboard-item" id="pendingRequestsCard" href="pages/member-requests.html" hidden>
 
     <span class="dashboard-value"
-          id="pendingRequestCount">
-        0
-    </span>
+          id="pendingRequestCount">—</span>
 
     <span class="dashboard-label">
         Pending Requests
     </span>
 
-</div>
+</a>
 
-<div class="dashboard-item"
-     id="allMembersCard">
+<a class="dashboard-item" id="allMembersCard" href="pages/all-members.html">
 
     <span class="dashboard-value"
-          id="allMemberCount">
-        0
-    </span>
+          id="allMemberCount">—</span>
 
     <span class="dashboard-label">
         All Members
     </span>
 
-</div>
+</a>
 
 
     <hr class="dashboard-divider">
@@ -395,11 +398,14 @@
 
             </p>
 
-            <span id="dashboardTotalPresent">
+            <span id="dashboardTotalPresent">—</span>
 
-                0
+        </div>
 
-            </span>
+        <div class="dashboard-info">
+
+            <p>Short attendance</p>
+            <span id="dashboardTotalShort">—</span>
 
         </div>
 
@@ -411,11 +417,7 @@
 
             </p>
 
-            <span id="dashboardAbsent">
-
-                0
-
-            </span>
+            <span id="dashboardAbsent">—</span>
 
         </div>
 
@@ -447,11 +449,7 @@
 
             </p>
 
-            <span id="monthClasses">
-
-                0
-
-            </span>
+            <span id="monthClasses">—</span>
 
         </div>
 
@@ -463,11 +461,7 @@
 
             </p>
 
-            <span id="monthAttendance">
-
-                0%
-
-            </span>
+            <span id="monthAttendance">—</span>
 
         </div>
 
@@ -526,7 +520,7 @@
         <button
             class="join-live-button"
             id="joinLiveButton"
-            type="button">
+            type="button" disabled>
 
             <span class="button-icon">
                 🧘
@@ -541,6 +535,8 @@
             </span>
 
         </button>
+        <p id="liveClassMessage" class="live-class-message" role="status" hidden></p>
+        <a id="liveClassZoomLink" class="live-class-link" target="_blank" rel="noopener noreferrer" hidden>Open Zoom</a>
 
     </div>
 

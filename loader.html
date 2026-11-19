@@ -19,11 +19,14 @@
 
 <body>
 
-    <h2>
+    <h2 id="loaderStatus" role="status">
 
         Loading...
 
     </h2>
+
+    <button id="loaderRetry" type="button" hidden>Try again</button>
+    <a id="loaderLogin" href="pages/login.html" hidden>Return to sign in</a>
 
     <script type="module"
             src="js/loader.js">
