@@ -28,7 +28,7 @@ import { getSessionDate } from "./date.js";
 import { createAnnouncementRepository } from "./firestore-announcements.js";
 
 const app = initializeApp({
-    apiKey: "AIzaSyAeCcb86xRjGqIo6uH4eTP5OlmYMXSlt0",
+    apiKey: "AIzaSyCBHVrl8Z5Sm-zrPQKr2z6jVeHNoFecjHI",
     authDomain: "kayakalp-yogkaksha.firebaseapp.com",
     projectId: "kayakalp-yogkaksha",
     storageBucket: "kayakalp-yogkaksha.firebasestorage.app",
